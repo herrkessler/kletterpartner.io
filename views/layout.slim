@@ -1,0 +1,30 @@
+doctype html 
+html
+  head 
+    meta charset="utf-8"
+    title Kletterpartner.io
+    / link rel="stylesheet" media="screen, projection" href="/all.css"
+  body
+
+    - if flash[:success]
+      p.success 
+        | YEAH: 
+        = flash[:success]
+
+    - if flash[:error]
+      p.error
+       | OH NO: 
+       = flash[:error]
+
+    - if @current_user
+      p Current User #{@current_user.id}
+
+    a.rounded.button href="/auth/login" Log In
+    br
+    a.rounded.button href="/auth/logout" Log Out
+    - if env['warden'].authenticated?
+      br
+      a href="/users" Alle User
+      br
+      a href="/users/#{env['warden'].user.id}" = env['warden'].user.forename
+    == yield

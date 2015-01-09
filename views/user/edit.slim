@@ -1,0 +1,7 @@
+h1 Edit user
+form action="/users/#{@user.id}" method="POST"
+  input type="hidden" name="_method" value="PUT"
+  fieldset
+    legend Edit user
+    == slim :"user/form"
+  input type="submit" value="Update"

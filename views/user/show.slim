@@ -1,0 +1,33 @@
+nav
+  a href="/users/#{@user.id}/friendship" Freundschaftsanfragen
+hr
+br
+
+h1 = @user.forename
+- unless @user.id == @sessionUser.id
+  - unless @user.is_friends_with?(@sessionUser)
+    a href="/users/#{@user.id}/add" Add as friend
+  - else
+    a href="/users/#{@user.id}/delete" Delete friendship
+hr
+br
+
+- if @user.id == @sessionUser.id
+  h2 Angefragte Freunde
+  ul.friendships-requests
+    - @user.friendship_requests.each do |friend|
+      li 
+        a href="/users/#{friend.id}" = friend.forename
+  hr
+  br
+
+h2 Bestätigte Freunde
+ul.friendships
+  - @user.friends.each do |friend|
+    li 
+      a href="/users/#{friend.id}"= friend.forename
+/ br
+/ br
+/ form action="/users/#{@user.id}" method="POST"
+/   input type="hidden" name="_method" value="DELETE"
+/   input type="submit" value="Delete"

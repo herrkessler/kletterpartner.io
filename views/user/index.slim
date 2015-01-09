@@ -1,0 +1,9 @@
+h1 Users
+-if @users.any?
+  ul.users
+  - @users.each do |user|
+    == slim :"user/user", :locals => {user: user}
+- else
+  p No users here!
+br
+a href="/users/new" new user
