@@ -4,7 +4,7 @@ html
     meta charset="utf-8"
     title kletterpartner.io
     == css :application, :media => 'screen'
-    == js :application
+    / == js :application
   body
 
     .container
@@ -29,5 +29,5 @@ html
         br
         a href="/users" Alle User
         br
-        a href="/users/#{env['warden'].user.id}" = env['warden'].user.forename
+        a href="/users/#{env['warden'].user.id}" Mein Profil
       == yield

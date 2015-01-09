@@ -1,5 +1,3 @@
-nav
-  a href="/users/#{@user.id}/friendship" Freundschaftsanfragen
 hr
 br
 
@@ -9,6 +7,13 @@ h1 = @user.forename
     a href="/users/#{@user.id}/add" Add as friend
   - else
     a href="/users/#{@user.id}/delete" Delete friendship
+
+nav
+  - if @user.id == @sessionUser.id
+    a href="/users/#{@user.id}/friendship" Freundschaftsanfragen
+    - if @user.friendships_to_accept.length > 0
+      span.friendship-to-accept-counter = @user.friendships_to_accept.length
+      
 hr
 br
 
