@@ -1,0 +1,21 @@
+#main-navigation
+  background: black
+  margin-bottom: $default-margin
+
+.main-navigation-list
+  float: left
+  width: 100%
+  margin-top: $default-margin
+  margin-bottom: $default-margin
+
+.main-navigation-list-item
+  float: left
+  &:not(:first-child)
+    margin-left: $default-margin
+  &.logout, &.login, &.signup
+    float: right
+  &.logo
+    a 
+      text-decoration: none
+      color: white
+      font-weight: bold

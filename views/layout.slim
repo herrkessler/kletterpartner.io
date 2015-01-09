@@ -7,27 +7,38 @@ html
     / == js :application
   body
 
-    .container
+    #flash-message
+      .container
+        - if flash[:success]
+          p.success 
+            span ✔ 
+            = flash[:success]
 
-      - if flash[:success]
-        p.success 
-          | YEAH: 
-          = flash[:success]
+        - if flash[:error]
+          p.error
+           span ✖ 
+           = flash[:error]
 
-      - if flash[:error]
-        p.error
-         | OH NO: 
-         = flash[:error]
+    nav#main-navigation
+      .container
+        ul.main-navigation-list
+          li.main-navigation-list-item.logo
+            a href="/" kletterpartner.io
+          - if env['warden'].authenticated?
+            li.main-navigation-list-item.users
+              a href="/users" Kletterpartner finden
+            li.main-navigation-list-item.sites
+              a href="/sites" Kletterhallen finden
+            li.main-navigation-list-item.profile
+              a href="/users/#{env['warden'].user.id}" Mein Profil
+            li.main-navigation-list-item.logout
+              a.button href="/auth/logout" Log Out
+          - else
+            li.main-navigation-list-item.signup
+              a.button.highlight href="/users/new" Sign Up
+            li.main-navigation-list-item.login
+              a.button href="/auth/login" Log In
 
-      - if @current_user
-        p Current User #{@current_user.id}
-
-      a.rounded.button href="/auth/login" Log In
-      br
-      a.rounded.button href="/auth/logout" Log Out
-      - if env['warden'].authenticated?
-        br
-        a href="/users" Alle User
-        br
-        a href="/users/#{env['warden'].user.id}" Mein Profil
-      == yield
+    main
+      .container
+        == yield

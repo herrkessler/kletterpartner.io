@@ -5,5 +5,7 @@ h1 Users
     == slim :"user/user", :locals => {user: user}
 - else
   p No users here!
-br
-a href="/users/new" new user
+
+- if @sessionUser.admin == true
+  br
+  a.button href="/users/new" Neuer User

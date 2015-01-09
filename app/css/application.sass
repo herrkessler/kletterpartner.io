@@ -1,10 +1,17 @@
 @import bourbon
 @import neat
 
-@import settings/foundation
 @import grid/grid-settings
 
+@import settings/foundation
+@import settings/color
+@import settings/variables
+@import settings/form
+@import settings/button
+@import settings/flash
+
 @import user/user
+@import nav/nav
 
 // Test Styles
 // ------------------------------------
@@ -16,8 +23,7 @@ body
 a
   &:visited, &:link
   color: silver
-  &:hover
-    color: green
+  text-decoration: underline
 
 .container
   +outer-container

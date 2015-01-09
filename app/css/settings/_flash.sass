@@ -1,0 +1,30 @@
+#flash-message
+  position: absolute
+  width: 100%
+  bottom: $default-margin
+  +animation(fadeOut 0.5s 1)
+  +animation-fill-mode(forwards)
+  +animation-delay(3s)
+  p
+    display: inline-block
+    padding: 5px 10px
+    border-radius: 3px
+    background: rgba(255,255,255,0.8)
+    color: black
+    font-size: 14px
+    &.error
+      span
+        color: $red
+    &.success
+      span
+        color: $green
+
++keyframes(fadeOut)
+  0%
+    opacity: 1
+  80%
+    opacity: 1
+    +transform(translateY(0px))
+  100%
+    opacity: 0
+    +transform(translateY(20px))

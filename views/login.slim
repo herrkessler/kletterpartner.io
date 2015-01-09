@@ -1,8 +1,9 @@
 form action="/auth/login" method="POST" 
-  p
-    | Username:
+  fieldset
+    legend Anmelden
+    label Username:
     input name="user[username]" type="text"
-  p
-    | Password:
+    br
+    label Passwort:
     input name="user[password]" type="password"
-  input type="submit" value=("Log In")
+  input.button type="submit" value=("Einloggen")

@@ -110,9 +110,10 @@ class KletterPartner < Sinatra::Base
 
    post '/auth/login' do
     env['warden'].authenticate!
-    flash[:success] = 'Successfully logged in'
     if session[:return_to].nil?
-      redirect '/'
+      sessionUser = env['warden'].user
+      flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
+      redirect to("/users/#{sessionUser.id}")
     else
       redirect session[:return_to]
     end
@@ -121,7 +122,7 @@ class KletterPartner < Sinatra::Base
   get '/auth/logout' do
     env['warden'].raw_session.inspect
     env['warden'].logout
-    flash[:success] = 'Successfully logged out'
+    flash[:success] = 'Du hast Dich erfolgreich ausgeloggt.'
     redirect '/'
   end
 
@@ -129,7 +130,7 @@ class KletterPartner < Sinatra::Base
     session[:return_to] = env['warden.options'][:attempted_path] if session[:return_to].nil?
     puts env['warden.options'][:attempted_path]
     puts env['warden']
-    flash[:error] = env['warden'].message || "You must log in"
+    flash[:error] = env['warden'].message || "Fehler bei Anmeldung"
     redirect '/auth/login'
   end
 
@@ -144,15 +145,13 @@ class KletterPartner < Sinatra::Base
   end
 
   get '/users/new' do
-    env['warden'].authenticate!
     @user = User.new
     slim :"user/new"
   end
 
   post '/users' do
-    env['warden'].authenticate!
     @user = User.create(params[:user])
-    flash[:success] = 'Neuer User ' + user.forename + ' angelegt'
+    flash[:success] = 'Neuer User ' + @user.forename + ' angelegt'
     redirect to("/users/#{@user.id}")
   end
 
