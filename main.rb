@@ -110,7 +110,7 @@ class KletterPartner < Sinatra::Base
 
    post '/auth/login' do
     env['warden'].authenticate!
-    flash[:success] = env['warden'].message
+    flash[:success] = 'Successfully logged in'
     if session[:return_to].nil?
       redirect '/'
     else
@@ -150,27 +150,28 @@ class KletterPartner < Sinatra::Base
   end
 
   post '/users' do
-    @user = User.create(params[:user])
     env['warden'].authenticate!
+    @user = User.create(params[:user])
+    flash[:success] = 'Neuer User ' + user.forename + ' angelegt'
     redirect to("/users/#{@user.id}")
   end
 
   get '/users/:id' do
+    env['warden'].authenticate!
     @user = User.get(params[:id])
     @sessionUser = env['warden'].user
-    env['warden'].authenticate!
     slim :"user/show"
   end
 
   get '/users/:id/edit' do
-    @user = User.get(params[:id])
     env['warden'].authenticate!
+    @user = User.get(params[:id])
     slim :"user/edit"
   end
 
   put '/users/:id' do
-    user = User.get(params[:id])
     env['warden'].authenticate!
+    user = User.get(params[:id])
     user.update(params[:user])
     if success
       redirect to("/users/#{user.id}")
@@ -190,6 +191,7 @@ class KletterPartner < Sinatra::Base
     user = User.get(params[:id])
     sessionUser = env['warden'].user
     sessionUser.request_friendship(user)
+    flash[:success] = 'Freundschaft mit ' + user.forename + ' angefragt'
     redirect to("/users/#{user.id}")
   end
 
@@ -207,6 +209,7 @@ class KletterPartner < Sinatra::Base
     user = User.get(params[:id])
     sessionUser = env['warden'].user
     user.end_friendship_with(sessionUser)
+    flash[:success] = 'Freundschaft mit ' + user.forename + ' beendet'
     redirect to("/users/#{sessionUser.id}")
   end
 
