@@ -25,6 +25,9 @@ class KletterPartner < Sinatra::Base
   # Assets
   # -----------------------------------------------------------
 
+  require 'sass'
+  set :sass, { :load_paths => [ "#{KletterPartner.root}/app/css" ] }
+
   assets do
     serve '/js',     from: 'app/js'        # Default
     serve '/css',    from: 'app/css'       # Default
