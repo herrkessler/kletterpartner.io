@@ -16,3 +16,5 @@ gem 'slim', '~> 3.0.1'
 gem 'sass'
 gem 'bourbon'
 gem 'neat'
+
+gem 'mandrill-api', '~> 1.0.53'
