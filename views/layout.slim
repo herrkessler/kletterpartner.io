@@ -3,28 +3,31 @@ html
   head 
     meta charset="utf-8"
     title Kletterpartner.io
-    / link rel="stylesheet" media="screen, projection" href="/all.css"
+    == css :application, :media => 'screen'
+    / == js :app
   body
 
-    - if flash[:success]
-      p.success 
-        | YEAH: 
-        = flash[:success]
+    .container
 
-    - if flash[:error]
-      p.error
-       | OH NO: 
-       = flash[:error]
+      - if flash[:success]
+        p.success 
+          | YEAH: 
+          = flash[:success]
 
-    - if @current_user
-      p Current User #{@current_user.id}
+      - if flash[:error]
+        p.error
+         | OH NO: 
+         = flash[:error]
 
-    a.rounded.button href="/auth/login" Log In
-    br
-    a.rounded.button href="/auth/logout" Log Out
-    - if env['warden'].authenticated?
+      - if @current_user
+        p Current User #{@current_user.id}
+
+      a.rounded.button href="/auth/login" Log In
       br
-      a href="/users" Alle User
-      br
-      a href="/users/#{env['warden'].user.id}" = env['warden'].user.forename
-    == yield
+      a.rounded.button href="/auth/logout" Log Out
+      - if env['warden'].authenticated?
+        br
+        a href="/users" Alle User
+        br
+        a href="/users/#{env['warden'].user.id}" = env['warden'].user.forename
+      == yield

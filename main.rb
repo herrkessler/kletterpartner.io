@@ -1,42 +1,57 @@
 require 'bundler'
 Bundler.require
 
-# load the Database and User model
 require './model'
-
 require 'sinatra/base'
 require 'sinatra/flash'
+require 'sinatra/assetpack'
 
 class KletterPartner < Sinatra::Base
+
+  # -----------------------------------------------------------
+  # Settings
+  # -----------------------------------------------------------
+
+  set :root, File.dirname(__FILE__)
 
   enable :sessions
   enable :method_override
   enable :logging
+
   register Sinatra::Flash
+  register Sinatra::AssetPack
+
+  # -----------------------------------------------------------
+  # Assets
+  # -----------------------------------------------------------
+
+  assets do
+    serve '/js',     from: 'app/js'        # Default
+    serve '/css',    from: 'app/css'       # Default
+    serve '/images', from: 'app/images'    # Default
+
+    js :app, '/js/app.js', [
+      '/js/app.js'
+    ]
+
+    css :application, '/css/application.sass', [
+      '/css/application.css'
+    ]
+
+    js_compression  :jsmin
+    css_compression :sass 
+  end
 
   # -----------------------------------------------------------
   # Authentication with Warden
   # -----------------------------------------------------------
 
   use Warden::Manager do |config|
-    # Tell Warden how to save our User info into a session.
-    # Sessions can only take strings, not Ruby code, we'll store
-    # the User's `id`
     config.serialize_into_session{|user| user.id }
-    # Now tell Warden how to take what we've stored in the session
-    # and get a User from that information.
     config.serialize_from_session{|id| User.get(id) }
-
     config.scope_defaults :default,
-      # "strategies" is an array of named methods with which to
-      # attempt authentication. We have to define this later.
       strategies: [:password],
-      # The action is a route to send the user to when
-      # warden.authenticate! returns a false answer. We'll show
-      # this route below.
       action: 'auth/unauthenticated'
-    # When a user tries to log in and cannot, this specifies the
-    # app to send the user to.
     config.failure_app = self
   end
 
