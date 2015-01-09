@@ -43,11 +43,24 @@ class Site
   include DataMapper::Resource
 
   property :id, Serial
-  property :title, String, :required => true
+  property :title, String, :required => true, :length => 128
   property :created_at, DateTime
   property :update_at, DateTime
 
   has n, :users, :through => Resource
+end
+
+class Post
+  include DataMapper::Resource
+
+  property :id, Serial, :key => true
+  property :title, String
+  property :synopsis, Text
+  property :content, Text
+  property :created_at, DateTime
+  property :update_at, DateTime
+
+  belongs_to :user
 end
 
 DataMapper.finalize
@@ -61,4 +74,14 @@ if User.count == 0
   @user.familyname = "Kessler"
   @user.admin = true
   @user.save
+end
+
+# Create initial Post
+if Post.count == 0
+  post = Post.new()
+  post.attributes = {:title => 'Erster Eintrag'}
+  post.synopsis = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+  post.content = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+  post.user_id = 1
+  post.save
 end

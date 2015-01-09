@@ -221,4 +221,18 @@ class KletterPartner < Sinatra::Base
     slim :"user/friendship"
   end
 
+  # Blog
+  # -----------------------------------------------------------
+
+  get '/blog' do
+    @posts = Post.all
+    slim :"post/index"
+  end
+
+
+  get '/blog/:id' do
+    @post = Post.get(params[:id])
+    slim :"post/show"
+  end
+
 end

@@ -1,0 +1,6 @@
+- @posts.each do |post|
+  h2
+    a href="/blog/#{post.id}" = post.title
+  p = post.created_at.strftime("%d-%m-%Y")
+  p = post.synopsis
+  p = post.user.forename
