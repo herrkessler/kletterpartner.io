@@ -13,6 +13,7 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   set :root, File.dirname(__FILE__)
+  # set :environment, :production
 
   enable :sessions
   enable :method_override
@@ -33,7 +34,9 @@ class KletterPartner < Sinatra::Base
     serve '/css',    from: 'app/css'       # Default
     serve '/images', from: 'app/images'    # Default
 
-    js :app, '/js/app.js', [
+    js :application, [
+      '/js/lib/cash.js',
+      '/js/vendor/html5shiv.js',
       '/js/app.js'
     ]
 
