@@ -33,6 +33,7 @@ class KletterPartner < Sinatra::Base
     serve '/js',     from: 'app/js'        # Default
     serve '/css',    from: 'app/css'       # Default
     serve '/images', from: 'app/images'    # Default
+    serve '/fonts',  from: 'app/fonts'     # Default
 
     js :application, [
       '/js/lib/cash.js',
@@ -88,6 +89,7 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   helpers do
+    
   end
 
   # -----------------------------------------------------------
@@ -217,7 +219,7 @@ class KletterPartner < Sinatra::Base
 
   get '/users/:id/friendship' do
     env['warden'].authenticate!
-    @user = env['warden'].user
+    @user = User.get(params[:id])
     slim :"user/friendship"
   end
 
