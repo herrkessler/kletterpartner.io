@@ -1,9 +1,11 @@
 @import bourbon
+@import grid/grid-settings
 @import neat
 
-@import grid/grid-settings
+@import fontawesome/font-awesome
 
 @import settings/foundation
+@import settings/mixins
 @import settings/color
 @import settings/variables
 @import settings/form
@@ -12,6 +14,10 @@
 
 @import user/user
 @import nav/nav
+
+@import elements/card
+
+@import admin/admin
 
 // Test Styles
 // ------------------------------------
@@ -27,3 +33,5 @@ a
 
 .container
   +outer-container
+  +media($tablet)
+    +padding(0 $default-padding/2)
