@@ -1,21 +1,101 @@
 #main-navigation
   background: black
   margin-bottom: $default-margin
+  +media($tablet)
+    height: 40px
 
 .main-navigation-list
   float: left
   width: 100%
-  margin-top: $default-margin
+  margin-top: $default-margin*1.4
   margin-bottom: $default-margin
+  +media($tablet)
+    margin: $default-margin/2 0
 
 .main-navigation-list-item
   float: left
   &:not(:first-child)
     margin-left: $default-margin
-  &.logout, &.login, &.signup
+  &.logout, &.login, &.signup, &.profile
     float: right
   &.logo
+    position: relative
+    z-index: 2
     a 
       text-decoration: none
       color: white
       font-weight: bold
+  +media($tablet)
+    &.users, &.sites, &.blog, &.profile, &.logout, &.signup, &.login
+      display: none
+
+.user-small-avatar
+  position: relative
+  top: -2px
+  +size(30px)
+  margin-right: $default-margin/2
+  border-radius: 50%
+  vertical-align: top
+
+// Mobile Navigation
+// ------------------------------------
+
+#mobile-navigation
+  opacity: 0
+  background: rgba(black, 0.9)
+  +transition(opacity .2s ease-out)
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  z-index: -1
+  &.js-active
+    opacity: 1
+    z-index: 1
+
+#mobile-profile-link
+  display: none
+  position: absolute
+  top: 10px
+  right: 40px
+  img
+    display: block
+    +size(18px)
+    border-radius: 50%
+  +media($tablet)
+    display: block
+
+.mobile-navigation-list
+  +total-center
+
+.mobile-navigation-list-item
+  display: block
+  width: 100%
+  text-align: center
+  margin-bottom: $default-margin/2
+
+#mobile-navigation-icon
+  display: none
+  position: absolute
+  top: 12px
+  right: 10px
+  +size(18px)
+  cursor: pointer
+  z-index: 2
+  span
+    display: block
+    background: white
+    height: 2px
+    margin-bottom: 4px
+    +transition(all .2s ease-out)
+  &.js-active
+    span
+      &:first-child
+        @include transform(translateY(6px) rotate(-45deg))
+      &:nth-child(2)
+        opacity: 0
+      &:last-child
+        @include transform(translateY(-6px) rotate(45deg))
+  +media($tablet)
+    display: block

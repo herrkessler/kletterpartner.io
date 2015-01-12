@@ -1,9 +1,17 @@
-h2 Hello Climber
-br
-p 
-  | you can 
-  a href="/auth/login" login
-  |  , 
-  a href="/users/new" sign up
-  |  or just read the 
-  a href="/blog" blog
+- unless env['warden'].authenticated?
+
+  h2 Hello Climber
+  br
+  p 
+    | you can 
+    a href="/auth/login" login
+    |  , 
+    a href="/users/new" sign up
+    |  or just read the 
+    a href="/blog" blog
+
+- else 
+  
+  h2
+    | Hello   
+    = env['warden'].user.forename

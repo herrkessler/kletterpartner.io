@@ -1,0 +1,10 @@
+- if env['warden'].authenticated?
+  - if env['warden'].user.admin == true
+    nav#admin-navigation
+      .container
+        ul
+          li 
+            b admin area
+          li Bla
+          li Blubb
+          li Blaa

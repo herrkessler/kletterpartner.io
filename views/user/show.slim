@@ -1,5 +1,10 @@
 #user-profile
-  h1 = @user.forename
+  h1 
+    = @user.forename
+    - if @user.id == @sessionUser.id
+      a href="/users/#{@user.id}/edit"
+        i.fa.fa-pencil.edit-profile-link
+
   - if @user.id == @sessionUser.id
     #friendships-to-accept
       a href="/users/#{@user.id}/friendship"
@@ -28,7 +33,7 @@
 - if @user.id == @sessionUser.id
   - if @user.friendship_requests.length > 0
     #friendship-requests
-        h2 Angefragte Freunde
+        h2 Von Dir angefragte Freundschaften
         hr
         ul.friendships-requests
           - @user.friendship_requests.each do |friend|
@@ -52,4 +57,4 @@
   br
   form action="/users/#{@user.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
-    input.button type="submit" value="Delete THIS User"
+    input.button.admin type="submit" value="Delete THIS User"

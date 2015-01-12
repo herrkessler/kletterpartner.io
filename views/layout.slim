@@ -4,7 +4,7 @@ html
     meta charset="utf-8"
     title kletterpartner.io
     == css :application, :media => 'screen'
-    / == js :application
+    == js :application
   body
 
     #flash-message
@@ -19,25 +19,7 @@ html
            span ✖ 
            = flash[:error]
 
-    nav#main-navigation
-      .container
-        ul.main-navigation-list
-          li.main-navigation-list-item.logo
-            a href="/" kletterpartner.io
-          - if env['warden'].authenticated?
-            li.main-navigation-list-item.users
-              a href="/users" Kletterpartner finden
-            li.main-navigation-list-item.sites
-              a href="/sites" Kletterhallen finden
-            li.main-navigation-list-item.profile
-              a href="/users/#{env['warden'].user.id}" Mein Profil
-            li.main-navigation-list-item.logout
-              a.button href="/auth/logout" Log Out
-          - else
-            li.main-navigation-list-item.signup
-              a.button.highlight href="/users/new" Sign Up
-            li.main-navigation-list-item.login
-              a.button href="/auth/login" Log In
+    == slim :"navigation"
 
     main
       .container

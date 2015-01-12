@@ -1,5 +1,13 @@
 h2 Freundschaftsanfragen
 hr
-ul.friendships-to-accept
-  - @user.friendships_to_accept.each do |friend|
-    == slim :"user/req-user", :locals => {user: friend}
+- if @user.friendships_to_accept.length > 0
+  ul.friendships-to-accept
+    - @user.friendships_to_accept.each do |friend|
+      == slim :"user/req-user", :locals => {user: friend}
+- else
+  p Leider keine Freundschaftsanfragen zur Zeit...
+  br
+  p 
+    | Selber 
+    a href="/users" neue Freunde
+    |  finden?

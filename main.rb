@@ -37,8 +37,9 @@ class KletterPartner < Sinatra::Base
 
     js :application, [
       '/js/lib/cash.js',
-      '/js/vendor/html5shiv.js',
-      '/js/app.js'
+      # '/js/vendor/html5shiv.js',
+      '/js/specific/menu.js'
+      # '/js/app.js'
     ]
 
     css :application, '/css/application.sass', [
@@ -115,7 +116,8 @@ class KletterPartner < Sinatra::Base
     if session[:return_to].nil?
       sessionUser = env['warden'].user
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
-      redirect to("/users/#{sessionUser.id}")
+      redirect to("/")
+      # redirect to("/users/#{sessionUser.id}")
     else
       redirect session[:return_to]
     end

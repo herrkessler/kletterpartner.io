@@ -1,0 +1,60 @@
+nav#main-navigation
+  .container
+    ul.main-navigation-list
+      li.main-navigation-list-item.logo
+        a href="/" kletterpartner.io
+      - if env['warden'].authenticated?
+        li.main-navigation-list-item.users
+          a href="/users" Kletterpartner finden
+        li.main-navigation-list-item.sites
+          a href="/sites" Kletterhallen finden
+        li.main-navigation-list-item.blog
+          a href="/blog" Blog
+        li.main-navigation-list-item.logout
+          a.button href="/auth/logout" Log Out
+        li.main-navigation-list-item.profile
+          a href="/users/#{env['warden'].user.id}"
+            img.user-small-avatar src= '#{env['warden'].user.gravatar_url}'
+          a.button href="/users/#{env['warden'].user.id}" Mein Profil
+      - else
+        li.main-navigation-list-item.blog
+          a href="/blog" Blog
+        li.main-navigation-list-item.signup
+          a.button.highlight href="/users/new" Sign Up
+        li.main-navigation-list-item.login
+          a.button href="/auth/login" Log In
+
+    #mobile-navigation-icon
+      span
+      span
+      span
+
+    - if env['warden'].authenticated?
+      #mobile-profile-link
+        a href="/users/#{env['warden'].user.id}"
+          img src= '#{env['warden'].user.gravatar_url}'
+
+    #mobile-navigation
+      ul.mobile-navigation-list
+        - if env['warden'].authenticated?
+          li.mobile-navigation-list-item.profile
+            a href="/users/#{env['warden'].user.id}"
+              img.user-small-avatar src= '#{env['warden'].user.gravatar_url}'
+            a.button href="/users/#{env['warden'].user.id}" Mein Profil
+          li.mobile-navigation-list-item.users
+            a.button href="/users" Kletterpartner finden
+          li.mobile-navigation-list-item.sites
+            a.button href="/sites" Kletterhallen finden
+          li.mobile-navigation-list-item.blog
+            a.button href="/blog" Blog
+          li.mobile-navigation-list-item.logout
+            a.button.highlight href="/auth/logout" Log Out
+        - else
+          li.mobile-navigation-list-item.signup
+            a.button.highlight href="/users/new" Sign Up
+          li.mobile-navigation-list-item.login
+            a.button href="/auth/login" Log In
+          li.mobile-navigation-list-item.blog
+            a.button href="/blog" Blog
+
+== slim :"admin-navigation"
