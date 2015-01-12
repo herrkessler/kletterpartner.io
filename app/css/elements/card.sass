@@ -1,0 +1,62 @@
+.card
+  +span-columns(2)
+  +omega(6n)
+  margin-bottom: $default-margin
+  background: $tile-color
+  box-shadow: 1px 1px 5px 0 rgba(black, 0.2)
+  +media($tablet)
+    +span-columns(3)
+    +omega(4n)
+  +media($mobile)
+    +span-columns(6)
+    +omega(2n)
+
+.card-avatar
+  position: relative
+  +size(100%)
+  background: $light-grey
+  &:before
+    content: ""
+    display: block
+    padding-top: 100%
+  a
+    +cover-all
+
+.card-content
+  +padding($default-padding/2)
+
+.card-favourite-indicator
+  position: absolute
+  right: -5px
+  top: -5px
+  +size(20px)
+  border-radius: 50%
+  color: white
+  text-align: center
+  font-size: 12px
+  &.active
+    background: $dark-green
+    &:before
+      vertical-align: sub
+      content: "✔"
+  &.requested
+    background: $dark-orange
+    &:before
+      content: "..."
+      font-weight: bold
+
+.card-content
+  float: left
+  width: 100%
+  a
+    display: block
+  .user-name
+    font-weight: bold
+    text-decoration: none
+  .accept-friendship, .delete-friendship
+    font-size: 26px
+    margin-right: 0
+  .accept-friendship
+    float: left
+  .delete-friendship
+    float: right
