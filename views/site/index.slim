@@ -1,0 +1,6 @@
+ul.sites
+  - @sites.each do |site|
+    li.site.on-index
+      h2
+        a href="/sites/#{site.id}" = site.title
+      p = site.created_at.strftime("%d-%m-%Y")

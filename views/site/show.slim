@@ -1,0 +1,17 @@
+h1 = @site.title
+p = @site.created_at.strftime("%d-%m-%Y")
+hr
+a.button href="/sites/#{@site.id}/add/#{env['warden'].user.id}" Add site as favourite
+
+br
+br
+
+- @site.users.each do |user|
+  p = user.forename
+
+- if env['warden'].user.admin == true
+  br
+  br
+  form action="/sites/#{@site.id}" method="POST"
+    input type="hidden" name="_method" value="DELETE"
+    input.button.admin type="submit" value="Delete THIS Site"

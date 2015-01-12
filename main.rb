@@ -249,5 +249,44 @@ class KletterPartner < Sinatra::Base
     slim :"post/show"
   end
 
+  # Site
+  # -----------------------------------------------------------
+
+  get '/sites' do
+    env['warden'].authenticate!
+    @sites = Site.all
+    slim :"site/index"
+  end
+  
+  get '/sites/new' do
+    env['warden'].authenticate!
+    @site = Site.new
+    slim :"site/new"
+  end
+
+  post '/sites' do
+    env['warden'].authenticate!
+    @post = Site.create(params[:post])
+    flash[:success] = 'Neuer Kletterhalle: "' + @site.title + '" angelegt'
+    redirect to("/sites/#{@site.id}")
+  end
+
+  get '/sites/:id' do
+    env['warden'].authenticate!
+    @site = Site.get(params[:id])
+    slim :"site/show"
+  end
+
+  get '/sites/:id/add/:user' do
+    env['warden'].authenticate!
+    site = Site.get(params[:id])
+    user = User.get(params[:user])
+    site.users << user
+    site.save
+    site.users.save
+    flash[:success] = 'Kletterhalle: "' + site.title + '" zu Deinen Favouriten hinzugefuegt'
+    redirect to("/sites/#{site.id}")
+  end
+
 
 end
