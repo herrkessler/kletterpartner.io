@@ -1,32 +1,55 @@
-h1 = @user.forename
-- unless @user.id == @sessionUser.id
-  - unless @user.is_friends_with?(@sessionUser)
-    a href="/users/#{@user.id}/add" Add as friend
-  - else
-    a href="/users/#{@user.id}/delete" Delete friendship
-
-#friendship-to-accept
+#user-profile
+  h1 = @user.forename
   - if @user.id == @sessionUser.id
-    a href="/users/#{@user.id}/friendship" Freundschaftsanfragen
-    - if @user.friendships_to_accept.length > 0
-      span.friendship-to-accept-counter = @user.friendships_to_accept.length
+    #friendships-to-accept
+      a href="/users/#{@user.id}/friendship"
+        i.fa.fa-user
+      - if @user.friendships_to_accept.length > 0
+        span.friendship-to-accept-counter = @user.friendships_to_accept.length
+    #mail
+      a href="#"
+        i.fa.fa-envelope-o
+        span.mail-counter 3
+
+  - unless @user.id == @sessionUser.id
+    #friendship-nav
+      - unless @user.is_friends_with?(@sessionUser)
+        a href="/users/#{@user.id}/add" 
+          i.fa.fa-check-circle-o.accept-friendship
+          span Freunde werden
+      - else
+        a href="/users/#{@user.id}/delete"
+          i.fa.fa-times-circle-o.delete-friendship
+          span Freundschaft beenden
+  hr
+  .user-avatar
+    img src= '#{@user.gravatar_url}'
 
 - if @user.id == @sessionUser.id
-  h2 Angefragte Freunde
-  ul.friendships-requests
-    - @user.friendship_requests.each do |friend|
-      li 
-        a href="/users/#{friend.id}" = friend.forename
+  - if @user.friendship_requests.length > 0
+    #friendship-requests
+        h2 Angefragte Freunde
+        hr
+        ul.friendships-requests
+          - @user.friendship_requests.each do |friend|
+            == slim :"user/fav-user", :locals => {user: friend}
 
-h2 Bestätigte Freunde
-ul.friendships
-  - @user.friends.each do |friend|
-    li 
-      a href="/users/#{friend.id}"= friend.forename
+
+- if @user.friends.length > 0
+  #friendships
+    - unless @user.id == @sessionUser.id
+      h2 = @user.forename + 's Freunde'
+    - else 
+      h2 Meine Freunde
+    hr
+
+    ul.friendships
+      - @user.friends.each do |friend|
+        == slim :"user/fav-user", :locals => {user: friend}
 
 - if @sessionUser.admin == true
   br
   br
   form action="/users/#{@user.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
-    input.button type="submit" value="Delete User"
+    input.button type="submit" value="Delete THIS User"

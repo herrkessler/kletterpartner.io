@@ -1,0 +1,10 @@
+li.card
+  .card-avatar style=("background:url(#{user.gravatar_url}) center center no-repeat; background-size:cover;")
+    a href="/users/#{user.id}"
+  .card-content
+    a.user-name href="/users/#{user.id}" = user.forename
+    br
+    a href="/users/#{user.id}/accept"
+      i.fa.fa-check-circle-o.accept-friendship
+    a href="/users/#{user.id}/delete"
+      i.fa.fa-times-circle-o.delete-friendship

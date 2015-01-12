@@ -1,11 +1,13 @@
-h1 Users
+h1 Kletterpartner
+hr
 -if @users.any?
   ul.users
-  - @users.each do |user|
-    == slim :"user/user", :locals => {user: user}
+    - @users.each do |user|
+      - unless user == @sessionUser
+        == slim :"user/user", :locals => {user: user}
 - else
   p No users here!
 
 - if @sessionUser.admin == true
-  br
-  a.button href="/users/new" Neuer User
+  .admin-bar
+    a.button href="/users/new" Neuer User

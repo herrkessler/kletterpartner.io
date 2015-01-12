@@ -1,5 +1,8 @@
-.friendship-to-accept-counter
-  background: black
+.friendship-to-accept-counter, .mail-counter
+  position: absolute
+  top: -4px
+  right: -14px
+  background: $turquoise
   color: white
   +size($default-margin)
   text-align: center
@@ -7,3 +10,46 @@
   font-size: 14px
   border-radius: 50%
   display: inline-block
+  vertical-align: super
+
+.user-avatar
+  img
+    border-radius: 50%
+
+// Friendships
+// ----------------------------------------------
+
+#friendship-requests, #friendships, #user-profile
+  position: relative
+  +span-columns(12)
+  margin-bottom: $default-margin
+
+.friendships
+  +span-columns(12)
+
+#friendships-to-accept, #mail
+  position: absolute
+  top: -6px
+  i
+    font-size: 26px
+    color: white
+
+#friendships-to-accept
+  right: 50px
+
+#mail
+  right: 0
+
+.accept-friendship, .delete-friendship
+  margin-right: $default-margin/2
+
+.accept-friendship
+  color: darken($green, 10%)
+
+.delete-friendship
+  color: darken($red, 10%)
+
+#friendship-nav
+  position: absolute
+  top: 0
+  right: 0

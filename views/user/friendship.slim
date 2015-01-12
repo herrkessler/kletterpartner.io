@@ -1,9 +1,5 @@
 h2 Freundschaftsanfragen
+hr
 ul.friendships-to-accept
   - @user.friendships_to_accept.each do |friend|
-    li 
-      a href="/users/#{friend.id}"= friend.forename
-      br
-      a href="/users/#{friend.id}/accept" Accept Friendship
-      br
-      a href="/users/#{friend.id}/delete" Decline Friendship
+    == slim :"user/req-user", :locals => {user: friend}
