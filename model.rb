@@ -14,6 +14,9 @@ DataMapper::Model.raise_on_save_failure = true
 class User
   include DataMapper::Resource
   include BCrypt
+  include Gravtastic
+
+  gravtastic :secure => true, :filetype => :jpg, :size => 120, :default => :mm
 
   property :id, Serial, :key => true
   property :forename , String
