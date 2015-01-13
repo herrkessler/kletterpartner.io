@@ -1,15 +1,11 @@
 h1 Kletterpartner
 hr
--if @users.any?
-  ul.users
-    - @users.each do |user|
-      - unless user == @sessionUser
-        == slim :"user/user", :locals => {user: user}
+ul.users
+  - @users.each do |user|
+    - unless user == @sessionUser
+      == slim :"user/user", :locals => {user: user}
 
-  == will_paginate @users, :previous_label => '◀', :next_label => '▶', :inner_window => '2'
-
-- else
-  p No users here!
+== will_paginate @users, :previous_label => '◀', :next_label => '▶', :inner_window => '2'
 
 - if @sessionUser.admin == true
   .admin-bar

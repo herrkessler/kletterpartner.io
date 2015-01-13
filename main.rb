@@ -130,7 +130,6 @@ class KletterPartner < Sinatra::Base
       sessionUser = env['warden'].user
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
       redirect to("/")
-      # redirect to("/users/#{sessionUser.id}")
     else
       redirect session[:return_to]
     end
@@ -157,7 +156,7 @@ class KletterPartner < Sinatra::Base
   get '/users' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @users = User.all().paginate(:page => params[:page], :per_page => 35)
+    @users = User.all().paginate(:page => params[:page], :per_page => 25)
     slim :"user/index"
   end
 
@@ -268,7 +267,7 @@ class KletterPartner < Sinatra::Base
   get '/sites' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @sites = Site.all.paginate(:page => params[:page], :per_page => 35)
+    @sites = Site.all.paginate(:page => params[:page], :per_page => 25)
     slim :"site/index"
   end
   

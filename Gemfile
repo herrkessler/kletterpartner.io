@@ -9,7 +9,6 @@ gem "dm-noisy-failures"
 gem 'dm-is-friendly', :git => 'https://github.com/herrkessler/dm-is-friendly.git'
 gem 'sinatra-flash', '0.3.0', require: 'sinatra/flash'
 gem 'warden', '1.2.1'
-gem 'shotgun'
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'slim', '~> 3.0.1'
@@ -21,3 +20,7 @@ gem 'mandrill-api', '~> 1.0.53'
 
 gem 'gravtastic'
 gem 'will_paginate', '~> 3.0.6'
+
+group :development do
+  gem "shotgun"
+end
