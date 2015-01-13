@@ -59,12 +59,6 @@
   float: left
   width: 100%
   +padding($default-padding/2)
-  +media($mobile)
-    +size(auto)
-    +span-columns(10)
-    +omega
-    +vertical-center
-    left: 14.89362%
   a
     display: block
   .user-name, .site-name
@@ -77,3 +71,15 @@
     float: left
   .delete-friendship
     float: right
+  +media($mobile)
+    +size(auto)
+    +span-columns(10)
+    +omega
+    +vertical-center
+    left: 14.89362%
+    a
+      height: 22px
+      display: inline-block
+      margin-right: $default-margin/2
+      &:not(.user-name)
+        margin-bottom: -3px
