@@ -1,12 +1,19 @@
-h1 = @site.title
-p = @site.created_at.strftime("%d-%m-%Y")
-hr
-a.button href="/sites/#{@site.id}/add/#{env['warden'].user.id}" Add site as favourite
+#site-profile
+  h1 = @site.title
+  #favourite-nav
+    - unless @site.users.include? @sessionUser
+      a href="/sites/#{@site.id}/add/#{@sessionUser.id}" 
+        i.fa.fa-check-circle-o.accept-friendship
+        span Zu Favouriten hinzufügen
+    - else
+      a href="/sites/#{@site.id}/delete/#{@sessionUser.id}"
+        i.fa.fa-times-circle-o.delete-friendship
+        span Aus Favouriten entfernen
+  hr
+  h2 = @site.title
+  p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-br
-br
-
-h2 Wer kletter hier?
+h2 Wer klettert hier?
 hr
 ul.site-users
 - @site.users.each do |user|
