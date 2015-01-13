@@ -12,11 +12,17 @@
     +span-columns(12)
     +omega
     margin-bottom: $default-margin/2
+    position: relative
 
 .card-avatar
   position: relative
   +size(100%)
   background: $light-grey
+  border-bottom: 2px solid
+  .site &
+    border-color: $site-color
+  .user &
+    border-color: $user-color
   &:before
     content: ""
     display: block
@@ -26,6 +32,8 @@
   +media($mobile)
     +size(auto)
     +span-columns(2)
+    border-left: 2px solid
+    border-bottom: 0
 
 .card-favourite-indicator
   position: absolute
@@ -55,6 +63,8 @@
     +size(auto)
     +span-columns(10)
     +omega
+    +vertical-center
+    left: 14.89362%
   a
     display: block
   .user-name, .site-name

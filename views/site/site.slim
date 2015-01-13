@@ -1,4 +1,4 @@
-li.card
+li.card.site
   .card-avatar style=("background:url(/images/wuwaende.jpg) center center no-repeat; background-size:cover;")
     - if request.fullpath == '/sites'
       .card-favourite-indicator class=('active' if @sessionUser.sites.include? site)

@@ -1,4 +1,4 @@
-li.card
+li.card.user
   .card-avatar style=("background:url(#{user.gravatar_url}) center center no-repeat; background-size:cover;")
     .card-favourite-indicator class=(@user.friendship_requested?(user) ? 'requested' : '') 
     a href="/users/#{user.id}"
