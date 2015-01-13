@@ -1,10 +1,15 @@
 h1 Kletterpartner
 hr
+.page-info
+  / == page_entries_info @users
 -if @users.any?
   ul.users
     - @users.each do |user|
       - unless user == @sessionUser
         == slim :"user/user", :locals => {user: user}
+
+  == will_paginate @users
+
 - else
   p No users here!
 

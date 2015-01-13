@@ -6,6 +6,9 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/assetpack'
 
+require 'will_paginate'
+require 'will_paginate/data_mapper'
+
 class KletterPartner < Sinatra::Base
 
   # -----------------------------------------------------------
@@ -89,8 +92,18 @@ class KletterPartner < Sinatra::Base
   # Helpers
   # -----------------------------------------------------------
 
+  helpers WillPaginate::Sinatra::Helpers
+
   helpers do
-    
+    def paginate(collection)
+       options = {
+         inner_window: 0,
+         outer_window: 0,
+         previous_label: '&laquo;',
+         next_label: '&raquo;'
+       }
+      will_paginate collection, options
+    end
   end
 
   # -----------------------------------------------------------
@@ -144,7 +157,7 @@ class KletterPartner < Sinatra::Base
   get '/users' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @users = User.all
+    @users = User.all().paginate(:page => params[:page], :per_page => 35)
     slim :"user/index"
   end
 
@@ -254,12 +267,14 @@ class KletterPartner < Sinatra::Base
 
   get '/sites' do
     env['warden'].authenticate!
+    @sessionUser = env['warden'].user
     @sites = Site.all
     slim :"site/index"
   end
   
   get '/sites/new' do
     env['warden'].authenticate!
+    @sessionUser = env['warden'].user
     @site = Site.new
     slim :"site/new"
   end
@@ -267,12 +282,14 @@ class KletterPartner < Sinatra::Base
   post '/sites' do
     env['warden'].authenticate!
     @post = Site.create(params[:post])
+    @sessionUser = env['warden'].user
     flash[:success] = 'Neuer Kletterhalle: "' + @site.title + '" angelegt'
     redirect to("/sites/#{@site.id}")
   end
 
   get '/sites/:id' do
     env['warden'].authenticate!
+    @sessionUser = env['warden'].user
     @site = Site.get(params[:id])
     slim :"site/show"
   end

@@ -20,3 +20,4 @@ gem 'neat'
 gem 'mandrill-api', '~> 1.0.53'
 
 gem 'gravtastic'
+gem 'will_paginate', '~> 3.0.6'
