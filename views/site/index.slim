@@ -1,6 +1,11 @@
+h1 Kletterhallen
+hr
 ul.sites
   - @sites.each do |site|
-    li.site.on-index
-      h2
-        a href="/sites/#{site.id}" = site.title
-      p = site.created_at.strftime("%d-%m-%Y")
+    == slim :"site/site", :locals => {site: site}
+
+== will_paginate @sites
+
+- if @sessionUser.admin == true
+  .admin-bar
+    a.button.admin href="/sites/new" Add NEW Site

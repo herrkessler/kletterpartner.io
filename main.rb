@@ -268,7 +268,7 @@ class KletterPartner < Sinatra::Base
   get '/sites' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @sites = Site.all
+    @sites = Site.all.paginate(:page => params[:page], :per_page => 35)
     slim :"site/index"
   end
   

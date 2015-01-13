@@ -1,7 +1,7 @@
 li.card
   .card-avatar style=("background:url(/images/wuwaende.jpg) center center no-repeat; background-size:cover;")
-    / .card-favourite-indicator class=(@sessionUser.sites.include? site)? 'active' : 'inactive')
-    .card-favourite-indicator class=('active' if @sessionUser.sites.include? site)
+    - if request.fullpath == '/sites'
+      .card-favourite-indicator class=('active' if @sessionUser.sites.include? site)
     a href="/sites/#{site.id}"
   .card-content
     a.site-name href="/sites/#{site.id}" = site.title
