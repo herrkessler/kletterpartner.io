@@ -305,5 +305,14 @@ class KletterPartner < Sinatra::Base
     redirect to("/sites/#{site.id}")
   end
 
+  get '/sites/:id/delete/:user' do
+    env['warden'].authenticate!
+    site = Site.get(params[:id])
+    user = User.get(params[:user])
+    SiteUser.all(:user_id => user.id, :site_id => site.id).destroy
+    flash[:success] = 'Kletterhalle: "' + site.title + '" aus Deinen Favouriten entfernt'
+    redirect to("/sites/#{site.id}")
+  end
+
 
 end

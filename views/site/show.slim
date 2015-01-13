@@ -4,11 +4,11 @@
     - unless @site.users.include? @sessionUser
       a href="/sites/#{@site.id}/add/#{@sessionUser.id}" 
         i.fa.fa-check-circle-o.accept-friendship
-        span Zu Favouriten hinzufügen
+        span zu Favouriten hinzufügen
     - else
       a href="/sites/#{@site.id}/delete/#{@sessionUser.id}"
         i.fa.fa-times-circle-o.delete-friendship
-        span Aus Favouriten entfernen
+        span aus Favouriten entfernen
   hr
   h2 = @site.title
   p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
