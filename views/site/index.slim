@@ -4,7 +4,7 @@ ul.sites
   - @sites.each do |site|
     == slim :"site/site", :locals => {site: site}
 
-== will_paginate @sites
+== will_paginate @sites, :previous_label => '◀', :next_label => '▶', :inner_window => '2'
 
 - if @sessionUser.admin == true
   .admin-bar
