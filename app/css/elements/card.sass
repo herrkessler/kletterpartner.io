@@ -6,10 +6,12 @@
   box-shadow: 1px 1px 5px 0 rgba(black, 0.2)
   +media($tablet)
     +span-columns(3)
+    +omega-reset(6n)
     +omega(4n)
   +media($mobile)
-    +span-columns(6)
-    +omega(2n)
+    +span-columns(12)
+    +omega
+    margin-bottom: $default-margin/2
 
 .card-avatar
   position: relative
@@ -21,9 +23,9 @@
     padding-top: 100%
   a
     +cover-all
-
-.card-content
-  +padding($default-padding/2)
+  +media($mobile)
+    +size(auto)
+    +span-columns(2)
 
 .card-favourite-indicator
   position: absolute
@@ -48,9 +50,14 @@
 .card-content
   float: left
   width: 100%
+  +padding($default-padding/2)
+  +media($mobile)
+    +size(auto)
+    +span-columns(10)
+    +omega
   a
     display: block
-  .user-name
+  .user-name, .site-name
     font-weight: bold
     text-decoration: none
   .accept-friendship, .delete-friendship

@@ -13,8 +13,25 @@
   vertical-align: super
 
 .user-avatar
+  +span-columns(3)
   img
     border-radius: 50%
+  +media($mobile)
+    +span-columns(4)
+
+.user-info
+  +span-columns(9)
+  +omega
+  font-size: 14px
+  line-height: 1.4
+  p
+    margin-bottom: $default-margin/2
+  ul
+    li
+      font-weight: bold
+      margin-bottom: $default-margin/2
+  +media($mobile)
+    +span-columns(8)
 
 .edit-profile-link
   color: $highlight

@@ -6,8 +6,12 @@ a.button href="/sites/#{@site.id}/add/#{env['warden'].user.id}" Add site as favo
 br
 br
 
+h2 Wer kletter hier?
+hr
+ul.site-users
 - @site.users.each do |user|
-  p = user.forename
+  - unless user == @sessionUser
+    == slim :"user/user", :locals => {user: user}
 
 - if env['warden'].user.admin == true
   br

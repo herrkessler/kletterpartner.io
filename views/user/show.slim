@@ -29,6 +29,12 @@
   hr
   .user-avatar
     img src= '#{@user.gravatar_url}'
+  .user-info
+    p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+    ul.user-info-facts
+      li.user-info-fact Fact #1
+      li.user-info-fact Fact #2
+      li.user-info-fact Fact #3
 
 - if @user.id == @sessionUser.id
   - if @user.friendship_requests.length > 0
@@ -51,6 +57,18 @@
     ul.friendships
       - @user.friends.each do |friend|
         == slim :"user/fav-user", :locals => {user: friend}
+
+- if @user.sites.length > 0
+  #sites
+    - unless @user.id == @sessionUser.id
+      h2 = @user.forename + 's Kletterhallen'
+    - else 
+      h2 Meine Kletterhallen
+    hr
+
+    ul.friendships
+      - @user.sites.each do |site|
+        == slim :"site/site", :locals => {site: site}
 
 - if @sessionUser.admin == true
   br
