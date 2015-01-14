@@ -4,7 +4,7 @@ require 'bcrypt'
 # DataMapper Setup
 # -----------------------------------------------------------
 
-DataMapper::Logger.new($stdout, :debug)
+# DataMapper::Logger.new($stdout, :debug)
 DataMapper::setup(:default, "sqlite:kp-sinatra-2.db")
 DataMapper::Model.raise_on_save_failure = true 
 
@@ -15,19 +15,16 @@ DataMapper::Model.raise_on_save_failure = true
 class User
   include DataMapper::Resource
   include BCrypt
-  include Gravtastic
-
-  gravtastic :secure => true, :filetype => :jpg, :size => 120, :default => :mm
 
   property :id, Serial, :key => true
   property :forename , String
-  property :familyname , String
-  property :username, String, :length => 3..50, :required => true, :unique => true
-  property :email, String, :format => :email_address, :required => true, :unique => true
-  property :password, BCryptHash
-  property :admin, Boolean, :default  => false
-  property :created_at, DateTime
-  property :update_at, DateTime
+  property :familyname , String, :lazy => [ :show ]
+  property :username, String, :length => 3..50, :required => true, :unique => true, :lazy => [ :show ]
+  property :email, String, :format => :email_address, :required => true, :unique => true, :lazy => [ :show ]
+  property :password, BCryptHash, :lazy => [ :show ]
+  property :admin, Boolean, :default  => false, :lazy => [ :show ]
+  property :created_at, DateTime, :lazy => [ :show ]
+  property :update_at, DateTime, :lazy => [ :show ]
 
   is :friendly
 
@@ -48,8 +45,8 @@ class Site
 
   property :id, Serial
   property :title, String, :required => true, :length => 128
-  property :created_at, DateTime
-  property :update_at, DateTime
+  property :created_at, DateTime, :lazy => [ :show ]
+  property :update_at, DateTime, :lazy => [ :show ]
 
   has n, :users, :through => Resource
 end
@@ -61,8 +58,8 @@ class Post
   property :title, String
   property :synopsis, Text
   property :content, Text
-  property :created_at, DateTime
-  property :update_at, DateTime
+  property :created_at, DateTime, :lazy => [ :show ]
+  property :update_at, DateTime, :lazy => [ :show ]
 
   belongs_to :user
 end

@@ -1,5 +1,5 @@
 li.card.user
-  .card-avatar style=("background:url(#{user.gravatar_url}) center center no-repeat; background-size:cover;")
+  .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
     .card-favourite-indicator class=(user.is_friends_with?(@sessionUser) && !user.friendship_to_accept?(@sessionUser) && !user.friendship_requested?(@sessionUser) ? 'active' : 'inactive') 
     a href="/users/#{user.id}"
   .card-content
