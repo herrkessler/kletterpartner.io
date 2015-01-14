@@ -15,8 +15,8 @@
 @import specific/user
 @import specific/site
 @import specific/post
-
-@import nav/nav
+// @import specific/ad
+@import specific/nav
 
 @import elements/card
 @import elements/pagination
@@ -30,6 +30,7 @@
 body
   background: #333
   color: white
+  overflow-x: hidden
 
 a
   &:visited, &:link
@@ -37,5 +38,6 @@ a
   text-decoration: underline
 
 .container
+  position: relative
   +outer-container
   +padding(0 $default-padding/2)
