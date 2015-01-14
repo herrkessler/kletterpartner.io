@@ -1,0 +1,17 @@
+#ad
+  display: none
+  position: absolute
+  right: -160px
+  top: 95px
+  +size(140px 400px)
+  background: $grey
+  +media($max)
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    top: initial
+    +size(100% $ad-mobile-height)
+    z-index: 1
+  .logged-in &
+    display: block

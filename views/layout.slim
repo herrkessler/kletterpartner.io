@@ -7,7 +7,7 @@ html
     title kletterpartner.io
     == css :application, :media => 'screen'
     == js :application
-  body
+  body class=(env['warden'].authenticated?  ? 'logged-in' : '')
 
     #flash-message
       .container
@@ -25,4 +25,5 @@ html
 
     main
       .container
+        / #ad
         == yield
