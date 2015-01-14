@@ -4,7 +4,9 @@
   text-align: center
   margin: $default-margin 0
   .next_page, .previous_page
-    @extend .button
+    &.disabled
+      color: grey
+      border-color: grey
   .next_page
     display: block
     float: right
@@ -22,3 +24,12 @@
     font-weight: bold
     font-size: 14px
     line-height: 18px
+
+.top-pagination
+  .next_page, .previous_page
+    color: white
+    text-decoration: none
+
+.bottom-pagination
+  .next_page, .previous_page
+    @extend %button

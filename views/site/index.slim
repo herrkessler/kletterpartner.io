@@ -1,10 +1,11 @@
 h1 Kletterhallen
 hr
+== will_paginate @sites, :previous_label => '◀', :next_label => '▶', :inner_window => '2', :page_links => false, :class => 'top-pagination pagination'
 ul.sites
   - @sites.each do |site|
     == slim :"site/site", :locals => {site: site}
 
-== will_paginate @sites, :previous_label => '◀', :next_label => '▶', :inner_window => '2'
+== will_paginate @sites, :previous_label => '◀', :next_label => '▶', :inner_window => '2', :class => 'bottom-pagination pagination'
 
 - if @sessionUser.admin == true
   .admin-bar
