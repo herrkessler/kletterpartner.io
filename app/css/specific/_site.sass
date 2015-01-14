@@ -15,3 +15,28 @@
     right: inherit
     top: inherit
     margin: $default-margin/4 0
+
+#site-description
+  +span-columns(12)
+  +omega
+  margin-bottom: $default-margin
+
+#site-gallery, #site-info
+  +span-columns(6)
+  +omega(2n)
+  margin-bottom: $default-margin
+  +media($mobile)
+    +span-columns(12)
+    +omega
+
+#site-main-image
+  margin-bottom: $default-margin/2
+
+.site-gallery-list
+  +span-columns(12)
+  +omega
+
+.site-gallery-list-item
+  +span-columns(3)
+  +omega(4n)
+  margin-bottom: $default-margin/2
