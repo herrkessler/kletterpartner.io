@@ -1,4 +1,7 @@
 h1 Meine Nachrichten
+a.button#new-message href="#"
+  i.fa.fa-envelope
+  span  Neue Nachricht
 hr
 #messages
   #messages-mobile-menu
@@ -15,12 +18,12 @@ hr
       - @my_conversations.each do |conversation|
         li.message data-id=(conversation.id)
           .message-inner-wrapper
-            p = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
             - if conversation.messages.any?{|message| message.status = 'unread'}
               i.fa.fa-circle-o.message-status.green
             - conversation.participants.each do |participant|
               - unless participant.user == @sessionUser
                 b = participant.user.forename
+            .message-timestamp = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
 
 
           / - part.conversation.messages.each do |message|
@@ -44,11 +47,22 @@ hr
 
   #message
     #message-header
-      #message-sender
-      #message-status
-      #message-date
-    #message-title
+      #message-sender 
+        span Von: 
+        b Heike
+      / #message-status NEW
+      #message-date.message-timestamp 09.01.2015 - 08:53:09
+    #message-title Titel der Nachricht hierhin
     #message-content
+      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      br
+      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      br
+      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     #message-nav
-      a.button href="" Antworten
-      a.button href="" Konversation Löschen
+      a.button href="#" 
+        i.fa.fa-reply
+        span  Antworten
+      a.button href="#"
+        i.fa.fa-times
+        span  Konversation Löschen

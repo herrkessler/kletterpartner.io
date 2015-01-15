@@ -5,6 +5,7 @@
   +flex-flow(row wrap)
   +justify-content(flex-start)
   +align-items(stretch)
+  max-height: 80vh
 
 #messages-menu
   +flex(0 0 15%)
@@ -34,10 +35,27 @@
 #message
   +flex(0 0 60%)
   min-height: 400px
+  padding: 0 0 0 $default-padding/2
   +media($tablet)
     +flex(0 0 70%)
   +media($mobile)
     display: none
+
+#message-header, #message-title
+  margin-bottom: $default-margin
+
+#message-title
+  font-weight: bold
+
+#message-nav
+  margin: $default-margin 0
+  float: left
+  width: 100%
+  a
+    &:first-child
+      float: left
+    &:last-child
+      float: right
 
 .message
   position: relative
@@ -61,3 +79,11 @@
   right: $default-padding/2
   &.green
     color: $green
+
+.message-timestamp
+  font-size: 14px
+
+#new-message
+  position: absolute
+  right: $default-padding/2
+  top: -8px
