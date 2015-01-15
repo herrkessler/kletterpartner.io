@@ -12,7 +12,7 @@
       - if @user.friendships_to_accept.length > 0
         span.friendship-to-accept-counter = @user.friendships_to_accept.length
     #mail
-      a href="#"
+      a href="/users/#{@user.id}/messages"
         i.fa.fa-envelope-o
         span.mail-counter 3
 
