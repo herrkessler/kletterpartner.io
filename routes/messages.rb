@@ -6,8 +6,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/messages' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    conversations = Conversation.all()
-    @my_conversations = conversations.participants => @sessionUser
+    @participant = Participant.all(:user => @sessionUser)
     slim :"message/index"
   end
 

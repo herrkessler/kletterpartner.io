@@ -1,25 +1,21 @@
-h1 Nachrichten
+h1 Meine Nachrichten
 hr
-br
-br
-/ h2 Alle Nachrichten
-/ hr
-/ - @conversations.each do |conversation|
-/   p = conversation.id
-/   - conversation.participants.each do |participant|
-/     p = participant.user.forename
-/   - conversation.messages.each do |message|
-/     p = message.title
-/     p = message.status
-/     p = message.content
-
-h2 Meine Nachrichten
-hr
-- @my_conversations.each do |conversation|
-  p = conversation.id
-  - conversation.participants.each do |participant|
-    p = participant.user.forename
-  - conversation.messages.each do |message|
-    p = message.title
-    p = message.status
-    p = message.content
+ul.messages
+- @participant.each do |part|
+  - part.conversation.messages.each do |message|
+    li
+      p
+        span Status: 
+        b = message.status
+      p 
+        span Von: 
+        - message.conversation.participants.each do |participant|
+          - unless participant.user == @sessionUser
+            b = participant.user.forename 
+      p 
+        span Titel: 
+        b = message.title
+      p = message.created_at
+      p
+        span Inhalt: 
+        b = message.content
