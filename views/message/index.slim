@@ -1,0 +1,25 @@
+h1 Nachrichten
+hr
+br
+br
+/ h2 Alle Nachrichten
+/ hr
+/ - @conversations.each do |conversation|
+/   p = conversation.id
+/   - conversation.participants.each do |participant|
+/     p = participant.user.forename
+/   - conversation.messages.each do |message|
+/     p = message.title
+/     p = message.status
+/     p = message.content
+
+h2 Meine Nachrichten
+hr
+- @my_conversations.each do |conversation|
+  p = conversation.id
+  - conversation.participants.each do |participant|
+    p = participant.user.forename
+  - conversation.messages.each do |message|
+    p = message.title
+    p = message.status
+    p = message.content
