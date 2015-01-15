@@ -1,0 +1,63 @@
+#messages
+  width: 100%
+  +display(flex)
+  +flex(1 1)
+  +flex-flow(row wrap)
+  +justify-content(flex-start)
+  +align-items(stretch)
+
+#messages-menu
+  +flex(0 0 15%)
+  padding-right: $default-padding/2
+  +media($tablet)
+    display: none
+
+#messages-list
+  +flex(0 0 25%)
+  +media($tablet)
+    +flex(0 0 30%)
+  +media($mobile)
+    +flex(0 0 100%)
+    padding: 0
+    border-right: 0px!important
+
+#messages-list, #messages-menu
+  border-right: 1px solid white
+
+#messages-mobile-menu
+  display: none
+  +flex(0 0 100%)
+  margin: $default-margin 0
+  +media($tablet)
+    display: block
+
+#message
+  +flex(0 0 60%)
+  min-height: 400px
+  +media($tablet)
+    +flex(0 0 70%)
+  +media($mobile)
+    display: none
+
+.message
+  position: relative
+  +transition(background 0.3s ease-out)
+  &:nth-child(odd)
+    background: lighten($bg-color, 5%)
+  &:nth-child(even)
+    background: lighten($bg-color, 2.5%)
+  &:hover
+    background: darken($bg-color, 5%)
+
+.message-inner-wrapper
+  position: relative
+  padding: $default-padding/2 0
+  margin: 0 $default-padding/2
+  cursor: pointer
+
+.message-status
+  position: absolute
+  top: $default-padding/2
+  right: $default-padding/2
+  &.green
+    color: $green

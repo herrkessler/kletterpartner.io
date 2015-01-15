@@ -24,6 +24,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
+    @email_stats = @user.conversations.messages.map(&:status)
     @sessionUser = env['warden'].user
     slim :"user/show"
   end

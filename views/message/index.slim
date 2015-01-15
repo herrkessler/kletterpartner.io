@@ -1,21 +1,54 @@
 h1 Meine Nachrichten
 hr
-ul.messages
-- @participant.each do |part|
-  - part.conversation.messages.each do |message|
-    li
-      p
-        span Status: 
-        b = message.status
-      p 
-        span Von: 
-        - message.conversation.participants.each do |participant|
-          - unless participant.user == @sessionUser
-            b = participant.user.forename 
-      p 
-        span Titel: 
-        b = message.title
-      p = message.created_at
-      p
-        span Inhalt: 
-        b = message.content
+#messages
+  #messages-mobile-menu
+    i.fa.fa-arrow-circle-o-left
+    span  Postfächer
+  #messages-menu
+    ul
+      li Inbox
+      li Sent
+      li Thrash
+
+  #messages-list
+    ul.messages
+      - @my_conversations.each do |conversation|
+        li.message data-id=(conversation.id)
+          .message-inner-wrapper
+            p = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
+            - if conversation.messages.any?{|message| message.status = 'unread'}
+              i.fa.fa-circle-o.message-status.green
+            - conversation.participants.each do |participant|
+              - unless participant.user == @sessionUser
+                b = participant.user.forename
+
+
+          / - part.conversation.messages.each do |message|
+          / li.message data-id=(message.id)
+          /   .message-inner-wrapper
+          /     - if message.status = 'unread'
+          /       i.fa.fa-circle-o.message-status.green
+          /     p
+          /       span Message #ID: 
+          /       b = message.id
+          /     p 
+          /       span Von: 
+          /       - message.conversation.participants.each do |participant|
+          /         - unless participant.user == @sessionUser
+          /           b = participant.user.forename 
+          /     / p = message.created_at
+          /     p 17.01.2015 - 16:33:25 Uhr
+          /     p 
+          /       span Titel: 
+          /       b = message.title
+
+  #message
+    #message-header
+      #message-sender
+      #message-status
+      #message-date
+    #message-title
+    #message-content
+    #message-nav
+      a.button href="" Antworten
+      a.button href="" Konversation Löschen

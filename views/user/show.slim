@@ -14,7 +14,9 @@
     #mail
       a href="/users/#{@user.id}/messages"
         i.fa.fa-envelope-o
-        span.mail-counter 3
+        - if @email_stats.count{|m| m == :unread } > 0
+          span.mail-counter
+            = @email_stats.count{|m| m == :unread }
 
   - unless @user == @sessionUser
     #friendship-nav
