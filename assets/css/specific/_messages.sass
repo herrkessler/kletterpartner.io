@@ -1,19 +1,21 @@
-#messages
+#conversations
   width: 100%
   +display(flex)
   +flex(1 1)
   +flex-flow(row wrap)
   +justify-content(flex-start)
+  +align-content(flex-start)
   +align-items(stretch)
-  max-height: 80vh
+  height: 80vh
+  overflow-y: hidden
 
-#messages-menu
+#conversations-menu
   +flex(0 0 15%)
   padding-right: $default-padding/2
   +media($tablet)
     display: none
 
-#messages-list
+#conversations-list
   +flex(0 0 25%)
   +media($tablet)
     +flex(0 0 30%)
@@ -22,17 +24,19 @@
     padding: 0
     border-right: 0px!important
 
-#messages-list, #messages-menu
+#conversations-list, #conversations-menu
   border-right: 1px solid white
 
-#messages-mobile-menu
-  display: none
-  +flex(0 0 100%)
-  margin: $default-margin 0
-  +media($tablet)
-    display: block
+#conversations-menu, #conversations-list, #messages
+  max-height: 90%
+  overflow-y: scroll
 
-#message
+#conversations-meta-menu
+  +flex(0 0 100%)
+  margin: $default-margin/2 0
+
+#messages
+  position: relative
   +flex(0 0 60%)
   min-height: 400px
   padding: 0 0 0 $default-padding/2
@@ -41,10 +45,13 @@
   +media($mobile)
     display: none
 
-#message-header, #message-title
+.messages-list-item
   margin-bottom: $default-margin
 
-#message-title
+.message-header
+  margin-bottom: $default-margin/2
+
+.message-title
   font-weight: bold
 
 #message-nav
@@ -57,7 +64,12 @@
     &:last-child
       float: right
 
-.message
+#show-menu-mobile
+  display: none
+  +media($tablet)
+    display: inline-block
+
+.conversations-list-item
   position: relative
   +transition(background 0.3s ease-out)
   &:nth-child(odd)
@@ -66,24 +78,41 @@
     background: lighten($bg-color, 2.5%)
   &:hover
     background: darken($bg-color, 5%)
+  &.selected
+    background: lighten($bg-color, 10%)
 
-.message-inner-wrapper
+.conversation-inner-wrapper
   position: relative
   padding: $default-padding/2 0
   margin: 0 $default-padding/2
   cursor: pointer
 
-.message-status
+.conversation-status
   position: absolute
   top: $default-padding/2
   right: $default-padding/2
   &.green
     color: $green
 
-.message-timestamp
+.conversation-timestamp
   font-size: 14px
 
 #new-message
-  position: absolute
-  right: $default-padding/2
-  top: -8px
+  float: right
+
+#message-spinner
+  opacity: 0
+  +size(30px)
+  +total-center
+  background-color: white
+  +animation(rotateplane 1.2s infinite ease-in-out)
+  &.loading
+    opacity: 1
+
++keyframes(rotateplane)
+  0%
+    +transform(perspective(120px) rotateX(0deg) rotateY(0deg))
+  50%
+    +transform(perspective(120px) rotateX(-180.1deg) rotateY(0deg))
+  100%
+    +transform(perspective(120px) rotateX(-180deg) rotateY(-179.9deg))

@@ -1,68 +1,31 @@
 h1 Meine Nachrichten
-a.button#new-message href="#"
-  i.fa.fa-envelope
-  span  Neue Nachricht
 hr
-#messages
-  #messages-mobile-menu
-    i.fa.fa-arrow-circle-o-left
-    span  Postfächer
-  #messages-menu
+#conversations data-id=(env['warden'].user.id)
+  #conversations-meta-menu
+    a.button.icon#new-message href="#"
+      i.fa.fa-envelope
+      span Neue Nachricht
+    a.button.icon#show-menu-mobile href="#"
+      i.fa.fa-arrow-circle-o-left
+      span Postfächer
+  #conversations-menu
     ul
       li Inbox
       li Sent
       li Thrash
 
-  #messages-list
-    ul.messages
+  #conversations-list
+    ul.conversations
       - @my_conversations.each do |conversation|
-        li.message data-id=(conversation.id)
-          .message-inner-wrapper
+        li.conversations-list-item data-id=(conversation.id)
+          .conversation-inner-wrapper
             - if conversation.messages.any?{|message| message.status = 'unread'}
-              i.fa.fa-circle-o.message-status.green
+              i.fa.fa-circle-o.conversation-status.green
             - conversation.participants.each do |participant|
               - unless participant.user == @sessionUser
                 b = participant.user.forename
-            .message-timestamp = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
+            .conversation-timestamp = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
 
-
-          / - part.conversation.messages.each do |message|
-          / li.message data-id=(message.id)
-          /   .message-inner-wrapper
-          /     - if message.status = 'unread'
-          /       i.fa.fa-circle-o.message-status.green
-          /     p
-          /       span Message #ID: 
-          /       b = message.id
-          /     p 
-          /       span Von: 
-          /       - message.conversation.participants.each do |participant|
-          /         - unless participant.user == @sessionUser
-          /           b = participant.user.forename 
-          /     / p = message.created_at
-          /     p 17.01.2015 - 16:33:25 Uhr
-          /     p 
-          /       span Titel: 
-          /       b = message.title
-
-  #message
-    #message-header
-      #message-sender 
-        span Von: 
-        b Heike
-      / #message-status NEW
-      #message-date.message-timestamp 09.01.2015 - 08:53:09
-    #message-title Titel der Nachricht hierhin
-    #message-content
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      br
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      br
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-    #message-nav
-      a.button href="#" 
-        i.fa.fa-reply
-        span  Antworten
-      a.button href="#"
-        i.fa.fa-times
-        span  Konversation Löschen
+  #messages
+    #message-spinner
+    == slim :"message/conversation"
