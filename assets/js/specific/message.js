@@ -102,10 +102,11 @@ $(document).ready(function(){
   function getMessages(userID, messageID) {
     $.getJSON( "/users/"+userID+"/messages/"+messageID, {
     }).done(function( data ) {
+      console.log(data[0]);
       $('.messages-list-item').remove();
-      $.each(data, function(index, message){
+      $.each(data[1], function(index, message){
         messagesList.append(
-          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-title">'+message.title+'</div><div class="message-date message-timestamp">'+message.created_at+'</div></div><div class="message-content">'+message.content+'</div></li>'
+          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-date message-timestamp">'+message.created_at+'</div></div><div class="message-content">'+message.content+'</div></li>'
         );
         scrollMessageBottom();
       });
