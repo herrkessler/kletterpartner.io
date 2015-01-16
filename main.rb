@@ -10,6 +10,8 @@ require 'sinatra/assetpack'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
 
+require 'json'
+
 class KletterPartner < Sinatra::Base
 
   # -----------------------------------------------------------
@@ -40,9 +42,10 @@ class KletterPartner < Sinatra::Base
     serve '/fonts',  from: 'assets/fonts'     # Default
 
     js :application, [
-      '/js/lib/cash.js',
+      '/js/lib/jquery-2.1.3.js',
       # '/js/vendor/html5shiv.js',
-      '/js/specific/menu.js'
+      '/js/specific/menu.js',
+      '/js/specific/message.js'
       # '/js/app.js'
     ]
 

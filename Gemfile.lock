@@ -119,6 +119,7 @@ DEPENDENCIES
   dm-noisy-failures
   dm-sqlite-adapter
   dm-validations
+  json
   mandrill-api (~> 1.0.53)
   neat
   sass
