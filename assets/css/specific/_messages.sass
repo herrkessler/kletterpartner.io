@@ -28,7 +28,7 @@
   border-right: 1px solid white
 
 #conversations-menu, #conversations-list, #messages
-  max-height: 90%
+  +calc(height, "100% - 26px")
   overflow-y: scroll
 
 #conversations-meta-menu
@@ -47,6 +47,8 @@
 
 .messages-list-item
   margin-bottom: $default-margin
+  &:last-child
+    margin-bottom: 200px
 
 .message-header
   margin-bottom: $default-margin/2
@@ -94,11 +96,15 @@
   &.green
     color: $green
 
-.conversation-timestamp
+.conversation-timestamp, .message-timestamp
   font-size: 14px
 
 #new-message
   float: right
+
+#message-answer
+  width: 100%
+  height: 100px
 
 #message-spinner
   opacity: 0
@@ -116,3 +122,11 @@
     +transform(perspective(120px) rotateX(-180.1deg) rotateY(0deg))
   100%
     +transform(perspective(120px) rotateX(-180deg) rotateY(-179.9deg))
+
+#message-answer-box
+  position: absolute
+  bottom: 0
+  right: 0
+  +calc(width, "60% - 2px")
+  background: $bg-color
+  padding: 0 $default-padding/2
