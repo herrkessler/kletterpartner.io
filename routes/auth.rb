@@ -13,8 +13,7 @@ class KletterPartner < Sinatra::Base
       sessionUser = env['warden'].user
 
       user = User.get(sessionUser.id)
-      user.update(:online => true)
-      user.save
+      user.update(:status => :online)
 
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
       redirect to("/")
@@ -27,8 +26,7 @@ class KletterPartner < Sinatra::Base
     sessionUser = env['warden'].user
 
     user = User.get(sessionUser.id)
-    user.update(:online => false)
-    user.save
+    user.update(:status => :offline)
     
     env['warden'].raw_session.inspect
     env['warden'].logout

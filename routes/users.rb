@@ -24,7 +24,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
-    @email_stats = @user.conversations.messages.map(&:status)
+    @email_stats ||= @user.conversations.messages.map(&:status) || halt(404)
     @sessionUser = env['warden'].user
     slim :"user/show"
   end
@@ -86,6 +86,23 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     @user = User.get(params[:id])
     slim :"user/friendship"
+  end
+
+  # Status Update
+  # -----------------------------------------------------------
+
+  get '/user/idle', :provides => :json do
+    sessionUser = env['warden'].user
+    user = User.get(sessionUser.id)
+    user.update(:status => :idle)
+    halt 200
+  end
+
+  get '/user/online', :provides => :json do
+    sessionUser = env['warden'].user
+    user = User.get(sessionUser.id)
+    user.update(:status => :online)
+    halt 200
   end
 
 end
