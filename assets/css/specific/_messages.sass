@@ -47,11 +47,15 @@
 
 .messages-list-item
   margin-bottom: $default-margin
+  +span-columns(12)
+  +omega
   &:last-child
     margin-bottom: 200px
 
 .message-header
   margin-bottom: $default-margin/2
+  position: relative
+  +span-columns(1)
 
 .message-title
   font-weight: bold
@@ -130,3 +134,12 @@
   +calc(width, "60% - 2px")
   background: $bg-color
   padding: 0 $default-padding/2
+
+.message-user
+  float: left
+  border-radius: 50%
+  +size(30px)
+
+.message-content
+  +span-columns(11)
+  +omega()

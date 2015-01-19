@@ -17,20 +17,18 @@ class KletterPartner < Sinatra::Base
     content_type :json
     conversation = Conversation.get(params[:conversation])
     messages = conversation.messages
-    users = conversation.participants.user
-    result = []
-    result << users
-    result << messages
-    result.to_json
+    messages.to_json
   end
 
   post '/users/:id/messages/:conversation', :provides => :json do
     data = request.body.read
 
+    sessionUser = env['warden'].user
+
     @conversation = Conversation.get(params[:conversation])
 
     @message = Message.new()
-    @message.attributes = {:conversation => @conversation, :content => data}
+    @message.attributes = {:conversation => @conversation, :content => data, :sender => sessionUser.id}
     @message.save
 
     @conversation.messages << @message
