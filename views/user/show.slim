@@ -30,7 +30,7 @@
           span Freundschaft beenden
   hr
   .user-avatar
-    img src= '/images/avatar.png'
+    img src='/images/#{@user.id}/#{@user.avatar}'
   .user-info
     p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
     ul.user-info-facts
@@ -75,6 +75,7 @@
 - if @sessionUser.admin == true
   br
   br
-  form action="/users/#{@user.id}" method="POST"
-    input type="hidden" name="_method" value="DELETE"
-    input.button.admin type="submit" value="Delete THIS User"
+  .admin-bar
+    form action="/users/#{@user.id}" method="POST"
+      input type="hidden" name="_method" value="DELETE"
+      input.button.admin type="submit" value="Delete THIS User"

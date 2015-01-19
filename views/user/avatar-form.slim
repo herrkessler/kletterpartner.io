@@ -1,0 +1,9 @@
+- if @user.avatar != 'avatar.png'
+  img.avatar src="/images/uploads/#{@user.id}/#{@user.avatar}"
+- else
+  img.avatar src="/images/avatar.png"
+br
+br
+
+label for="file" Avatar:
+input.title type="file" name="file" value="#{@user.avatar}" size="32" 

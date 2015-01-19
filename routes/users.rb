@@ -46,6 +46,23 @@ class KletterPartner < Sinatra::Base
     end
   end
 
+  post '/users/:id/avatar' do
+
+    @sessionUser = env['warden'].user
+    @filename = params[:file][:filename]
+    file = params[:file][:tempfile]
+    File.open("/images/#{sessionUser.id}/#{@filename}", 'wb') do |f|
+      f.write(file.read)
+    end
+    if success
+      user = User.get(params[:id])
+      user.update(:avatar => @filename)
+      redirect to("/users/#{user.id}")
+    else
+      redirect to("/users/#{user.id}/edit")
+    end
+  end
+
   delete '/users/:id' do
     env['warden'].authenticate!
     User.get(params[:id]).destroy
