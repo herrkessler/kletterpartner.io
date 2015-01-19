@@ -43,8 +43,10 @@ class KletterPartner < Sinatra::Base
 
     js :application, [
       '/js/lib/jquery-2.1.3.js',
+      '/js/vendor/idle-timer.js',
       # '/js/vendor/html5shiv.js',
       '/js/specific/menu.js',
+      '/js/specific/idle.js',
       '/js/specific/message.js'
       # '/js/app.js'
     ]
