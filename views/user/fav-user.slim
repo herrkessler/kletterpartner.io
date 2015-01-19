@@ -2,7 +2,7 @@ li.card.user
   .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
     .card-favourite-indicator class=(@user.friendship_requested?(user) ? 'requested' : '')
     - if @user == @sessionUser
-      .card-online-indicator class=(user.online? ? 'online' : '')
+      .card-online-indicator class=(user.status)
     a href="/users/#{user.id}"
   .card-content
     a.user-name href="/users/#{user.id}" = user.forename
