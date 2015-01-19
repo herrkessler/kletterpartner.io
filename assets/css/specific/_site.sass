@@ -40,3 +40,28 @@
   +span-columns(3)
   +omega(4n)
   margin-bottom: $default-margin/2
+
+.card-site-info
+  +span-columns(12)
+  +omega
+  position: absolute
+  bottom: 0
+  right: 0
+  +media($mobile)
+    display: none
+
+.card-site-info-user, .card-site-info-distance
+  +span-columns(6)
+  +omega(2n)
+  i
+    margin: 0 $default-margin/5
+  span
+    margin-right: $default-margin/5
+    font-size: 14px
+  +media($tablet)
+    +span-columns(12)
+    +omega
+    text-align: left!important  
+
+.card-site-info-distance
+  text-align: right
