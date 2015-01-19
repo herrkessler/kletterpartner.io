@@ -12,7 +12,7 @@ class KletterPartner < Sinatra::Base
     if session[:return_to].nil?
       sessionUser = env['warden'].user
 
-      user = User.get(sessionUser)
+      user = User.get(sessionUser.id)
       user.update(:online => true)
       user.save
 
@@ -26,7 +26,7 @@ class KletterPartner < Sinatra::Base
   get '/auth/logout' do
     sessionUser = env['warden'].user
 
-    user = User.get(sessionUser)
+    user = User.get(sessionUser.id)
     user.update(:online => false)
     user.save
     
