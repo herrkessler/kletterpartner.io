@@ -9,6 +9,10 @@ class User
   property :email, String, :format => :email_address, :required => true, :unique => true, :lazy => [ :show ]
   property :password, BCryptHash, :lazy => [ :show ]
   property :admin, Boolean, :default  => false, :lazy => [ :show ]
+  property :avatar, String, :default => 'avatar.png'
+
+  property :online, Boolean, :default => false
+
   property :created_at, DateTime, :lazy => [ :show ]
   property :update_at, DateTime, :lazy => [ :show ]
 

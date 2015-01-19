@@ -11,6 +11,11 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     if session[:return_to].nil?
       sessionUser = env['warden'].user
+
+      user = User.get(sessionUser)
+      user.update(:online => true)
+      user.save
+
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
       redirect to("/")
     else
@@ -19,8 +24,15 @@ class KletterPartner < Sinatra::Base
   end
      
   get '/auth/logout' do
+    sessionUser = env['warden'].user
+
+    user = User.get(sessionUser)
+    user.update(:online => false)
+    user.save
+    
     env['warden'].raw_session.inspect
     env['warden'].logout
+
     flash[:success] = 'Du hast Dich erfolgreich ausgeloggt.'
     redirect '/'
   end
