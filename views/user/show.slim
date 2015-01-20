@@ -41,16 +41,6 @@
       li.user-info-fact Fact #2
       li.user-info-fact Fact #3
 
-- if @user == @sessionUser
-  - if @user.friendship_requests.length > 0
-    #friendship-requests
-        h2 Von Dir angefragte Freundschaften
-        hr
-        ul.friendships-requests
-          - @user.friendship_requests.each do |friend|
-            == slim :"user/fav-user", :locals => {user: friend}
-
-
 - if @user.friends.length > 0
   #friendships
     - unless @user == @sessionUser

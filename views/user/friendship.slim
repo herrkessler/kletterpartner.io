@@ -1,13 +1,34 @@
-h2 Freundschaftsanfragen
+h1 Freundschaftsanfragen an Dich
 hr
-- if @user.friendships_to_accept.length > 0
-  ul.friendships-to-accept
-    - @user.friendships_to_accept.each do |friend|
-      == slim :"user/req-user", :locals => {user: friend}
-- else
-  p Leider keine Freundschaftsanfragen zur Zeit...
-  br
-  p 
-    | Selber 
-    a href="/users" neue Freunde
-    |  finden?
+.friendship-requests
+  - if @user.friendships_to_accept.length > 0
+    ul.friendships-to-accept
+      - @user.friendships_to_accept.each do |friend|
+        == slim :"user/req-user", :locals => {user: friend}
+  - else
+    p Leider keine Freundschaftsanfragen zur Zeit...
+    br
+    p 
+      | Selber 
+      a href="/users" neue Freunde
+      |  finden?
+    br
+    br
+    
+.friendship-requests
+  - if @user.friendship_requests.length > 0
+      h2 Von Dir angefragte Freundschaften
+      hr
+      ul.friendships-requests
+        - @user.friendship_requests.each do |friend|
+          == slim :"user/fav-user", :locals => {user: friend}
+  - else
+    p Leider keine Freundschaftsanfragen zur Zeit...
+    br
+    p 
+      | Selber 
+      a href="/users" neue Freunde
+      |  finden?
+    br
+    br
+
