@@ -35,7 +35,7 @@ hr
       - @my_conversations.each do |conversation|
         li.conversations-list-item data-id=(conversation.id)
           .conversation-inner-wrapper
-            - if conversation.messages.any?{|message| message.status = 'unread'}
+            - if conversation.messages.any?{|message| message.status == :unread}
               i.fa.fa-circle-o.conversation-status.green
             - conversation.participants.each do |participant|
               - unless participant.user == @sessionUser

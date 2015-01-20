@@ -19,6 +19,14 @@ $(document).ready(function(){
   firstConversation.addClass('selected');
   message.attr('data-id', conversationId);
 
+  $.ajax({
+    url: "/users/"+userId+"/conversation/"+conversationId,
+    dataType: 'json',
+    contentType: 'application/json',
+    type: 'GET',
+    accepts: "application/json"
+  });
+
   if(view.indexOf("messages") > -1) {
     getMessages(userId, conversationId);
   }
@@ -36,6 +44,15 @@ $(document).ready(function(){
     $(this).siblings('.conversations-list-item').removeClass('selected');
     message.attr('data-id', messageId);
     getMessages(userId, messageId);
+
+    $.ajax({
+      url: "/users/"+userId+"/conversation/"+messageId,
+      dataType: 'json',
+      contentType: 'application/json',
+      type: 'GET',
+      accepts: "application/json"
+    });
+
   });
 
   answerLink.on('click', function(event){
@@ -105,7 +122,7 @@ $(document).ready(function(){
       $('.messages-list-item').remove();
       $.each(data, function(index, message){
         messagesList.append(
-          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+'</div><div class="message-text">'+message.content+'</div></div></li>'
+          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+' und '+message.status+'</div><div class="message-text">'+message.content+'</div></div></li>'
         );
         scrollMessageBottom();
       });

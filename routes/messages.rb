@@ -72,4 +72,11 @@ class KletterPartner < Sinatra::Base
     halt 200, data.to_json
   end
 
+  get '/users/:id/conversation/:conversation', :provides => :json do
+    conversation = Conversation.get(params[:conversation])
+    messages = conversation.messages
+    messages.all.update(:status => :read)
+    halt 200
+  end
+
 end
