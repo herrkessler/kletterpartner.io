@@ -45,9 +45,11 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     user = User.get(params[:id])
     user.update(params[:user])
-    if success
+    if user.saved?
+      flash[:success] = 'User update successful'
       redirect to("/users/#{user.id}")
     else
+      flash[:error] = 'Something went wrong'
       redirect to("/users/#{user.id}/edit")
     end
   end
@@ -62,8 +64,13 @@ class KletterPartner < Sinatra::Base
     FileUtils.move file.to_path, File.join(filepath, params[:file][:filename])
     user = User.get(sessionUser.id)
     user.update(:avatar => @filename)
-    flash[:success] = 'Bild hochgeladen'
-    redirect to("/users/#{user.id}")
+    if user.saved?
+      flash[:success] = 'Bild hochgeladen'
+      redirect to("/users/#{user.id}")
+    else
+      flash[:error] = 'Something went wrong'
+      redirect to("/users/#{user.id}/edit")
+    end
   end
 
   delete '/users/:id' do
