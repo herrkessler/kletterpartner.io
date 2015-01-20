@@ -20,6 +20,7 @@ class KletterPartner < Sinatra::Base
 
   set :root, File.dirname(__FILE__)
   # set :environment, :production
+  set :environment, :development
   set :session_secret, '*&(^B234'
 
   enable :sessions
