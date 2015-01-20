@@ -1,10 +1,17 @@
 - @my_conversations.each do |conversation|  
   - conversation.participants.each do |participant|
-    css:
-      .user_#{participant.user.id} {
-        background: url(/images/avatar.png) center center no-repeat;
-        background-size: cover;
-      }
+    - if participant.user.avatar != 'avatar.png' 
+      css:
+        .user_#{participant.user.id} {
+          background: url(/images/#{participant.user.id}/#{participant.user.avatar}) center center no-repeat;
+          background-size: cover;
+        }
+    - else
+      css:
+        .user_#{participant.user.id} {
+          background: url(/images/avatar.png) center center no-repeat;
+          background-size: cover;
+        }
   
 
 h1 Meine Nachrichten
