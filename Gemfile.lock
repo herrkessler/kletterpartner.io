@@ -42,6 +42,11 @@ GEM
       dm-core (~> 1.2.0)
     dm-noisy-failures (0.2.3)
       data_mapper
+    dm-paperclip (2.5.0)
+      dm-core (>= 1.2.0)
+      dm-migrations (>= 1.2.0)
+      dm-validations (>= 1.2.0)
+      extlib
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -68,6 +73,7 @@ GEM
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
     excon (0.43.0)
+    extlib (0.9.16)
     fastercsv (1.5.5)
     ffi (1.9.6)
     hitimes (1.2.2)
@@ -137,6 +143,7 @@ DEPENDENCIES
   data_mapper
   dm-is-friendly!
   dm-noisy-failures
+  dm-paperclip
   dm-sqlite-adapter
   dm-validations
   json
