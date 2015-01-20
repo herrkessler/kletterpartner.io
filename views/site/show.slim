@@ -37,6 +37,7 @@ ul.site-users
 - if env['warden'].user.admin == true
   br
   br
-  form action="/sites/#{@site.id}" method="POST"
-    input type="hidden" name="_method" value="DELETE"
-    input.button.admin type="submit" value="Delete THIS Site"
+  .admin-bar
+    form action="/sites/#{@site.id}" method="POST"
+      input type="hidden" name="_method" value="DELETE"
+      input.button.admin type="submit" value="Delete THIS Site"
