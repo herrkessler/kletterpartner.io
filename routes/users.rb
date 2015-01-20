@@ -25,9 +25,14 @@ class KletterPartner < Sinatra::Base
   get '/users/:id' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
-    @email_stats ||= @user.conversations.messages.map(&:status) || halt(404)
-    @sessionUser = env['warden'].user
-    slim :"user/show"
+    if @user != nil
+      @email_stats ||= @user.conversations.messages.map(&:status) || halt(404)
+      @sessionUser = env['warden'].user
+      slim :"user/show"
+    else
+      flash[:error] = 'What you are looking for does not exist'
+      redirect to("/users")
+    end
   end
 
   get '/users/:id/edit' do
