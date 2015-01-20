@@ -97,6 +97,18 @@ class KletterPartner < Sinatra::Base
         fail!("Could not log in")
       end
     end
+
+    def admin?
+      user = User.first(username: params['user']['username'])
+
+      if user.nil?
+        fail!("The username you entered does not exist.")
+      elsif user.admin?
+        success!(user)
+      else
+        fail!("Could not log in")
+      end
+    end
   end
 
   # -----------------------------------------------------------
