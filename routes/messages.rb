@@ -43,11 +43,13 @@ class KletterPartner < Sinatra::Base
   post '/users/:id/new-message/:reciever', :provides => :json do
     data = request.body.read
 
+    sessionUser = env['warden'].user
+
     conversation = Conversation.new()
     conversation.save
 
     message = Message.new()
-    message.attributes = {:conversation => conversation, :content => data, :sender => params([:id])}
+    message.attributes = {:conversation => conversation, :content => data, :sender => sessionUser.id}
     message.save
 
     sender = Participant.new()
@@ -69,7 +71,7 @@ class KletterPartner < Sinatra::Base
 
     conversation.update(:update_at => Time.now)
 
-    halt 200, data.to_json
+    halt 200, conversation.id.to_json
   end
 
   get '/users/:id/conversation/:conversation', :provides => :json do

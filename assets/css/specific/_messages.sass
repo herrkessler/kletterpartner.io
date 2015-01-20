@@ -149,3 +149,18 @@
 
 .message-text
   margin: $default-margin/2 0 $default-margin 0
+
+#overlay
+  display: none
+  background: rgba(black, 0.8)
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  &.active
+    display: block
+    z-index: 1
+
+#overlay-inner
+  +total-center

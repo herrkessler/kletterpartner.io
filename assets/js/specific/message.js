@@ -19,16 +19,17 @@ $(document).ready(function(){
   firstConversation.addClass('selected');
   message.attr('data-id', conversationId);
 
-  $.ajax({
-    url: "/users/"+userId+"/conversation/"+conversationId,
-    dataType: 'json',
-    contentType: 'application/json',
-    type: 'GET',
-    accepts: "application/json"
-  });
-
   if(view.indexOf("messages") > -1) {
     getMessages(userId, conversationId);
+
+    $.ajax({
+      url: "/users/"+userId+"/conversation/"+conversationId,
+      dataType: 'json',
+      contentType: 'application/json',
+      type: 'GET',
+      accepts: "application/json"
+    });
+    
   }
   
   $(document).ajaxStart(function() {
@@ -85,28 +86,40 @@ $(document).ready(function(){
   // -------------------------------
 
   var newMessageLink = $('#new-message');
+  var overlay = $('#overlay');
+  var sendNewMessageLink = $('#send-message');
 
-  newMessageLink.on('click', function(event){
+  newMessageLink.on('click', function(event) {
     event.preventDefault();
-    var messageText = 'Static Text';
-    var newConversation = '1';
-    var recieverId = '4';
+    overlay.addClass('active');
+    
+  });
 
-    $.ajax({
-      url: "/users/"+userId+"/new-message/"+recieverId,
-      dataType: 'json',
-      contentType: 'application/json',
-      type: 'POST',
-      data : messageText,
-      accepts: "application/json",
-      success: function() {
-        getMessages(userId, selectedConversation);
-        console.log(json);
-      }, 
-      error: function(json) {
-        console.log(json);
-      }
-    });
+  sendNewMessageLink.on('click', function(event){
+    event.preventDefault();
+    var messageText = $('#new-message-text textarea').val();
+    var recieverId = $('#new-message-reciever select option:selected').val();
+
+    if (recieverId !== '' && messageText !== '') {
+      $.ajax({
+        url: "/users/"+userId+"/new-message/"+recieverId,
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        data : messageText,
+        accepts: "application/json",
+        success: function(json) {
+          overlay.removeClass('active');
+          getMessages(userId, json);
+        }, 
+        error: function(json) {
+          console.log(json);
+        }
+      });
+    } else {
+      $('#new-message-text textarea').focus(); 
+    }
+    
   });
 
   // Functions
@@ -122,7 +135,7 @@ $(document).ready(function(){
       $('.messages-list-item').remove();
       $.each(data, function(index, message){
         messagesList.append(
-          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+' und '+message.status+'</div><div class="message-text">'+message.content+'</div></div></li>'
+          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+'</div><div class="message-text">'+message.content+'</div></div></li>'
         );
         scrollMessageBottom();
       });

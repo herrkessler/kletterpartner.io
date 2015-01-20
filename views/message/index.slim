@@ -52,3 +52,17 @@ hr
       a.button.icon#message-answer-link href="#" 
         i.fa.fa-reply
         span Antworten
+
+#overlay
+  #overlay-inner
+    #new-message-reciever
+      select
+        option value="" Select User
+        - @user.friends.each do |friend|
+          option value="#{friend.id}" = friend.forename
+    #new-message-text
+      textarea
+    #new-message-button
+      a.button.icon#send-message href="#" 
+        i.fa.fa-reply
+        span Absenden
