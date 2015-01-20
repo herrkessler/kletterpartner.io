@@ -4,8 +4,8 @@ nav#main-navigation
       li.main-navigation-list-item.logo
         a href="/" kletterpartner.io
       - if env['warden'].authenticated?
-        li.main-navigation-list-item.users
-          a href="/users" Kletterpartner finden
+        / li.main-navigation-list-item.users
+        /   a href="/users" Kletterpartner finden
         li.main-navigation-list-item.sites
           a href="/sites" Kletterhallen finden
         li.main-navigation-list-item.blog
@@ -50,8 +50,8 @@ nav#main-navigation
               - else
                 img.user-small-avatar src= "/images/avatar.png"
             a.button href="/users/#{env['warden'].user.id}" Mein Profil
-          li.mobile-navigation-list-item.users
-            a.button href="/users" Kletterpartner finden
+          / li.mobile-navigation-list-item.users
+          /   a.button href="/users" Kletterpartner finden
           li.mobile-navigation-list-item.sites
             a.button href="/sites" Kletterhallen finden
           li.mobile-navigation-list-item.blog
