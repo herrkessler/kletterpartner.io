@@ -1,6 +1,11 @@
 li.card.user
-  .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
-    .card-favourite-indicator class=(user.is_friends_with?(@sessionUser) && !user.friendship_to_accept?(@sessionUser) && !user.friendship_requested?(@sessionUser) ? 'active' : 'inactive') 
-    a href="/users/#{user.id}"
+  - if user.avatar != 'avatar.png' 
+    .card-avatar style=("background:url(/images/#{user.id}/#{user.avatar}) center center no-repeat; background-size:cover;")
+      .card-favourite-indicator class=(user.is_friends_with?(@sessionUser) && !user.friendship_to_accept?(@sessionUser) && !user.friendship_requested?(@sessionUser) ? 'active' : 'inactive') 
+      a href="/users/#{user.id}"
+  - else
+    .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
+      .card-favourite-indicator class=(user.is_friends_with?(@sessionUser) && !user.friendship_to_accept?(@sessionUser) && !user.friendship_requested?(@sessionUser) ? 'active' : 'inactive') 
+      a href="/users/#{user.id}"
   .card-content
     a.user-name href="/users/#{user.id}" = user.forename

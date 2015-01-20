@@ -48,19 +48,16 @@ class KletterPartner < Sinatra::Base
 
   post '/users/:id/avatar' do
 
-    @sessionUser = env['warden'].user
+    sessionUser = env['warden'].user
     @filename = params[:file][:filename]
     file = params[:file][:tempfile]
-    File.open("/images/#{sessionUser.id}/#{@filename}", 'wb') do |f|
-      f.write(file.read)
-    end
-    if success
-      user = User.get(params[:id])
-      user.update(:avatar => @filename)
-      redirect to("/users/#{user.id}")
-    else
-      redirect to("/users/#{user.id}/edit")
-    end
+    FileUtils::mkdir_p 'public/images/' + sessionUser.id.to_s
+    filepath = 'public/images/' + sessionUser.id.to_s
+    FileUtils.move file.to_path, File.join(filepath, params[:file][:filename])
+    user = User.get(sessionUser.id)
+    user.update(:avatar => @filename)
+    flash[:success] = 'Bild hochgeladen'
+    redirect to("/users/#{user.id}")
   end
 
   delete '/users/:id' do

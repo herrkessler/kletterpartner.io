@@ -32,7 +32,6 @@ h2 Wer klettert hier?
 hr
 ul.site-users
 - @site.users.each do |user|
-  / - unless user == @sessionUser
   == slim :"user/user", :locals => {user: user}
 
 - if env['warden'].user.admin == true

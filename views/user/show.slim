@@ -30,7 +30,10 @@
           span Freundschaft beenden
   hr
   .user-avatar
-    img src='/images/#{@user.id}/#{@user.avatar}'
+    - if @user.avatar != 'avatar.png'
+      img src='/images/#{@user.id}/#{@user.avatar}'
+    - else
+      img src='/images/avatar.png'
   .user-info
     p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
     ul.user-info-facts

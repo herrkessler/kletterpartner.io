@@ -22,6 +22,7 @@ class KletterPartner < Sinatra::Base
   # set :environment, :production
   set :environment, :development
   set :session_secret, '*&(^B234'
+  set :public_folder, 'public'
 
   enable :sessions
   enable :method_override
