@@ -31,8 +31,8 @@
 h2 Wer klettert hier?
 hr
 ul.site-users
-- @site.users.each do |user|
-  == slim :"user/user", :locals => {user: user}
+  - @site.users.each do |user|
+    == slim :"user/user", :locals => {user: user}
 
 - if env['warden'].user.admin == true
   br
