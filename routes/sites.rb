@@ -28,8 +28,8 @@ class KletterPartner < Sinatra::Base
   get '/sites/:id' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
+    @site = Site.get(params[:id])
     if @site != nil
-      @site = Site.get(params[:id])
       slim :"site/show"
     else
       flash[:error] = 'What you are looking for does not exist'
