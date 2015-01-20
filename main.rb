@@ -12,6 +12,8 @@ require 'will_paginate/data_mapper'
 
 require 'json'
 
+require 'pony'
+
 class KletterPartner < Sinatra::Base
 
   # -----------------------------------------------------------

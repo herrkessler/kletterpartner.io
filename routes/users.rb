@@ -18,6 +18,7 @@ class KletterPartner < Sinatra::Base
   post '/users' do
     @user = User.create(params[:user])
     flash[:success] = 'Neuer User ' + @user.forename + ' angelegt'
+    Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
     redirect to("/users/#{@user.id}")
   end
 
