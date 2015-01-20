@@ -5,9 +5,14 @@ class KletterPartner < Sinatra::Base
 
   get '/users' do
     env['warden'].authenticate!
-    @sessionUser = env['warden'].user
-    @users = User.all.paginate(:page => params[:page], :per_page => 35)
-    slim :"user/index"
+    if env['warden'].user.admin?
+      @sessionUser = env['warden'].user
+      @users = User.all.paginate(:page => params[:page], :per_page => 35)
+      slim :"user/index"
+    else 
+      flash[:error] = 'Youre not the admin'
+      redirect to('/')
+    end
   end
 
   get '/users/new' do
