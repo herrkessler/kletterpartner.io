@@ -105,7 +105,7 @@ $(document).ready(function(){
       $('.messages-list-item').remove();
       $.each(data, function(index, message){
         messagesList.append(
-          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+'</div><p>'+message.content+'</p></div></li>'
+          '<li class="messages-list-item message_'+index+'"><div class="message-header"><div class="message-user user_'+message.sender+'"></div></div><div class="message-content"><div class="message-date message-timestamp">'+message.created_at+'</div><div class="message-text">'+message.content+'</div></div></li>'
         );
         scrollMessageBottom();
       });
