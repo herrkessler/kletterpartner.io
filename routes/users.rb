@@ -21,10 +21,27 @@ class KletterPartner < Sinatra::Base
   end
 
   post '/users' do
-    @user = User.create(params[:user])
-    Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
-    flash[:success] = 'Neuer User ' + @user.forename + ' angelegt, bitte anmelden'
-    redirect to("/auth/login")
+
+    data = params[:user]
+
+    if data[:username].empty? or data[:email].empty? or data[:password].empty?
+      flash[:error] = 'Something was missing'
+      redirect to("/users/new")
+    elsif data[:password] != data[:repeated_password]
+      flash[:error] = 'Your passwords did not match'
+      redirect to("/users/new")
+    else
+      data = data.except('repeated_password')
+      @user = User.create(data)
+      if @user.saved?
+        Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
+        flash[:success] = 'Neuer User ' + @user.forename + ' angelegt, bitte anmelden'
+        redirect to("/auth/login")
+      else
+        flash[:error] = 'Something went wrong here'
+        redirect to("/users/new")
+      end
+    end
   end
 
   get '/users/:id' do

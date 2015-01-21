@@ -1,0 +1,16 @@
+#login-form, #signup-form
+  +horizontal-center
+  margin: $default-margin*4 0 $default-margin*2 0
+  +media($mobile)
+    margin: $default-margin*2 0
+  label
+    display: block
+  input[type="text"], input[type="password"], input[type="email"]
+    +appearance(none)
+    color: $highlight
+    border: 0
+    outline: 0
+    width: 280px
+    padding: 8px
+    font-size: 20px
+    margin: $default-margin/2 0

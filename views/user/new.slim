@@ -1,5 +1,5 @@
-form action="/users" method="POST"
-  fieldset
-    legend Create a new user
-    == slim :"user/new-form"
-  input.button type="submit" value="Sign Up"
+#signup-form
+  form action="/users" method="POST"
+    fieldset
+      == slim :"user/new-form"
+    input.button.full.highlight type="submit" value="Sign Up"

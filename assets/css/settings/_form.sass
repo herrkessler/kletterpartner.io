@@ -1,8 +1,18 @@
 form
   fieldset
     margin-bottom: $default-margin
+    border: 0
+    padding: 0
   label
-    width: 200px
+    width: auto
     display: inline-block
+    &.required
+      &:after
+        content: "*"
+        position: relative
+        font-size: 28px
+        color: $highlight
+        line-height: 0
+        bottom: -4px
   input[type=text], input[type=email]
     margin-bottom: $default-margin/2
