@@ -7,8 +7,8 @@ li.card.site
       .card-site-info-user
         i.fa.fa-user
         span = site.users.count
-      .card-site-info-distance
-        i.fa.fa-map-marker
-        span 32km
+      / .card-site-info-distance
+      /   i.fa.fa-map-marker
+      /   span 32km
   .card-content
     a.site-name href="/sites/#{site.id}" = site.title

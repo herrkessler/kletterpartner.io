@@ -10,19 +10,40 @@ class KletterPartner < Sinatra::Base
     slim :"site/index"
   end
 
-  get '/sites/new' do
+  get '/sites-map', :provides => :json do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @site = Site.new
-    slim :"site/new"
+    sites = Site.all.paginate(:page => params[:page], :per_page => 35)
+    halt 200, sites.to_json
+  end
+
+  get '/sites/new' do
+    env['warden'].authenticate!
+    if env['warden'].user.admin?
+      @sessionUser = env['warden'].user
+      @site = Site.new
+      slim :"site/new"
+    else
+      flash[:error] = 'Youre not the admin'
+      redirect to('/')
+    end
   end
 
   post '/sites' do
     env['warden'].authenticate!
-    @post = Site.create(params[:post])
+
     @sessionUser = env['warden'].user
-    flash[:success] = 'Neuer Kletterhalle: "' + @site.title + '" angelegt'
-    redirect to("/sites/#{@site.id}")
+    site = Site.create(params[:site])
+
+    print site
+
+    if site.saved? == true
+      flash[:success] = 'Neuer Kletterhalle: "' + site.title + '" angelegt'
+      redirect to("/sites/#{site.id}")
+    else
+      redirect to('/sites/new')
+      flash[:error] = @site
+    end
   end
 
   get '/sites/:id' do

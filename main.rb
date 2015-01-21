@@ -1,18 +1,14 @@
 require 'bundler'
 Bundler.require
-
 require './model'
-
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/assetpack'
-
 require 'will_paginate'
 require 'will_paginate/data_mapper'
-
 require 'json'
-
 require 'pony'
+require 'geokit'
 
 class KletterPartner < Sinatra::Base
 
@@ -49,11 +45,11 @@ class KletterPartner < Sinatra::Base
     js :application, [
       '/js/lib/jquery-2.1.3.js',
       '/js/vendor/idle-timer.js',
-      # '/js/vendor/html5shiv.js',
+      'https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js',
       '/js/specific/menu.js',
       '/js/specific/idle.js',
+      '/js/specific/map.js',
       '/js/specific/message.js'
-      # '/js/app.js'
     ]
 
     css :application, '/css/application.sass', [

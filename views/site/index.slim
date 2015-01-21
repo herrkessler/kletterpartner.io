@@ -1,5 +1,9 @@
+link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css" rel="stylesheet"
+
 h1 Kletterhallen
 hr
+#map
+#search
 == will_paginate @sites, :previous_label => '◀', :next_label => '▶', :inner_window => '2', :page_links => false, :class => 'top-pagination pagination'
 ul.sites
   - @sites.each do |site|

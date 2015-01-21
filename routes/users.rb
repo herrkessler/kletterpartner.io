@@ -22,9 +22,9 @@ class KletterPartner < Sinatra::Base
 
   post '/users' do
     @user = User.create(params[:user])
-    flash[:success] = 'Neuer User ' + @user.forename + ' angelegt'
     Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
-    redirect to("/users/#{@user.id}")
+    flash[:success] = 'Neuer User ' + @user.forename + ' angelegt, bitte anmelden'
+    redirect to("/auth/login")
   end
 
   get '/users/:id' do
@@ -81,7 +81,7 @@ class KletterPartner < Sinatra::Base
   delete '/users/:id' do
     env['warden'].authenticate!
     User.get(params[:id]).destroy
-    redirect to('/users')
+    redirect to('/')
   end
 
   get '/users/:id/add' do

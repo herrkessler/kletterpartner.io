@@ -10,6 +10,7 @@ gem 'dm-is-friendly', :git => 'https://github.com/herrkessler/dm-is-friendly.git
 gem 'sinatra-flash', '0.3.0', require: 'sinatra/flash'
 gem 'warden', '1.2.1'
 gem 'json'
+gem 'geokit'
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'slim', '~> 3.0.1'
