@@ -19,15 +19,9 @@ class Site
   has n, :users, :through => Resource
 
   before :save do
-
     full_address = self.street, self.zip, self.town
-
-    print full_address
-
     data = Geokit::Geocoders::GoogleGeocoder.geocode full_address.to_s
     self.lat = data.lat
     self.lng = data.lng
-
   end
-
 end
