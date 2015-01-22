@@ -136,3 +136,46 @@
     right: inherit
     top: inherit
     margin: $default-margin/4 0
+
+// Edit
+// ----------------------------------------------
+
+.edit-avatar
+  +span-columns(6)
+  +media($tablet)
+    +span-columns(4)
+  +media($mobile)
+    +span-columns(12)
+    +omega
+    margin-bottom: $default-margin*2
+
+.edit-data
+  +span-columns(6)
+  +omega
+  +media($tablet)
+    +span-columns(8)
+  +media($mobile)
+    +span-columns(12)
+
+.edit-form
+  width: 100%
+  label
+    display: inline-block
+    width: 30%
+    +media($mobile)
+      display: block
+      width: 100%
+  input[type="text"], input[type="password"], input[type="email"]
+    +appearance(none)
+    color: $dark-grey
+    border: 0
+    outline: 0
+    width: 70%
+    padding: 8px
+    font-size: 20px
+    margin: $default-margin/2 0
+    +media($mobile)
+      display: block
+      width: 100%
+  .button
+    margin-top: $default-margin*2

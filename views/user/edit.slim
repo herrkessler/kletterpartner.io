@@ -1,18 +1,12 @@
-h1 Edit Avatar
+h1 Edit Your Data
 hr
-form action="/users/#{@user.id}/avatar" method="POST" enctype="multipart/form-data"
-  fieldset
-    legend Edit Avatar
+.edit-avatar
+  form.edit-form action="/users/#{@user.id}/avatar" method="POST" enctype="multipart/form-data"
     == slim :"user/avatar-form"
-  input.button type="submit" value="Upload Avatar Image"
-br
-br
+    input.button type="submit" value="Upload Avatar"
 
-h2 Edit User Data
-hr
-form action="/users/#{@user.id}" method="POST"
-  input type="hidden" name="_method" value="PUT"
-  fieldset
-    legend Edit user
+.edit-data
+  form.edit-form action="/users/#{@user.id}" method="POST"
     == slim :"user/update-form"
-  input.button type="submit" value="Update User Data"
+    input type="hidden" name="_method" value="PUT"
+    input.button type="submit" value="Update your Data"
