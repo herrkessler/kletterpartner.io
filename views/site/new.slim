@@ -1,5 +1,7 @@
-form action="/sites" method="POST"
-  fieldset
-    legend Create a new Site
-    == slim :"site/form"
-  input.button type="submit" value="Create NEW Site"
+h1 Neue Kletterhalle anlegen
+hr
+br
+br
+form.edit-form action="/sites" method="POST"
+  == slim :"site/form"
+  input.button type="submit" value="NEUE Kletterhalle speichern"

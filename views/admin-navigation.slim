@@ -2,12 +2,15 @@
   - if env['warden'].user.admin == true
     nav#admin-navigation
       .container
-        ul
-          li 
-            b admin area
-          li
-            a href="/users" Users
-          li
-            a href="/sites" Sites
-          li
-            a href="/blog/new" new Post
+        .inner
+          ul
+            li 
+              b admin area
+            li
+              a.button href="/users" users
+            li
+              a.button href="/sites" sites
+            li
+              a.button href="/sites/new" new site
+            li
+              a.button href="/blog/new" new post

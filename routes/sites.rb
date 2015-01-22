@@ -22,6 +22,7 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     if env['warden'].user.admin?
       @sessionUser = env['warden'].user
+      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
       @site = Site.new
       slim :"site/new"
     else
