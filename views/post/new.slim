@@ -1,5 +1,6 @@
-form action="/blog" method="POST"
-  fieldset
-    legend Create a new Post
-    == slim :"post/form"
+h1 New Post
+hr
+br
+form.new-post-form action="/blog" method="POST"
+  == slim :"post/form"
   input.button type="submit" value="Publish Post"

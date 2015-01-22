@@ -7,7 +7,7 @@ class KletterPartner < Sinatra::Base
     unless env['warden'].user == nil
       @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     end
-    @posts = Post.all
+    @posts = Post.all(:order => [:created_at.desc])
     slim :"post/index"
   end
 

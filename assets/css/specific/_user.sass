@@ -162,7 +162,7 @@
   +media($mobile)
     +span-columns(12)
 
-.edit-form
+.edit-form, .new-post-form
   width: 100%
   label
     display: inline-block
@@ -170,7 +170,9 @@
     +media($mobile)
       display: block
       width: 100%
-  input[type="text"], input[type="password"], input[type="email"]
+    &.top
+      vertical-align: top
+  input[type="text"], input[type="password"], input[type="email"], textarea
     +appearance(none)
     color: $dark-grey
     border: 0
