@@ -8,12 +8,33 @@
   +align-items(stretch)
   height: 80vh
   overflow-y: hidden
+  +media($mobile)
+    position: relative
+    width: 300%
+    display: block
+    padding-top: 50px
+    +transition(transform 0.3s ease-out)
+    +transform(translateX(-33.33%))
+    #conversations-menu, #conversations-list, #messages
+      width: 33.33%
+      float: left
+      border: 0!important
+      padding: 0!important
+      height: auto
+  &.mobile-active
+    +transform(translateX(-66.66%))
+    #conversations-meta-menu
+      left: 66.66%
+  &.mobile-menu-active
+    +transform(translateX(0))
+    #conversations-meta-menu
+      left: 0%
 
 #conversations-menu
   +flex(0 0 15%)
   padding-right: $default-padding/2
   +media($tablet)
-    display: none
+    // display: none
 
 #conversations-list
   +flex(0 0 25%)
@@ -34,6 +55,12 @@
 #conversations-meta-menu
   +flex(0 0 100%)
   margin: $default-margin/2 0
+  +media($mobile)
+    display: block
+    width: 33.33%
+    position: fixed
+    left: 33.33%
+    top: 0
 
 #messages
   position: relative
@@ -43,7 +70,9 @@
   +media($tablet)
     +flex(0 0 70%)
   +media($mobile)
-    display: none
+    height: 80% !important
+    overflow-y: scroll
+    min-height: 0 !important
 
 .messages-list-item
   margin-bottom: $default-margin
@@ -51,11 +80,15 @@
   +omega
   &:last-child
     margin-bottom: 200px
+    +media($mobile)
+      margin-bottom: 60px
 
 .message-header
   margin-bottom: $default-margin/2
   position: relative
   +span-columns(1)
+  +media($mobile)
+    +span-columns(2)
 
 .message-title
   font-weight: bold
@@ -112,6 +145,11 @@
 #message-answer
   width: 100%
   height: 100px
+  +media($mobile)
+    height: 50px
+    &:focus
+      height: 100px
+      outline: none
 
 #message-spinner
   opacity: 0
@@ -137,6 +175,12 @@
   +calc(width, "60% - 2px")
   background: $bg-color
   padding: 0 $default-padding/2
+  +media($tablet)
+    +calc(width, "70% - 4px")
+  +media($mobile)
+    width: 33.33%
+    display: none
+    padding: 0
 
 .message-user
   float: left
@@ -146,6 +190,8 @@
 .message-content
   +span-columns(11)
   +omega()
+  +media($mobile)
+    +span-columns(10)
 
 .message-text
   margin: $default-margin/2 0 $default-margin 0

@@ -143,3 +143,65 @@ $(document).ready(function(){
   }
 
 });
+
+// Mobile view functions
+// ------------------------------
+
+$(document).ready(function(){
+
+  var windowWidth = $(window).width();
+  var switchLink = $('#show-menu-mobile');
+  var textSpan = switchLink.find('span');
+  var conversationLink = $('.conversations-list-item');
+  var conversationWrapper = $('#conversations');
+  var showInboxLink = $('#show-inbox');
+  var messagAnswer = $('#message-answer-box');
+
+
+  if (windowWidth < 480) {
+
+    console.log(windowWidth);
+
+    conversationLink.on('click', function(event){
+      event.preventDefault();
+      conversationWrapper.addClass('mobile-active');
+      switchLink.addClass('active');
+      textSpan.text('Eingang');
+      messagAnswer.show();
+    });
+
+    
+    switchLink.on('click', function(event){
+
+      if (conversationWrapper.hasClass('mobile-active')) {
+        event.preventDefault();
+        conversationWrapper.removeClass('mobile-active');
+        textSpan.text('Postfächer');
+        $(this).removeClass('active');
+        messagAnswer.hide();
+      } else {
+        event.preventDefault();
+        $(this).hide();
+        conversationWrapper.addClass('mobile-menu-active');
+      }
+    });
+
+    showInboxLink.on('click', function(event) {
+      event.preventDefault();
+      conversationWrapper.removeClass('mobile-menu-active');
+      switchLink.show();
+    });
+
+  }
+
+  // else if (windowWidth < 768) {
+
+  //   switchLink.on('click', function(event){
+  //     event.preventDefault();
+  //     conversationWrapper.addClass('tablet-active');
+  //   });
+
+  // }
+
+});
+
