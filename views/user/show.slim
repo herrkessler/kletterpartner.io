@@ -5,19 +5,6 @@
       a href="/users/#{@user.id}/edit"
         i.fa.fa-pencil.edit-profile-link
 
-  - if @user == @sessionUser
-    #friendships-to-accept
-      a href="/users/#{@user.id}/friendship"
-        i.fa.fa-user
-      - if @user.friendships_to_accept.length > 0
-        span.friendship-to-accept-counter = @user.friendships_to_accept.length
-    #mail
-      a href="/users/#{@user.id}/messages"
-        i.fa.fa-envelope-o
-        - if @email_stats.count{|m| m == :unread } > 0
-          span.mail-counter
-            = @email_stats.count{|m| m == :unread }
-
   - unless @user == @sessionUser
     #friendship-nav
       - unless @user.is_friends_with?(@sessionUser)

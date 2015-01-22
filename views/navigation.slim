@@ -5,14 +5,12 @@ nav#main-navigation
         li.main-navigation-list-item.logo
           a href="/" kletterpartner.io
         - if env['warden'].authenticated?
-          / li.main-navigation-list-item.users
-          /   a href="/users" Kletterpartner finden
           li.main-navigation-list-item.sites
             a href="/sites" Kletterhallen finden
           li.main-navigation-list-item.blog
             a href="/blog" Blog
           li.main-navigation-list-item.logout
-            a.button href="/auth/logout" Log Out
+            a.button.highlight href="/auth/logout" Log Out
           li.main-navigation-list-item.profile
             a href="/users/#{env['warden'].user.id}"
               - if env['warden'].user.avatar != 'avatar.png'
@@ -20,6 +18,19 @@ nav#main-navigation
               - else
                 img.user-small-avatar src= "/images/avatar.png"
             a.button href="/users/#{env['warden'].user.id}" Mein Profil
+          li.main-navigation-list-item.friendship
+            #friendships-to-accept
+              a href="/users/#{env['warden'].user.id}/friendship"
+                i.fa.fa-user
+              - if env['warden'].user.friendships_to_accept.length > 0
+                span.friendship-to-accept-counter = env['warden'].user.friendships_to_accept.length
+          li.main-navigation-list-item.mail
+            #mail
+              a href="/users/#{env['warden'].user.id}/messages"
+                i.fa.fa-envelope-o
+                - if @email_stats.count{|m| m == :unread } > 0
+                  span.mail-counter
+                    = @email_stats.count{|m| m == :unread }
         - else
           li.main-navigation-list-item.blog
             a href="/blog" Blog
@@ -40,6 +51,17 @@ nav#main-navigation
               img src= '/images/#{env['warden'].user.id}/#{env['warden'].user.avatar}'
             - else
                 img.user-small-avatar src= "/images/avatar.png"
+        #mobile-friendships-to-accept
+          a href="/users/#{env['warden'].user.id}/friendship"
+            i.fa.fa-user
+          - if env['warden'].user.friendships_to_accept.length > 0
+            span.friendship-to-accept-counter = env['warden'].user.friendships_to_accept.length
+        #mobile-mail
+          a href="/users/#{env['warden'].user.id}/messages"
+            i.fa.fa-envelope-o
+            - if @email_stats.count{|m| m == :unread } > 0
+              span.mail-counter
+                = @email_stats.count{|m| m == :unread }
 
       #mobile-navigation
         ul.mobile-navigation-list
@@ -51,12 +73,22 @@ nav#main-navigation
                 - else
                   img.user-small-avatar src= "/images/avatar.png"
               a.button href="/users/#{env['warden'].user.id}" Mein Profil
-            / li.mobile-navigation-list-item.users
-            /   a.button href="/users" Kletterpartner finden
+            li.mobile-navigation-list-item.friendship
+              a.button.icon href="/users/#{env['warden'].user.id}/friendship"
+                i.fa.fa-user
+                span Freundschaften
+            li.mobile-navigation-list-item.mail
+              a.button.icon href="/users/#{env['warden'].user.id}/messages"
+                i.fa.fa-envelope-o
+                span Nachrichten
             li.mobile-navigation-list-item.sites
-              a.button href="/sites" Kletterhallen finden
+              a.button.icon href="/sites"
+                .i.fa.fa-tree
+                span Kletterhallen finden
             li.mobile-navigation-list-item.blog
-              a.button href="/blog" Blog
+              a.button.icon href="/blog"
+                i.fa.fa-newspaper-o
+                span Blog
             li.mobile-navigation-list-item.logout
               a.button.highlight href="/auth/logout" Log Out
           - else

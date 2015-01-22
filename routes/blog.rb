@@ -4,13 +4,24 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   get '/blog' do
+    unless env['warden'].user == nil
+      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    end
     @posts = Post.all
     slim :"post/index"
   end
 
   get '/blog/new' do
-    @post = Post.new
-    slim :"post/new"
+    if env['warden'].user.admin?
+      unless env['warden'].user == nil
+        @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      end
+      @post = Post.new
+      slim :"post/new"
+    else 
+      flash[:error] = 'Youre not the admin'
+      redirect to('/')
+    end
   end
 
   post '/blog' do
@@ -20,6 +31,9 @@ class KletterPartner < Sinatra::Base
   end
 
   get '/blog/:id' do
+    unless env['warden'].user == nil
+      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    end
     @post = Post.get(params[:id])
     slim :"post/show"
   end

@@ -1,21 +1,21 @@
 label.required for="username" Username:
-input.title type="text" name="user[username]" value="#{@user.username}" size="32"
+input.title.required type="text" name="user[username]" value="#{@user.username}" size="32" placeholder="username *"
 br
 label for="forename" Vorname:
-input.title type="text" name="user[forename]" value="#{@user.forename}" size="32"
+input.title type="text" name="user[forename]" value="#{@user.forename}" size="32" placeholder="vorname"
 br
 label for="familyname" Nachname:
-input.title type="text" name="user[familyname]" value="#{@user.familyname}" size="32"
+input.title type="text" name="user[familyname]" value="#{@user.familyname}" size="32" placeholder="nachname"
 br
 br
 br
 label.required for="email" Email:
-input.title type="email" name="user[email]" value="#{@user.email}" size="32"
+input.title.required type="email" name="user[email]" value="#{@user.email}" size="32" placeholder="email *"
 br
 br
 br
 label.required for="password" Passwort:
-input.title type="text" name="user[password]" value="#{@user.password}" size="32"
+input.title.required type="text" name="user[password]" value="#{@user.password}" size="32" placeholder="passwort *"
 br
 label.required for="repeated_password" Passwort wiederholen:
-input.title type="text" name="user[repeated_password]" value="#{@user.password}" size="32"
+input.title.required type="text" name="user[repeated_password]" value="#{@user.password}" size="32" placeholder="passwort wiederholen *"

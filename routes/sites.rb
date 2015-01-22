@@ -6,6 +6,7 @@ class KletterPartner < Sinatra::Base
   get '/sites' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
+    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     @sites = Site.all.paginate(:page => params[:page], :per_page => 35)
     slim :"site/index"
   end
@@ -49,6 +50,7 @@ class KletterPartner < Sinatra::Base
   get '/sites/:id' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
+    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     @site = Site.get(params[:id])
     if @site != nil
       slim :"site/show"

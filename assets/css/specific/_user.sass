@@ -11,6 +11,11 @@
   border-radius: 50%
   display: inline-block
   vertical-align: super
+  +media($tablet)
+    +size($default-margin/2)
+    font-size: 0
+    right: -4px
+    top: -2px
 
 .user-avatar
   +span-columns(3)
@@ -104,17 +109,17 @@
   +span-columns(12)
 
 #friendships-to-accept, #mail
-  position: absolute
-  top: 4px
+  // position: absolute
+  // top: 4px
   i
     font-size: 26px
     color: white
 
-#friendships-to-accept
-  right: 50px
+// #friendships-to-accept
+//   right: 50px
 
-#mail
-  right: 6px
+// #mail
+//   right: 6px
 
 .accept-friendship, .delete-friendship
   margin-right: $default-margin/2

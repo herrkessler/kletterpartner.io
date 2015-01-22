@@ -6,6 +6,7 @@ class KletterPartner < Sinatra::Base
   get '/users' do
     env['warden'].authenticate!
     if env['warden'].user.admin?
+      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
       @sessionUser = env['warden'].user
       @users = User.all.paginate(:page => params[:page], :per_page => 35)
       slim :"user/index"
@@ -47,8 +48,8 @@ class KletterPartner < Sinatra::Base
   get '/users/:id' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
+    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     if @user != nil
-      @email_stats ||= @user.conversations.messages.map(&:status) || halt(404)
       @sessionUser = env['warden'].user
       slim :"user/show"
     else
@@ -60,6 +61,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/edit' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
+    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     slim :"user/edit"
   end
 
@@ -134,6 +136,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/friendship' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
+    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     slim :"user/friendship"
   end
 
