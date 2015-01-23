@@ -7,7 +7,11 @@ $(document).ready(function(){
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
     if (sParam === undefined) {
-      return sURLVariables[0];
+      if (sURLVariables[0] === '') {
+        return '';
+      } else {
+        return '?'+sURLVariables[0];
+      }
     } else {
       for (var i = 0; i < sURLVariables.length; i++) {
         var sParameterName = sURLVariables[i].split('=');
@@ -19,7 +23,10 @@ $(document).ready(function(){
   }
 
   function getMap(data) {
-    $.each(data, function(index, site){
+    var sites = data[1];
+    var sessionUser = data[0];
+
+    $.each(sites, function(index, site){
       geojson.push(
         {
           "type": "Feature",
@@ -41,10 +48,31 @@ $(document).ready(function(){
       );
     });
 
+    sessionUser.lat = '51.1925939';
+    sessionUser.lng = '7.2582474';
+
+    geojson.push(
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [sessionUser.lng,sessionUser.lat]
+        },
+        "properties": {
+          "title": sessionUser.forname,
+          "description": sessionUser.forename,
+          "marker-color": "#354B60",
+          'marker-symbol': 'pitch',
+          "marker-size": "large",
+          "url": '/users/' + sessionUser.id
+        }
+      }
+    );
+
     L.mapbox.accessToken = 'pk.eyJ1IjoiaGVycmtlc3NsZXIiLCJhIjoiRGU5R0JVYyJ9.jrfMyYYLrHEQEeWircmkGA';
 
-    var map = L.mapbox.map('map', 'herrkessler.k8e97o6c');
-      // .setView([localUser.adress_lat, localUser.adress_lng], 8);
+    var map = L.mapbox.map('map', 'herrkessler.k8e97o6c')
+      .setView([sessionUser.lat, sessionUser.lng], 8);
 
     var myLayer = L.mapbox.featureLayer().addTo(map);
 
@@ -66,13 +94,12 @@ $(document).ready(function(){
   // Map for /sites
 
   $.ajax({
-    url: "/sites-map?" + getUrlParameter(),
+    url: "/sites-map" + getUrlParameter(),
     dataType: 'json',
     contentType: 'application/json',
     type: 'GET',
     accepts: "application/json",
     success: function(data) {
-      console.log(data);
       getMap(data);
     }, 
     error: function(data) {

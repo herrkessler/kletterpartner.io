@@ -15,7 +15,10 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
     sites = Site.all.paginate(:page => params[:page], :per_page => 35)
-    halt 200, sites.to_json
+    return_data = [];
+    return_data << @sessionUser
+    return_data << sites
+    halt 200, return_data.to_json
   end
 
   get '/sites/new' do
