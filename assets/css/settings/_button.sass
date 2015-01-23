@@ -20,14 +20,26 @@ $map: (facebook: #3B5998, twitter: #55ACEE, google: #D73D32, github: silver)
 
 .button
   @extend %button
+  &.reversed
+    background: white
+    color: black
+    border-color: white
   &.disabled, &:disabled
     cursor: default
+  &.signup, &.login
+    font-weight: bold
   &.highlight
     color: $highlight
     border-color: $highlight
     &:hover
       color: grey
       border-color: grey
+    &.reversed
+      color: white
+      border-color: $highlight
+      background: $highlight
+      &:hover
+        color: white
   &.admin
     border-color: $admin
     color: $admin

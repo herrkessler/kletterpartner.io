@@ -3,6 +3,7 @@
 @import neat
 
 @import fontawesome/font-awesome
+@import url(http://fonts.googleapis.com/css?family=Vollkorn)
 
 @import settings/foundation
 @import settings/mixins
@@ -31,10 +32,31 @@
 // Test Styles
 // ------------------------------------
 
-body
+html, body
+  +size(100%)
   background: #333
+
+body
   color: white
   overflow-x: hidden
+  &.logged-out.index
+    background: #333 url(../images/index_bg.jpg) center center no-repeat
+    background-size: cover
+    h1
+      font-family: 'Vollkorn', serif
+      font-size: 60px
+      +media($mobile)
+        font-size: 40px
+    h2
+      font-family: 'Vollkorn', serif
+      font-size: 30px
+      +media($mobile)
+        font-size: 26px
+    p
+      font-size: 20px
+      line-height: 1.6
+      +media($mobile)
+        font-size: 18px
 
 a
   &:visited, &:link
@@ -48,3 +70,15 @@ a
 .inner
   margin: 0 $default-margin/2
   overflow-x: hidden
+
+#hello
+  position: fixed
+  top: 39%
+  left: 10%
+  +media($mobile)
+    background: rgba(black, 0.4)
+    padding: $default-padding*3 $default-padding
+    left: 0
+    top: 0
+    right: 0
+    bottom: 0

@@ -9,7 +9,7 @@ html
     link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css" rel="stylesheet"
     == js :application
     == js :map
-  body class=(env['warden'].authenticated?  ? 'logged-in' : '')
+  body class=('index' if request.path == '/') class=(env['warden'].authenticated?  ? 'logged-in' : 'logged-out')
 
     #flash-message
       .container

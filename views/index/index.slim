@@ -1,18 +1,24 @@
 - unless env['warden'].authenticated?
-
-  h2 Hello Climber
-  br
-  p 
-    | you can 
-    a href="/auth/login" login
-    |  , 
-    a href="/users/new" sign up
-    |  or just read the 
-    a href="/blog" blog
+  #hello
+    h1 Hello Climber,
+    h2 
+      | don't wanna go free soloing
+      br
+      | and need somebody to climb with?
+    br
+    p 
+      | go ahead, and find thousands of likeminded climbers in hundreds of indoor climbing walls!
+      br
+      | you can 
+      a.button.reversed.login href="/auth/login" login
+      |  , 
+      a.button.reversed.highlight.signup href="/users/new" sign up
+      |  or just read the 
+      a.button.reversed href="/blog" blog
 
 - else 
   
-  h2
+  h1
     | Hello   
     = env['warden'].user.forename
 
