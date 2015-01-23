@@ -103,6 +103,9 @@
   text-align: center
   line-height: 25px
   border-radius: 50%
+  +transition(transform 0.2s ease-out)
+  &:hover
+    +transform(scale(1.1))
   img
     position: absolute
     top: -40%

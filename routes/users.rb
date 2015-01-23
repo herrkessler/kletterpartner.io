@@ -53,7 +53,6 @@ class KletterPartner < Sinatra::Base
     @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
 
     # Find User with most friendships
-    # -----------------------------------------------------------
 
     friend_user = Hash.new 0
     user_friend = Hash.new 0
@@ -73,7 +72,6 @@ class KletterPartner < Sinatra::Base
     @most_friends = User.get(user_with_most_friends)
 
     # Find User with most messages
-    # -----------------------------------------------------------
 
     messages_user = Hash.new 0
     @messages.each do |message|
@@ -83,12 +81,21 @@ class KletterPartner < Sinatra::Base
     @messages_amount = messages_user.max_by{ |k,v| v }[1]
     @most_messages = User.get(user_with_most_messages)
 
+    # Find User with most sites
+
+    sites_user = SiteUser.all
+    freq = sites_user.inject(Hash.new(0)) { |h,v| h[v.user_id] += 1; h }
+    user_with_most_sites = freq.max_by{ |k,v| v }[0]
+    @most_sites = User.get(user_with_most_sites)
+
+    # Render View
+
     if @user != nil
       @sessionUser = env['warden'].user
       slim :"user/show"
     else
       flash[:error] = 'What you are looking for does not exist'
-      redirect to("/users")
+      redirect to("/")
     end
   end
 
