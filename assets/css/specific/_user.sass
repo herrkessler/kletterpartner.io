@@ -98,7 +98,7 @@
 #messages-king, #friend-king
   display: inline-block
   margin-left: $default-margin/2
-  background: $info-color
+  background: black
   +size(25px)
   text-align: center
   line-height: 25px
@@ -106,10 +106,15 @@
   +transition(transform 0.2s ease-out)
   &:hover
     +transform(scale(1.1))
-  img
+  .crown
     position: absolute
-    top: -40%
-    right: -20%
+    display: block
+    top: -30%
+    right: -5%
+    +size(10px)
+    color: $yellow
+    background: url(../images/crown.png) center center no-repeat
+    background-size: cover
     +transform(rotate(20deg))
 
 // Friendships

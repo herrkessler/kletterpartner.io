@@ -5,17 +5,17 @@
       a href="/users/#{@user.id}/edit"
         i.fa.fa-pencil.edit-profile-link
     - if @user == @sessionUser && @user == @most_friends
-      #friend-king class="simptip-position-bottom simptip-info simptip-fade simptip-multiline" data-tooltip="Let's celebrate... You have the most friends of them all"
+      #friend-king class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Let's celebrate... You have the most friends of them all"
         i.fa.fa-users
-        == img "/images/crown2.png"
+        span.crown
     - if @user == @sessionUser && @user == @most_messages
-      #messages-king class="simptip-position-bottom simptip-info simptip-fade simptip-multiline" data-tooltip="Yeah... You have the most messages"
+      #messages-king class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Yeah... You have the most messages"
         i.fa.fa-envelope
-        img src="/images/crown2.png"
+        span.crown
     - if @user == @sessionUser && @user == @most_sites
-      #messages-king class="simptip-position-bottom simptip-info simptip-fade simptip-multiline" data-tooltip="Yeah... You faved the most sites"
+      #messages-king class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Yeah... You faved the most sites"
         i.fa.fa-home
-        img src="/images/crown2.png"
+        span.crown
 
   - unless @user == @sessionUser
     #friendship-nav
