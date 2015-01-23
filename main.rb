@@ -4,6 +4,7 @@ require './model'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/assetpack'
+require 'sinatra-websocket'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
 require 'json'
@@ -22,6 +23,8 @@ class KletterPartner < Sinatra::Base
   set :environment, :development
   set :session_secret, '*&(^B234'
   set :public_folder, 'public'
+  set :server, 'thin'
+  set :sockets, []
 
   enable :sessions
   enable :method_override

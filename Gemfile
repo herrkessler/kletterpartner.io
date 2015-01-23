@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "sinatra", '>= 1.4.5'
+gem "sinatra-websocket"
 gem "data_mapper"
 gem 'sqlite3', '~> 1.3.10'
 gem 'dm-sqlite-adapter'
