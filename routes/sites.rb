@@ -8,7 +8,7 @@ class KletterPartner < Sinatra::Base
     @sessionUser = env['warden'].user
     @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
     @sites = Site.all.paginate(:page => params[:page], :per_page => 35)
-    slim :"site/index"
+    slim :"site/index", :layout => :layout_site
   end
 
   get '/sites-map', :provides => :json do

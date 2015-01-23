@@ -92,6 +92,22 @@
     &:before
       content: ''!important
 
+// KINg
+// ----------------------------------------------
+
+#messages-king, #friend-king
+  display: inline-block
+  margin-left: $default-margin/2
+  background: $info-color
+  +size(25px)
+  text-align: center
+  line-height: 25px
+  border-radius: 50%
+  img
+    position: absolute
+    top: -40%
+    right: -20%
+    +transform(rotate(20deg))
 
 // Friendships
 // ----------------------------------------------
@@ -109,17 +125,9 @@
   +span-columns(12)
 
 #friendships-to-accept, #mail
-  // position: absolute
-  // top: 4px
   i
     font-size: 26px
     color: white
-
-// #friendships-to-accept
-//   right: 50px
-
-// #mail
-//   right: 6px
 
 .accept-friendship, .delete-friendship
   margin-right: $default-margin/2

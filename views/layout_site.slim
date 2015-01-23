@@ -6,7 +6,9 @@ html
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /
     title kletterpartner.io
     == css :application, :media => 'screen'
+    link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css" rel="stylesheet"
     == js :application, :async => true
+    == js :map
   body class=(env['warden'].authenticated?  ? 'logged-in' : '')
 
     #flash-message
