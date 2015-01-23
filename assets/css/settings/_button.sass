@@ -1,3 +1,5 @@
+$map: (facebook: #3B5998, twitter: #55ACEE, google: #D73D32, github: silver)
+
 %button
   display: inline-block
   border-radius: 3px
@@ -15,6 +17,9 @@
   &:hover
     color: grey
     border-color: grey
+
+.button
+  @extend %button
   &.disabled, &:disabled
     cursor: default
   &.highlight
@@ -33,6 +38,10 @@
     display: block
     width: 100%
     padding: 10px 0
-
-.button
-  @extend %button
+  @each $profile, $color in $map
+    &.#{$profile}
+      color: $color
+      border-color: $color
+      &:hover
+        background: $color
+        color: white

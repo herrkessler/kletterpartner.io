@@ -6,6 +6,8 @@
     padding: $default-padding 0 $default-padding*2 0
   label
     display: block
+    font-size: 14px
+    font-weight: bold
     +media($mobile)
       display: none
   input[type="text"], input[type="password"], input[type="email"]
@@ -29,3 +31,18 @@
     +media($mobile)
       +placeholder
         color: grey
+
+#signup-form
+  hr
+    margin: $default-margin*2 0
+  p
+    font-size: 14px
+    font-weight: bold
+    margin-bottom: $default-margin/2
+  .button
+    &.facebook, &.twitter, &.google, &.github
+      text-align: center
+      width: 48%
+      margin-bottom: $default-margin/2
+    &.facebook, &.github
+      margin-right: 4%
