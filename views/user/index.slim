@@ -3,8 +3,7 @@ hr
 == will_paginate @users, :previous_label => '◀', :next_label => '▶', :inner_window => '2', :page_links => false, :class => 'top-pagination pagination'
 ul.users
   - @users.each do |user|
-    - unless user == @sessionUser
-      == slim :"user/user", :locals => {user: user}
+    == slim :"user/admin-user", :locals => {user: user}
 
 == will_paginate @users, :previous_label => '◀', :next_label => '▶', :inner_window => '2', :class => 'bottom-pagination pagination'
 

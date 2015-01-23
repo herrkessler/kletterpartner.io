@@ -14,6 +14,7 @@ class KletterPartner < Sinatra::Base
 
       user = User.get(sessionUser.id)
       user.update(:status => :online)
+      user.update(:update_at => Time.now)
 
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
       redirect to("/")

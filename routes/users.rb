@@ -8,7 +8,7 @@ class KletterPartner < Sinatra::Base
     if env['warden'].user.admin?
       @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
       @sessionUser = env['warden'].user
-      @users = User.all.paginate(:page => params[:page], :per_page => 35)
+      @users = User.all(:order => [:username.asc]).paginate(:page => params[:page], :per_page => 100)
       slim :"user/index"
     else 
       flash[:error] = 'Youre not the admin'

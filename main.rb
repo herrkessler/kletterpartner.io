@@ -9,6 +9,7 @@ require 'will_paginate/data_mapper'
 require 'json'
 require 'pony'
 require 'geokit'
+require 'dm-serializer'
 
 class KletterPartner < Sinatra::Base
 
@@ -136,5 +137,6 @@ class KletterPartner < Sinatra::Base
   require_relative 'routes/users'
   require_relative 'routes/blog'
   require_relative 'routes/messages'
+  require_relative 'routes/admin'
 
 end

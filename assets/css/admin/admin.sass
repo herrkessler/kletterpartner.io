@@ -12,3 +12,62 @@
     li
       display: inline-block
       margin-right: 20px
+
+.user-admin-info 
+  i
+    display: inline-block
+    width: 20px
+    margin-right: 5px
+  span
+    font-size: 12px
+    &:nth-child(2)
+      font-weight: bold
+
+.dashboard-grid
+  +span-columns(6)
+  +omega(2n)
+  +media($mobile)
+    +span-columns(12)
+    +omega
+
+
+.dashboard-list-item
+  +span-columns(3 of 6)
+  +omega(2n)
+  position: relative
+  background: $tile-color
+  margin-bottom: $default-margin
+  text-align: center
+  &:before
+    content: ""
+    display: block
+    padding-top: 100%
+    
+
+.dashboard-list-item-key
+  position: absolute
+  top: $default-margin/2
+  left: $default-margin/2
+  font-size: 14px
+  font-weight: bold
+
+.dashboard-list-item-value
+  +ellipsis()
+  +total-center
+  font-size: 30px
+  font-weight: bold
+  max-width: 90%
+  span
+    display: block
+  .site &
+    color: $site-color
+    a
+      color: $site-color
+      text-decoration: underline
+  .user &
+    color: $user-color
+    a
+      color: $user-color
+      text-decoration: underline
+  +media($mobile)
+    font-size: 20px

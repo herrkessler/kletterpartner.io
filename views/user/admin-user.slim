@@ -1,0 +1,24 @@
+li.card.user.admin class=(user.admin? ? 'is-admin' : '')
+
+  - if user.avatar != 'avatar.png' 
+    .card-avatar style=("background:url(/images/#{user.id}/#{user.avatar}) center center no-repeat; background-size:cover;")
+      .card-online-indicator class=(user.status)
+      a href="/users/#{user.id}"
+
+  - else
+    .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
+      .card-online-indicator class=(user.status)
+      a href="/users/#{user.id}"
+
+  .card-content
+    a.user-name href="/users/#{user.id}" = user.forename
+    .user-admin-info 
+      span Friends: 
+      span= user.friends.count
+    .user-admin-info 
+      span Sites: 
+      span= user.sites.count
+    .user-admin-info 
+      span Online: 
+      - if user.update_at != nil
+        span = user.update_at.strftime("%d-%m-%Y")

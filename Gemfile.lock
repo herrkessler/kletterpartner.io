@@ -146,6 +146,7 @@ DEPENDENCIES
   dm-is-friendly!
   dm-noisy-failures
   dm-paperclip
+  dm-serializer
   dm-sqlite-adapter
   dm-validations
   geokit

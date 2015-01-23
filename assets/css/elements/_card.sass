@@ -13,6 +13,25 @@
     +omega
     margin-bottom: $default-margin/2
     position: relative
+  &.admin
+    .user-name
+      display: block
+      line-height: 1
+      height: auto
+    +span-columns(1.5)
+    +omega-reset(6n)
+    +omega(8n)
+    +media($tablet)
+      +span-columns(2)
+      +omega-reset(8n)
+      +omega-reset(4n)
+      +omega(6n)
+    +media($mobile)
+      +span-columns(12)
+      +omega
+      .user-admin-info
+        display: inline-block
+        margin-right: 5px
 
 .card-avatar
   position: relative
@@ -23,6 +42,8 @@
     border-color: $site-color
   .user &
     border-color: $user-color
+  .is-admin &
+    border-color: $admin-color
   &:before
     content: ""
     display: block

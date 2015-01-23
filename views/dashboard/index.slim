@@ -1,0 +1,48 @@
+h1 Admin Dashboard
+hr
+br
+br
+.dashboard-grid
+  h2 User
+  hr
+  ul.dashboard-list.user
+    li.dashboard-list-item
+      .dashboard-list-item-key Users 
+      .dashboard-list-item-value= @users.length
+    li.dashboard-list-item
+      .dashboard-list-item-key Users online
+      .dashboard-list-item-value= @online_users
+    li.dashboard-list-item
+      .dashboard-list-item-key Users offline
+      .dashboard-list-item-value= @offline_users
+    li.dashboard-list-item
+      .dashboard-list-item-key Users idle
+      .dashboard-list-item-value= @idle_users
+    li.dashboard-list-item
+      .dashboard-list-item-key User with most friends
+      .dashboard-list-item-value
+        span
+          a href="/users/#{@most_friends.id}"= @most_friends.forename
+        span= @most_friends.friends.length 
+    li.dashboard-list-item
+      .dashboard-list-item-key User with most messages
+      .dashboard-list-item-value
+        span
+          a href="/users/#{@most_messages.id}"= @most_messages.forename
+        span= @messages_amount
+
+.dashboard-grid
+  h2 Sites
+  hr
+  ul.dashboard-list.site
+    li.dashboard-list-item
+      .dashboard-list-item-key Sites 
+      .dashboard-list-item-value= @sites.length
+    li.dashboard-list-item
+      .dashboard-list-item-key Site with most Users
+      .dashboard-list-item-value
+        a href="/sites/#{@most_active_site.id}"= @most_active_site.title
+    li.dashboard-list-item
+      .dashboard-list-item-key Site most talked about
+      .dashboard-list-item-value
+        a href="/sites/#{@most_active_site.id}"= @most_active_site.title
