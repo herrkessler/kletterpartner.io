@@ -14,7 +14,6 @@ gem 'warden', '1.2.1'
 gem 'json'
 gem 'geokit'
 gem 'redis', '~> 3.2.0'
-# gem 'sinatra-redis'
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'slim', '~> 3.0.1'

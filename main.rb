@@ -67,6 +67,7 @@ class KletterPartner < Sinatra::Base
       '/js/vendor/idle-timer.js',
       '/js/specific/menu.js',
       '/js/specific/idle.js',
+      '/js/specific/socket.js',
       '/js/specific/message.js'
     ]
 
