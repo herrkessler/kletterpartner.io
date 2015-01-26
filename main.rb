@@ -26,19 +26,6 @@ class KletterPartner < Sinatra::Base
   set :public_folder, 'public'
   set :server, 'thin'
   set :sockets, []
-  # set :redis, Redis.new
-  # set(:watcher, Thread.new do
-  #   redis = Redis.new
-  #   Thread.current['sockets'] = []
-   
-  #   redis.subscribe 'foobar' do |on|
-  #     on.message do |channel, message|
-  #       Thread.current['sockets'].each do |s|
-  #         s.send message
-  #       end
-  #     end
-  #   end
-  # end)
 
   $redis = Redis.new
 
@@ -48,6 +35,12 @@ class KletterPartner < Sinatra::Base
 
   register Sinatra::Flash
   register Sinatra::AssetPack
+
+
+  # -----------------------------------------------------------
+  # Redis PubSub
+  # -----------------------------------------------------------
+
 
   # -----------------------------------------------------------
   # Assets
