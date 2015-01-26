@@ -40,7 +40,7 @@
       li.user-info-fact Fact #2
       li.user-info-fact Fact #3
 
-- if @user.friends.length > 0
+- if @user_friends.length > 0
   #friendships
     - unless @user == @sessionUser
       h2 = @user.forename + 's Freunde'
@@ -49,10 +49,10 @@
     hr
 
     ul.friendships
-      - @user.friends.each do |friend|
+      - @user_friends.each do |friend|
         == slim :"user/fav-user", :locals => {user: friend}
 
-- if @user.sites.length > 0
+- if @user_sites.length > 0
   #sites
     - unless @user == @sessionUser
       h2 = @user.forename + 's Kletterhallen'
@@ -61,7 +61,7 @@
     hr
 
     ul.sites
-      - @user.sites.each do |site|
+      - @user_sites.each do |site|
         == slim :"site/site", :locals => {site: site}
 
 - if @sessionUser.admin == true

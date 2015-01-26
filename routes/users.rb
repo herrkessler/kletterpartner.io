@@ -48,6 +48,8 @@ class KletterPartner < Sinatra::Base
   get '/users/:id' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
+    @user_friends = @user.friends.sort_by {|friend| friend.forename}
+    @user_sites = @user.sites.sort_by {|site| site.title}
     @friends = Friendship.all
     @messages = Message.all
     @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
