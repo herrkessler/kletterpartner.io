@@ -4,6 +4,7 @@ require './model'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/assetpack'
+require "sinatra/reloader"
 require 'sinatra-websocket'
 require 'will_paginate'
 require 'will_paginate/data_mapper'
@@ -12,6 +13,7 @@ require 'pony'
 require 'geokit'
 require 'dm-serializer'
 require 'redis'
+require 'pusher'
 
 class KletterPartner < Sinatra::Base
 
@@ -38,8 +40,15 @@ class KletterPartner < Sinatra::Base
 
 
   # -----------------------------------------------------------
-  # Redis PubSub
+  # Pusher
   # -----------------------------------------------------------
+
+  configure do
+    register Sinatra::Reloader
+    Pusher.app_id = '104514'
+    Pusher.key = '5d1b84365243a919e503'
+    Pusher.secret = 'fc3a6fdc7481e45eeeec'
+  end
 
 
   # -----------------------------------------------------------
@@ -60,7 +69,9 @@ class KletterPartner < Sinatra::Base
       '/js/vendor/idle-timer.js',
       '/js/specific/menu.js',
       '/js/specific/idle.js',
+      'http://js.pusher.com/2.2/pusher.min.js',
       '/js/specific/socket.js',
+      '/js/specific/status.js',
       '/js/specific/message.js'
     ]
 

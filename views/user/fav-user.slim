@@ -1,4 +1,4 @@
-li.card.user
+li.card.user class='user_#{user.id}'
   - if user.avatar != 'avatar.png' 
     .card-avatar style=("background:url(/images/#{user.id}/#{user.avatar}) center center no-repeat; background-size:cover;")
       .card-online-indicator class=(@user.friendship_requested?(user) ? 'requested' : '') class=(user.status)

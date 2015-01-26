@@ -18,7 +18,7 @@ class KletterPartner < Sinatra::Base
       # Redis
       # -----------------------------------------------------------
 
-      @online_redis_users = $redis.scard('online_users')
+      # @online_redis_users = $redis.scard('online_users')
 
       # User Stats
       # -----------------------------------------------------------

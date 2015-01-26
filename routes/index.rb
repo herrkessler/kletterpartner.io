@@ -27,4 +27,8 @@ class KletterPartner < Sinatra::Base
 
     end
   end
+
+  post '/messages' do
+    Pusher['test_channel'].trigger('new_message', :message => params['message'])
+  end
 end

@@ -18,6 +18,8 @@ class KletterPartner < Sinatra::Base
 
       $redis.sadd 'online_users', sessionUser.id
 
+      Pusher.trigger('online_users', 'status', {:message => $redis.smembers('online_users')})
+
       flash[:success] = 'Hallo ' +sessionUser.forename+ ', du hast Dich erfolgreich eingeloggt.'
       redirect to("/")
     else
@@ -30,11 +32,13 @@ class KletterPartner < Sinatra::Base
 
     user = User.get(sessionUser.id)
     user.update(:status => :offline)
-
-    $redis.srem 'online_users', sessionUser.id
     
     env['warden'].raw_session.inspect
     env['warden'].logout
+
+    $redis.srem 'online_users', sessionUser.id
+
+    Pusher.trigger('online_users', 'status', {:message => $redis.smembers('online_users')})
 
     flash[:success] = 'Du hast Dich erfolgreich ausgeloggt.'
     redirect '/'
