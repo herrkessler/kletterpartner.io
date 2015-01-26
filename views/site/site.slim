@@ -1,14 +1,12 @@
 li.card.site
   .card-avatar style=("background:url(/images/wuwaende.jpg) center center no-repeat; background-size:cover;")
     - if request.fullpath == '/sites'
-      .card-favourite-indicator class=('active' if @sessionUser.sites.include? site)
+      / .card-favourite-indicator class=('active' if @sessionUser.sites.include? site)
+      .card-online-indicator class=('faved' if @sessionUser.sites.include? site)
     a href="/sites/#{site.id}"
     .card-site-info
       .card-site-info-user
         i.fa.fa-user
         span = site.users.count
-      / .card-site-info-distance
-      /   i.fa.fa-map-marker
-      /   span 32km
   .card-content
     a.site-name href="/sites/#{site.id}" = site.title

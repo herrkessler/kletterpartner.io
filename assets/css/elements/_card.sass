@@ -77,6 +77,59 @@
       content: "..."
       font-weight: bold
 
+.card-online-indicator
+  position: absolute
+  left: 5px
+  top: 5px
+  color: white
+  font-size: 12px
+  padding: 1px 3px
+  overflow: hidden
+  border-radius: 50%
+  max-width: 10px
+  max-height: 10px
+  +transition(all 0.3s ease-in-out)
+  &:before
+    +transition(color 0.3s ease-in-out)
+  &.online
+    background: $dark-green
+    color: $dark-green
+    &:before
+      content: 'online'
+  &.idle
+    background: $dark-orange
+    color: $dark-orange
+    &:before
+      content: 'abwesend'
+  &.offline
+    background: $dark-red
+    color: $dark-red
+    &:before
+      content: 'offline'
+  &.faved
+    background: $dark-green
+    color: $dark-green
+    &:before
+      content: 'favourite'
+  +media($mobile)
+    right: 2px
+    top: 2px
+    left: inherit
+    +size(10px)
+    border-radius: 50%!important 
+    padding: 0
+    &:before
+      content: ''!important
+
+.user, .site
+  &:hover
+    .card-online-indicator
+      max-width: 65px
+      max-height: 20px
+      border-radius: 3px
+      &:before
+        color: white
+
 .card-content
   float: left
   width: 100%
