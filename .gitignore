@@ -1,3 +1,4 @@
 *.db
 *.scssc
 *.sass-cache
+*.rdb

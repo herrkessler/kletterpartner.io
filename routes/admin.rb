@@ -14,6 +14,12 @@ class KletterPartner < Sinatra::Base
       @friends = Friendship.all
       @site_user = SiteUser.all
 
+
+      # Redis
+      # -----------------------------------------------------------
+
+      @online_redis_users = $redis.scard('online_users')
+
       # User Stats
       # -----------------------------------------------------------
 

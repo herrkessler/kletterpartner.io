@@ -111,6 +111,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    redis (3.2.0)
     rerun (0.10.0)
       listen (~> 2.7, >= 2.7.3)
     sass (3.4.9)
@@ -167,6 +168,7 @@ DEPENDENCIES
   mandrill-api (~> 1.0.53)
   neat
   pony
+  redis (~> 3.2.0)
   rerun
   sass
   shotgun

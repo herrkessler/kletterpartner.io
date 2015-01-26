@@ -11,6 +11,7 @@ require 'json'
 require 'pony'
 require 'geokit'
 require 'dm-serializer'
+require 'redis'
 
 class KletterPartner < Sinatra::Base
 
@@ -25,6 +26,21 @@ class KletterPartner < Sinatra::Base
   set :public_folder, 'public'
   set :server, 'thin'
   set :sockets, []
+  # set :redis, Redis.new
+  # set(:watcher, Thread.new do
+  #   redis = Redis.new
+  #   Thread.current['sockets'] = []
+   
+  #   redis.subscribe 'foobar' do |on|
+  #     on.message do |channel, message|
+  #       Thread.current['sockets'].each do |s|
+  #         s.send message
+  #       end
+  #     end
+  #   end
+  # end)
+
+  $redis = Redis.new
 
   enable :sessions
   enable :method_override
