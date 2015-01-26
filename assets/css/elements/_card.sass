@@ -71,11 +71,7 @@
     &:before
       vertical-align: sub
       content: "✔"
-  &.requested
-    background: $dark-orange
-    &:before
-      content: "..."
-      font-weight: bold
+  
 
 .card-online-indicator
   position: absolute
@@ -111,6 +107,11 @@
     color: $dark-green
     &:before
       content: 'favourite'
+  &.requested
+    background: $dark-orange
+    color: $dark-orange
+    &:before
+      content: "requested"
   +media($mobile)
     right: 2px
     top: 2px
