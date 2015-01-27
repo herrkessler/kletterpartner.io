@@ -100,16 +100,6 @@
     color: $dark-orange
     &:before
       content: 'abwesend'
-  // &.offline
-  //   background: $dark-red
-  //   color: $dark-red
-  //   &:before
-  //     content: 'offline'
-  &.faved
-    background: $dark-green
-    color: $dark-green
-    &:before
-      content: 'favourite'
   &.requested
     background: $dark-orange
     color: $dark-orange
@@ -124,6 +114,13 @@
     padding: 0
     &:before
       content: ''!important
+  .site &
+    background: transparent
+    &.faved
+      background: $dark-green
+      color: $dark-green
+      &:before
+        content: 'favourite'
 
 .user, .site
   &:hover
