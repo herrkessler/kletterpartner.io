@@ -164,6 +164,7 @@
   +total-center
   background-color: white
   +animation(rotateplane 1.2s infinite ease-in-out)
+  +transition(opacity 0.3s ease-out)
   &.loading
     opacity: 1
 
@@ -174,6 +175,7 @@
     +transform(perspective(120px) rotateX(-180.1deg) rotateY(0deg))
   100%
     +transform(perspective(120px) rotateX(-180deg) rotateY(-179.9deg))
+
 
 #message-answer-box
   position: absolute
@@ -188,6 +190,7 @@
     width: 33.33%
     display: none
     padding: 0
+    height: 108px
 
 .message-user
   float: left
@@ -203,6 +206,8 @@
 .new_message
   width: 100%
   margin-bottom: $default-margin
+  +media($mobile)
+    margin-bottom: $default-margin/4
 
 .message-text
   margin: $default-margin/2 0 $default-margin 0

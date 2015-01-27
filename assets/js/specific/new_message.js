@@ -32,7 +32,9 @@ $(document).ready(function() {
     messageSpinner.addClass('loading');
   });
   $(document).ajaxComplete(function() {
-    messageSpinner.removeClass('loading');
+    setTimeout(function() {
+      messageSpinner.removeClass('loading');
+    }, 500);
   });
 
   // Change Conversation
@@ -42,7 +44,7 @@ $(document).ready(function() {
     var messageId = $(this).data('id');
     $(this).addClass('selected');
     $(this).removeClass('new-message');
-    $(this).siblings('.conversations-list-item').removeClass('selected');
+    $(this).siblings().removeClass('selected');
     message.attr('data-id', messageId);
     getMessages(userID, messageId);
 
@@ -173,10 +175,61 @@ $(document).ready(function() {
 
   function startNewConversation(data, user) {
     $('.conversations-list-item').removeClass('selected');
-    $('#conversations-list').prepend(
-      '<li class="conversations-list-item conversation_'+data+' selected" data-id="'+data+'"><div class="conversation-inner-wrapper"><i class="fa fa-circle-o conversation-status green"></i><b>'+user+'</b><div class="conversation-timestamp">'+Date.now+'</div></div></li>'
+    $('.conversations').prepend(
+      '<li class="conversations-list-item conversation_'+data+' selected" data-id="'+data+'"><div class="conversation-inner-wrapper"><i class="fa fa-circle-o conversation-status green"></i><b>'+user+'</b><div class="conversation-timestamp">'+new Date().toLocaleTimeString()+'</div></div></li>'
       );
   }
 
 
+});
+
+// Mobile view functions
+// ------------------------------
+
+$(document).ready(function(){
+
+  var windowWidth = $(window).width();
+  var switchLink = $('#show-menu-mobile');
+  var textSpan = switchLink.find('span');
+  var conversationLink = $('.conversations-list-item');
+  var conversationWrapper = $('#conversations');
+  var showInboxLink = $('#show-inbox');
+  var messagAnswer = $('#message-answer-box');
+
+
+  if (windowWidth < 480) {
+
+    console.log(windowWidth);
+
+    conversationLink.on('click', function(event){
+      event.preventDefault();
+      conversationWrapper.addClass('mobile-active');
+      switchLink.addClass('active');
+      textSpan.text('Eingang');
+      messagAnswer.show();
+    });
+
+    
+    switchLink.on('click', function(event){
+
+      if (conversationWrapper.hasClass('mobile-active')) {
+        event.preventDefault();
+        conversationWrapper.removeClass('mobile-active');
+        textSpan.text('Postfächer');
+        $(this).removeClass('active');
+        messagAnswer.hide();
+      } else {
+        event.preventDefault();
+        $(this).hide();
+        conversationWrapper.addClass('mobile-menu-active');
+      }
+    });
+
+    showInboxLink.on('click', function(event) {
+      event.preventDefault();
+      conversationWrapper.removeClass('mobile-menu-active');
+      switchLink.show();
+    });
+
+  }
 });
