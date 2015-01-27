@@ -21,7 +21,3 @@
   h1
     | Hello   
     = env['warden'].user.forename
-
-  .messages
-  form#message_form action="/messages" method="post" 
-    input.new_message name="message" type="text" /

@@ -70,9 +70,9 @@ class KletterPartner < Sinatra::Base
       '/js/specific/menu.js',
       '/js/specific/idle.js',
       'http://js.pusher.com/2.2/pusher.min.js',
-      '/js/specific/socket.js',
+      # '/js/specific/socket.js',
       '/js/specific/status.js',
-      '/js/specific/message.js'
+      '/js/specific/new_message.js'
     ]
 
     js :map, [

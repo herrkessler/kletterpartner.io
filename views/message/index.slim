@@ -34,28 +34,27 @@ hr
   #conversations-list
     ul.conversations
       - @my_conversations.each do |conversation|
-        li.conversations-list-item data-id=(conversation.id)
+        li.conversations-list-item data-id=(conversation.id) class="conversation_#{conversation.id}" class=(conversation.messages.any?{|message| message.status == :unread && message.sender != @sessionUser.id} ? 'new-message': '')
           .conversation-inner-wrapper
-            - if conversation.messages.any?{|message| message.status == :unread}
-              i.fa.fa-circle-o.conversation-status.green
+            i.fa.fa-circle-o.conversation-status.green
             - conversation.participants.each do |participant|
               - unless participant.user == @sessionUser
                 b = participant.user.forename
             .conversation-timestamp = conversation.update_at.strftime("%d.%m.%Y - %H:%M:%S")
 
-  #messages data-id=""
+  #messages data-id=@my_conversations.first.id
     #message-spinner
-    == slim :"message/conversation"
+    == slim :"message/conversation", :locals => {conversation: @my_conversations.first}
 
   #message-answer-box
-    textarea#message-answer
-    #message-answer-menu
-      a.button.icon#message-answer-link href="#" 
-        i.fa.fa-reply
-        span Antworten
+    form#message-answer action="" method="post" 
+      textarea.new_message name="message" rows="5"
+      input.button.icon#message-answer-link type="submit" 
 
 #overlay
   #overlay-inner
+    #close-overlay
+      .i.fa.fa-times.fa-2x
     #new-message-reciever
       select
         option value="" Select User

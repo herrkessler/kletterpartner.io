@@ -74,12 +74,17 @@
     overflow-y: scroll
     min-height: 0 !important
 
+.messages-list
+  +span-columns(12)
+  +omega
+
 .messages-list-item
   margin-bottom: $default-margin
+  position: relative
   +span-columns(12)
   +omega
   &:last-child
-    margin-bottom: 200px
+    margin-bottom: 140px
     +media($mobile)
       margin-bottom: 60px
 
@@ -130,8 +135,10 @@
   position: absolute
   top: $default-padding/2
   right: $default-padding/2
-  &.green
-    color: $green
+  color: $green
+  display: none
+  .new-message &
+    display: block
 
 .conversation-timestamp, .message-timestamp
   font-size: 14px
@@ -193,6 +200,10 @@
   +media($mobile)
     +span-columns(10)
 
+.new_message
+  width: 100%
+  margin-bottom: $default-margin
+
 .message-text
   margin: $default-margin/2 0 $default-margin 0
 
@@ -210,6 +221,15 @@
   &.active
     display: block
     z-index: 1
+
+#close-overlay
+  position: absolute
+  right: 0
+  top: -10px
+  cursor: pointer
+  +transition(color 0.2s ease-out)
+  &:hover
+    color: $dark-red
 
 #overlay-inner
   +total-center

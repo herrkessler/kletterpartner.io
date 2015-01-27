@@ -1,11 +1,8 @@
 ul.messages-list
-  li.messages-list-item
-    .message-header
-      .message-title
-      .message-date.message-timestamp
-    .message-content
-
-/ #message-nav
-/   a.button.icon href="#"
-/     i.fa.fa-times
-/     span Konversation Löschen
+  - conversation.messages.each do |message|
+    li.messages-list-item
+      .message-header
+        .message-user class="user_#{message.sender}" 
+      .message-content
+        .message-date.message-timestamp = message.created_at.strftime("%H:%M:%S")
+        .message-text = message.content
