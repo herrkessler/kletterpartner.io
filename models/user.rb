@@ -11,6 +11,8 @@ class User
   property :admin, Boolean, :default  => false, :lazy => [ :show ]
   property :avatar, String, :default => 'avatar.png'
 
+  property :confirmed, Boolean, :default => false
+
   property :status, Enum[ :online, :offline, :idle ], :default => :offline, :lazy => [ :show ]
 
   property :created_at, DateTime, :lazy => [ :show ]

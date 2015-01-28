@@ -33,14 +33,64 @@ class KletterPartner < Sinatra::Base
       redirect to("/users/new")
     else
       data = data.except('repeated_password')
+      admin = User.get(1)
       @user = User.create(data)
+
       if @user.saved?
+
+        @confirmation = Confirmation.new()
+        @confirmation.attributes = {:user => @user, :code => SecureRandom.uuid}
+        @confirmation.save
+
+        # Send welcome mail
+
         Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
-        flash[:success] = 'Neuer User ' + @user.forename + ' angelegt, bitte anmelden'
+
+        # Send confirmation Email
+
+        Pony.mail :to => @user.email,
+                  :from => 'confirmation@kletterpartner.io',
+                  :subject => 'kletterpartner.io - email confirmation',
+                  :html_body => erb(:email_confirmation, layout: false)
+
+        # Send first chat message from Admin
+
+        conversation = Conversation.new()
+        conversation.save
+
+        message = Message.new()
+        message.attributes = {:conversation => conversation, :content => "Welcome to kletterpartner.io, your place to find new climbers. Yours Sebastian aka The ADMIN ;)", :sender => admin.id}
+        message.save
+
+        sender = Participant.new()
+        senderUser = admin
+        sender.attributes = {:conversation => conversation, :user => senderUser}
+        sender.save
+
+        reciever = Participant.new()
+        recieverUser = @user
+        reciever.attributes = {:conversation => conversation, :user => recieverUser}
+        reciever.save
+
+        conversation.messages << message
+        conversation.participants << sender
+        conversation.participants << reciever
+        conversation.save
+        conversation.messages.save
+        conversation.participants.save
+
+        conversation.update(:update_at => Time.now)
+
+        # Redirect to login
+
+        flash[:new_user] = 'Hallo ' + @user.forename + ', du brauchst noch etwas Geduld... bitte bestaetige erst deine Email Adresse.'
         redirect to("/auth/login")
+
       else
-        flash[:error] = 'Something went wrong here'
+
+        flash[:error] = 'Something went wrong while signing up'
         redirect to("/users/new")
+
       end
     end
   end
@@ -54,41 +104,41 @@ class KletterPartner < Sinatra::Base
     @messages = Message.all
     @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
 
-    # Find User with most friendships
+    # # Find User with most friendships
 
-    friend_user = Hash.new 0
-    user_friend = Hash.new 0
-    @friends.each do |friend|
-      friend_user[friend.user_id] += 1
-    end
-    @friends.each do |friend|
-      user_friend[friend.friend_id] += 1
-    end
-    result_1 = friend_user.max_by{|k,v| v}
-    result_2 = user_friend.max_by{|k,v| v}
-    final_result = []
-    final_result << user_friend
-    final_result << friend_user
-    sorted_final_results = final_result.inject{|memo, el| memo.merge( el ){|k, old_v, new_v| old_v + new_v}}
-    user_with_most_friends = sorted_final_results.max_by{ |k,v| v }[0]
-    @most_friends = User.get(user_with_most_friends)
+    # friend_user = Hash.new 0
+    # user_friend = Hash.new 0
+    # @friends.each do |friend|
+    #   friend_user[friend.user_id] += 1
+    # end
+    # @friends.each do |friend|
+    #   user_friend[friend.friend_id] += 1
+    # end
+    # result_1 = friend_user.max_by{|k,v| v}
+    # result_2 = user_friend.max_by{|k,v| v}
+    # final_result = []
+    # final_result << user_friend
+    # final_result << friend_user
+    # sorted_final_results = final_result.inject{|memo, el| memo.merge( el ){|k, old_v, new_v| old_v + new_v}}
+    # user_with_most_friends = sorted_final_results.max_by{ |k,v| v }[0]
+    # @most_friends = User.get(user_with_most_friends)
 
-    # Find User with most messages
+    # # Find User with most messages
 
-    messages_user = Hash.new 0
-    @messages.each do |message|
-      messages_user[message.sender] += 1
-    end
-    user_with_most_messages = messages_user.max_by{ |k,v| v }[0]
-    @messages_amount = messages_user.max_by{ |k,v| v }[1]
-    @most_messages = User.get(user_with_most_messages)
+    # messages_user = Hash.new 0
+    # @messages.each do |message|
+    #   messages_user[message.sender] += 1
+    # end
+    # user_with_most_messages = messages_user.max_by{ |k,v| v }[0]
+    # @messages_amount = messages_user.max_by{ |k,v| v }[1]
+    # @most_messages = User.get(user_with_most_messages)
 
-    # Find User with most sites
+    # # Find User with most sites
 
-    sites_user = SiteUser.all
-    freq = sites_user.inject(Hash.new(0)) { |h,v| h[v.user_id] += 1; h }
-    user_with_most_sites = freq.max_by{ |k,v| v }[0]
-    @most_sites = User.get(user_with_most_sites)
+    # sites_user = SiteUser.all
+    # freq = sites_user.inject(Hash.new(0)) { |h,v| h[v.user_id] += 1; h }
+    # user_with_most_sites = freq.max_by{ |k,v| v }[0]
+    # @most_sites = User.get(user_with_most_sites)
 
     # Render View
 
@@ -202,6 +252,36 @@ class KletterPartner < Sinatra::Base
     $redis.hset(sessionUser.id, 'status', 'online')
     Pusher.trigger('user_status', 'status', {:status => $redis.hget(sessionUser.id, 'status'), :user => sessionUser.id})
     halt 200
+  end
+
+  # Confirm Email
+  # -----------------------------------------------------------
+
+  get '/users/:id/confirm/:code' do
+
+    user = User.get(params[:id])
+    confirmation = Confirmation.first(:code => params[:code])
+
+    p confirmation.code
+    p params[:code]
+
+    p confirmation.user_id.to_s
+    p params[:id]
+
+    if params[:code] == confirmation.code
+
+      confirmation.attributes = {:code => ""}
+      confirmation.save
+
+      user.attributes = {:confirmed => true}
+      user.save
+
+      flash[:new_user] = 'Prost ' + user.forename + ', es kann losgehen, log Dich ein und finde neue Kletterpartner.'
+      redirect to("/auth/login")
+    else
+      flash[:error] = 'Something went terribly wrong here with your email confirmation...'
+      redirect to("/")
+    end
   end
 
 end

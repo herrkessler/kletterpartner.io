@@ -18,6 +18,7 @@ require_relative 'models/post'
 require_relative 'models/conversation'
 require_relative 'models/message'
 require_relative 'models/participant'
+require_relative 'models/confirmation'
 
 # -----------------------------------------------------------
 # DataMapper Finalization
@@ -36,6 +37,7 @@ if User.count == 0
   @user.forename = "Sebastian"
   @user.familyname = "Kessler"
   @user.admin = true
+  @user.confirmed = true
   @user.save
 end
 

@@ -1,9 +1,14 @@
 #login-form
+  - if flash[:new_user]
+    .new-user-message
+     div
+      i.fa.fa-beer.fa-2x 
+     div = flash[:new_user]
   form action="/auth/login" method="POST" 
     fieldset
-      label Username:
-      input name="user[username]" type="text" placeholder="username *"
+      label.required Username:
+      input.required name="user[username]" type="text" placeholder="username *"
       br
-      label Passwort:
-      input name="user[password]" type="password" placeholder="passwort *"
+      label.required Passwort:
+      input.required name="user[password]" type="password" placeholder="passwort *"
     input.button.full type="submit" value=("Einloggen")
