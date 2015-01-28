@@ -50,7 +50,7 @@ nav#main-navigation
             - if env['warden'].user.avatar != 'avatar.png'
               img src= '/images/#{env['warden'].user.id}/#{env['warden'].user.avatar}'
             - else
-                img.user-small-avatar src= "/images/avatar.png"
+                img src= "/images/avatar.png"
         #mobile-friendships-to-accept
           a href="/users/#{env['warden'].user.id}/friendship"
             i.fa.fa-user
