@@ -31,6 +31,12 @@
 
 #site-main-image
   margin-bottom: $default-margin/2
+  background: black
+
+#site-hero-image
+  display: block
+  width: 100%
+  max-width: 100%
 
 .site-gallery-list
   +span-columns(12)
@@ -40,6 +46,13 @@
   +span-columns(3)
   +omega(4n)
   margin-bottom: $default-margin/2
+  border: 1px solid transparent
+  cursor: pointer
+  +transition(border-color 0.3s ease-out)
+  img
+    display: block
+  &.selected
+    border: 1px solid white
 
 .card-site-info
   +span-columns(12)
@@ -65,3 +78,21 @@
 
 .card-site-info-distance
   text-align: right
+
+#site-main-image
+  position: relative
+
+#site-gallery-nav
+  +vertical-center
+  width: 100%
+
+.site-gallery-nav
+  cursor: pointer
+  &.left
+    float: left
+    margin-left: $default-margin/2
+  &.right
+    float: right
+    margin-right: $default-margin/2
+  &.last
+    display: none

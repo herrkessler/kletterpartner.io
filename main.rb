@@ -72,6 +72,7 @@ class KletterPartner < Sinatra::Base
       'http://js.pusher.com/2.2/pusher.min.js',
       # '/js/specific/socket.js',
       '/js/specific/status.js',
+      '/js/specific/slider.js',
       '/js/specific/new_message.js'
     ]
 

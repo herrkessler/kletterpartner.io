@@ -13,13 +13,20 @@
   #site-description
     #site-gallery
       #site-main-image
-        img src="/images/wuwaende.jpg"
+        #site-gallery-nav
+          .site-gallery-nav.left.last
+            i.fa.fa-arrow-circle-o-left
+          .site-gallery-nav.right
+            i.fa.fa-arrow-circle-o-right
+        img#site-hero-image src="/images/wuwaende.jpg"
       ul.site-gallery-list
-        li.site-gallery-list-item
+        li.site-gallery-list-item.selected data-id="1"
+          img src="/images/wuwaende.jpg"
+        li.site-gallery-list-item  data-id="2"
           img src="/images/wuwaende_1.jpg"
-        li.site-gallery-list-item
+        li.site-gallery-list-item  data-id="3"
           img src="/images/wuwaende_2.jpg"
-        li.site-gallery-list-item
+        li.site-gallery-list-item  data-id="4"
           img src="/images/wuwaende_3.jpg"
     #site-info
       h2 = @site.title
