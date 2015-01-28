@@ -190,6 +190,8 @@ class KletterPartner < Sinatra::Base
     sessionUser = env['warden'].user
     user = User.get(sessionUser.id)
     user.update(:status => :idle)
+    $redis.hset(sessionUser.id, 'status', 'idle')
+    Pusher.trigger('user_status', 'status', {:status => $redis.hget(sessionUser.id, 'status'), :user => sessionUser.id})
     halt 200
   end
 
@@ -197,6 +199,8 @@ class KletterPartner < Sinatra::Base
     sessionUser = env['warden'].user
     user = User.get(sessionUser.id)
     user.update(:status => :online)
+    $redis.hset(sessionUser.id, 'status', 'online')
+    Pusher.trigger('user_status', 'status', {:status => $redis.hget(sessionUser.id, 'status'), :user => sessionUser.id})
     halt 200
   end
 

@@ -17,6 +17,7 @@ class KletterPartner < Sinatra::Base
       user.update(:update_at => Time.now)
 
       $redis.sadd 'online_users', sessionUser.id
+      $redis.hset(sessionUser.id, 'status', 'online')
 
       Pusher.trigger('online_users', 'status', {:message => $redis.smembers('online_users')})
 
@@ -37,6 +38,7 @@ class KletterPartner < Sinatra::Base
     env['warden'].logout
 
     $redis.srem 'online_users', sessionUser.id
+    $redis.del sessionUser.id
 
     Pusher.trigger('online_users', 'status', {:message => $redis.smembers('online_users')})
 
