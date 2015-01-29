@@ -1,4 +1,5 @@
-<p>Please confirm your email adress:<p>
+<p>Hallo <%= @user.forename%>,</p>
+<p>bitte brstätige Deine Email Adresse über diesen Link:<p>
 <a href="http://localhost:9292/users/<%= @user.id %>/confirm/<%= @confirmation.code %>">
   http://kletterpartner.io/users/<%= @user.id %>/confirm/<%= @confirmation.code %>
 </a>

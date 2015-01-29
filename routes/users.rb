@@ -38,13 +38,15 @@ class KletterPartner < Sinatra::Base
 
       if @user.saved?
 
+        admin.request_friendship(@user)
+
         @confirmation = Confirmation.new()
         @confirmation.attributes = {:user => @user, :code => SecureRandom.uuid}
         @confirmation.save
 
         # Send welcome mail
 
-        Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Welcome to kletterpartner.io, your place to find new climbers.'
+        Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Willkommen bei kletterpartner.io, your place to find new climbers.'
 
         # Send confirmation Email
 
@@ -208,7 +210,6 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/accept' do
     env['warden'].authenticate!
     user = User.get(params[:id])
-    asker = User.get(1)
     sessionUser = env['warden'].user
     user.confirm_friendship_with(sessionUser)
     redirect to("/users/#{sessionUser.id}")
