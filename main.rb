@@ -166,5 +166,6 @@ class KletterPartner < Sinatra::Base
   require_relative 'routes/blog'
   require_relative 'routes/messages'
   require_relative 'routes/admin'
+  require_relative 'routes/tour'
 
 end

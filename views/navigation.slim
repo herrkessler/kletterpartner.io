@@ -9,6 +9,8 @@ nav#main-navigation
             a href="/sites" Kletterhallen finden
           li.main-navigation-list-item.blog
             a href="/blog" Blog
+          li.main-navigation-list-item.tour
+            a href="/tour" Tour
           li.main-navigation-list-item.logout
             a.button.highlight href="/auth/logout" Log Out
           li.main-navigation-list-item.profile
@@ -35,6 +37,8 @@ nav#main-navigation
         - else
           li.main-navigation-list-item.blog
             a href="/blog" Blog
+          li.main-navigation-list-item.tour class="simptip-position-bottom simptip-fade simptip-multiline simptip-info" data-tooltip="Yeah... You have the most messages"
+            a href="/tour" Tour
           li.main-navigation-list-item.signup
             a.button.highlight href="/users/new" Sign Up
           li.main-navigation-list-item.login
@@ -85,7 +89,7 @@ nav#main-navigation
                 span Nachrichten
             li.mobile-navigation-list-item.sites
               a.button.icon href="/sites"
-                .i.fa.fa-beer
+                .i.fa.fa-home
                 span Kletterhallen finden
             li.mobile-navigation-list-item.blog
               a.button.icon href="/blog"

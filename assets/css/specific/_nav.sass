@@ -1,6 +1,8 @@
 #main-navigation
   background: black
   margin-bottom: $default-margin
+  .inner
+    overflow-x: visible
   +media($tablet)
     height: 40px
 
@@ -27,7 +29,7 @@
       color: white
       font-weight: bold
   +media($tablet)
-    &.users, &.sites, &.blog, &.profile, &.logout, &.signup, &.login, &.friendship, &.mail
+    &.users, &.sites, &.blog, &.profile, &.logout, &.signup, &.login, &.friendship, &.mail, &.tour
       display: none
 
 .user-small-avatar
