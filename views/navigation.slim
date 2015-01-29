@@ -28,9 +28,10 @@ nav#main-navigation
             #mail
               a href="/users/#{env['warden'].user.id}/messages"
                 i.fa.fa-envelope-o
-                - if @email_stats.count{|m| m == :unread } > 0
-                  span.mail-counter
-                    = @email_stats.count{|m| m == :unread}
+                - if @email_stats.length > 0
+                  - if @email_stats.count{|m| m == :unread } > 0
+                    span.mail-counter
+                      = @email_stats.count{|m| m == :unread}
         - else
           li.main-navigation-list-item.blog
             a href="/blog" Blog
@@ -59,9 +60,10 @@ nav#main-navigation
         #mobile-mail
           a href="/users/#{env['warden'].user.id}/messages"
             i.fa.fa-envelope-o
-            - if @email_stats.count{|m| m == :unread } > 0
-              span.mail-counter
-                = @email_stats.count{|m| m == :unread }
+            - if @email_stats.length > 0
+              - if @email_stats.count{|m| m == :unread } > 0
+                span.mail-counter
+                  = @email_stats.count{|m| m == :unread }
 
       #mobile-navigation
         ul.mobile-navigation-list
