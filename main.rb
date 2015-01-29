@@ -22,8 +22,7 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   set :root, File.dirname(__FILE__)
-  set :environment, :production
-  # set :environment, :development
+  set :environments, %w{development production}
   set :session_secret, '*&(^B234'
   set :public_folder, 'public'
   set :server, 'thin'

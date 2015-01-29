@@ -8,13 +8,11 @@ require 'bcrypt'
 # DataMapper::setup(:default, "sqlite:kletterpartner.db")
 DataMapper::Model.raise_on_save_failure = true 
 
-configure :development do
-  DataMapper::setup(:default, "postgres:kletterpartner")
-end
+# :development
+#   DataMapper::setup(:default, "postgres:kletterpartner")
 
-configure :production do
-  DataMapper::setup(:defaultt, ENV['HEROKU_POSTGRESQL_IVORY_URL'] || "postgres://gdvmfswxmmbcvb:wN5vnndqzGC3oJw5icH7Q_PL_A@https://guarded-retreat-9313.herokuapp.com/dbnt3lljncbi21")
-end
+# :production
+DataMapper::setup(:default, ENV['HEROKU_POSTGRESQL_IVORY_URL'] || "postgres://gdvmfswxmmbcvb:wN5vnndqzGC3oJw5icH7Q_PL_A@ec2-107-20-191-205.compute-1.amazonaws.com/dbnt3lljncbi21")
 
 # -----------------------------------------------------------
 # Model and Associations
