@@ -35,10 +35,11 @@ DataMapper.auto_upgrade!
 if User.count == 0
   @user = User.create(username: "admin", email: "sebastian@herrkessler.de")
   @user.password = "admin"
-  @user.forename = "Sebastian"
+  @user.forename = "the ADMIN"
   @user.familyname = "Kessler"
   @user.admin = true
   @user.confirmed = true
+  @user.avatar = "admin.png"
   @user.save
 end
 
