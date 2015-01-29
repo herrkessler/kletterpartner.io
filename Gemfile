@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+ruby "ruby-1.9.3-p545"
 
 gem "sinatra", '>= 1.4.5'
 gem "sinatra-websocket"

@@ -13,7 +13,7 @@ configure :development do
 end
 
 configure :production do
-  DataMapper::setup(:default, "postgres://gdvmfswxmmbcvb:wN5vnndqzGC3oJw5icH7Q_PL_A@https://guarded-retreat-9313.herokuapp.com/dbnt3lljncbi21")
+  DataMapper::setup(:defaultt, ENV['HEROKU_POSTGRESQL_IVORY_URL'] || "postgres://gdvmfswxmmbcvb:wN5vnndqzGC3oJw5icH7Q_PL_A@https://guarded-retreat-9313.herokuapp.com/dbnt3lljncbi21")
 end
 
 # -----------------------------------------------------------
