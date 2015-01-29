@@ -37,7 +37,7 @@ nav#main-navigation
         - else
           li.main-navigation-list-item.blog
             a href="/blog" Blog
-          li.main-navigation-list-item.tour class="simptip-position-bottom simptip-fade simptip-multiline simptip-info" data-tooltip="Yeah... You have the most messages"
+          li.main-navigation-list-item.tour class="simptip-position-bottom simptip-fade simptip-multiline simptip-info" data-tooltip="Lerne kletterpartner.io und seine Features kennen..."
             a href="/tour" Tour
           li.main-navigation-list-item.signup
             a.button.highlight href="/users/new" Sign Up
@@ -95,6 +95,10 @@ nav#main-navigation
               a.button.icon href="/blog"
                 i.fa.fa-newspaper-o
                 span Blog
+            li.mobile-navigation-list-item.tour
+              a.button.icon href="/tour"
+                i.fa.fa-question-circle
+                span Tour
             li.mobile-navigation-list-item.logout
               a.button.highlight href="/auth/logout" Log Out
           - else
@@ -104,5 +108,7 @@ nav#main-navigation
               a.button href="/auth/login" Log In
             li.mobile-navigation-list-item.blog
               a.button href="/blog" Blog
+            li.mobile-navigation-list-item.tour
+              a.button href="/tour" Tour
 
 == slim :"admin-navigation"

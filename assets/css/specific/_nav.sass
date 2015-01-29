@@ -24,10 +24,18 @@
   &.logo
     position: relative
     z-index: 99999
+    margin-right: $default-margin*2
     a 
       text-decoration: none
       color: white
       font-weight: bold
+  &:not(.logo)
+    a:not(.button)
+      font-size: 14px
+      font-weight: bold
+      text-decoration: none
+      &:hover
+        text-decoration: underline
   +media($tablet)
     &.users, &.sites, &.blog, &.profile, &.logout, &.signup, &.login, &.friendship, &.mail, &.tour
       display: none
@@ -97,6 +105,8 @@
   width: 100%
   text-align: center
   margin-bottom: $default-margin/2
+  &.login, &.profile, &.tour, &.sites
+    margin-bottom: $default-margin
 
 #mobile-navigation-icon
   display: none
