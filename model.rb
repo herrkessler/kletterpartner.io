@@ -6,8 +6,15 @@ require 'bcrypt'
 
 # DataMapper::Logger.new($stdout, :debug)
 # DataMapper::setup(:default, "sqlite:kletterpartner.db")
-DataMapper::setup(:default, "postgres:kletterpartner")
 DataMapper::Model.raise_on_save_failure = true 
+
+configure :development do
+  DataMapper::setup(:default, "postgres:kletterpartner")
+end
+
+configure :production do
+  DataMapper::setup(:default, "postgres://gdvmfswxmmbcvb:wN5vnndqzGC3oJw5icH7Q_PL_A@https://guarded-retreat-9313.herokuapp.com/dbnt3lljncbi21")
+end
 
 # -----------------------------------------------------------
 # Model and Associations

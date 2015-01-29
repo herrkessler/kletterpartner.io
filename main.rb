@@ -22,8 +22,8 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   set :root, File.dirname(__FILE__)
-  # set :environment, :production
-  set :environment, :development
+  set :environment, :production
+  # set :environment, :development
   set :session_secret, '*&(^B234'
   set :public_folder, 'public'
   set :server, 'thin'
@@ -69,15 +69,14 @@ class KletterPartner < Sinatra::Base
       '/js/vendor/idle-timer.js',
       '/js/specific/menu.js',
       '/js/specific/idle.js',
-      'http://js.pusher.com/2.2/pusher.min.js',
-      # '/js/specific/socket.js',
+      '/js/vendor/pusher.min.js',
       '/js/specific/status.js',
       '/js/specific/slider.js',
       '/js/specific/new_message.js'
     ]
 
     js :map, [
-      'https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js',
+      '/js/vendor/mapbox.js',
       '/js/specific/map.js'
     ]
 
