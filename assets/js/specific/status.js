@@ -4,7 +4,6 @@ $(document).ready(function() {
   var channel_2 = pusher.subscribe('user_status');
 
   channel.bind('status', function(data) {
-    console.log(data.message);
     var users = data.message;
     $('.user').find('.card-online-indicator').removeClass('online').addClass('offline');
     for (var i = 0; i < users.length; i++) {
@@ -13,7 +12,6 @@ $(document).ready(function() {
   });
 
   channel_2.bind('status', function(data) {
-    console.log(data);
     if (data.status == 'idle') {
       $('.user_'+data.user).find('.card-online-indicator').removeClass('online').addClass('idle');
     } else {

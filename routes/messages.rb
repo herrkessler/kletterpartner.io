@@ -13,12 +13,18 @@ class KletterPartner < Sinatra::Base
     slim :"message/index"
   end
 
+  # Get Conversation messages
+  # --------------------------
+
   get '/users/:id/messages/:conversation' do
     content_type :json
     conversation = Conversation.get(params[:conversation])
     messages = conversation.messages
     messages.to_json
   end
+
+  # New Message
+  # --------------------------
 
   post '/users/:id/messages/:conversation', :provides => :json do
 
@@ -36,13 +42,18 @@ class KletterPartner < Sinatra::Base
 
     @conversation.update(:update_at => Time.now)
 
+    reciever = @conversation.participants.select {|p| p["user_id"] != sessionUser.id }
+
     channel = "conversation_#{@conversation.id}"
 
     Pusher[channel].trigger('new_message', :message => params['message'], :sender => sessionUser.id, :timestamp => Time.now.strftime("%H:%M:%S"), :conversation => @conversation.id)
-    Pusher['realtime'].trigger('new_message', :sender => sessionUser.id)
+    Pusher['realtime'].trigger('new_message', :sender => sessionUser.id, :reciever => reciever[0].user_id)
 
     halt 200
   end
+
+  # New Conversation
+  # --------------------------
 
   post '/users/:id/new-message/:reciever', :provides => :json do
     data = request.body.read
@@ -75,15 +86,26 @@ class KletterPartner < Sinatra::Base
 
     conversation.update(:update_at => Time.now)
 
+    Pusher['realtime'].trigger('update_message', :conversation => conversation.id, :reciever => recieverUser.id)
+
     halt 200, conversation.id.to_json
   end
 
+  # Update Conversation Status
+  # --------------------------
+
   get '/users/:id/conversation/:conversation', :provides => :json do
+    sessionUser = env['warden'].user
     conversation = Conversation.get(params[:conversation])
     messages = conversation.messages
     messages.all.update(:status => :read)
+    reciever = conversation.participants.select {|p| p["user_id"] = sessionUser.id }
+    Pusher['realtime'].trigger('update_message', :conversation => conversation.id, :reciever => reciever[0].user_id)
     halt 200
   end
+
+  # Delete Conversation
+  # --------------------------
 
   get '/conversation/:id/delete', :provides => :json do
     conversation = Conversation.get(params[:id])

@@ -8,7 +8,7 @@ $(document).ready(function(){
   pusher.bind('new_message', function(data) {
     var mailCounter = $('#mail').find('.mail-counter');
     var mobileMailCounter = $('#mobile-mail').find('.mail-counter');
-    if (data.sender !== userID) {
+    if (data.sender !== userID && data.reciever == userID) {
       if (mailCounter.length > 0) {
         var initialCounterValue = mailCounter.text();
         var newCounterValue = parseInt(initialCounterValue);
@@ -20,4 +20,12 @@ $(document).ready(function(){
       }
     }
   });
+
+  pusher.bind('update_message', function(data) {
+    if (data.reciever == userID) { 
+      $('#mail').find('.mail-counter').remove();
+      $('#mobile-mail').find('.mail-counter').remove();
+    }
+  });
+
 });

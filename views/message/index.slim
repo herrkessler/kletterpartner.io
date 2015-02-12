@@ -50,6 +50,7 @@ hr
     form#message-answer action="" method="post" 
       textarea.new_message name="message" rows="5"
       input.button.icon#message-answer-link type="submit" 
+      input type="hidden" value=env['warden'].user.id name="senderId"
     a.button#delete-conversation-link href="#" Delete this Conversation
 
 #overlay
