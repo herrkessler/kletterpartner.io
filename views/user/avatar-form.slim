@@ -1,7 +1,12 @@
 - if @user.avatar != nil
   img.avatar src="/images/#{@user.id}/#{@user.avatar}"
 - else
-  img.avatar src="/images/avatar.png"
+  img.avatar src="#{@user.gravatarURL}"
+  br
+  br
+  p 
+    | This avatar is from 
+    a href="https://de.gravatar.com/" gravatar.com
 br
 br
 
