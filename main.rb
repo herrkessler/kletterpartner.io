@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'bundler'
 Bundler.require
 require './model'
@@ -14,6 +16,7 @@ require 'geokit'
 require 'dm-serializer'
 require 'redis'
 require 'pusher'
+require 'mandrill'
 
 class KletterPartner < Sinatra::Base
 
@@ -37,6 +40,11 @@ class KletterPartner < Sinatra::Base
   register Sinatra::Flash
   register Sinatra::AssetPack
 
+  # -----------------------------------------------------------
+  # Mandrill
+  # -----------------------------------------------------------
+
+  mandrill = Mandrill::API.new 'szZU6o0dhGUZ-e2dQEqdyg'
 
   # -----------------------------------------------------------
   # Pusher
@@ -139,6 +147,7 @@ class KletterPartner < Sinatra::Base
   # -----------------------------------------------------------
 
   helpers WillPaginate::Sinatra::Helpers
+  helpers Gravatarify::Helper
 
   helpers do
     def paginate(collection)

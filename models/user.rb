@@ -1,6 +1,7 @@
 class User
   include DataMapper::Resource
   include BCrypt
+  include Gravatarify::Helper
 
   property :id, Serial, :key => true
   property :forename , String
@@ -9,7 +10,8 @@ class User
   property :email, String, :format => :email_address, :required => true, :unique => true, :lazy => [ :show ]
   property :password, BCryptHash, :lazy => [ :show ]
   property :admin, Boolean, :default  => false, :lazy => [ :show ]
-  property :avatar, String, :default => 'avatar.png'
+  property :avatar, String
+  property :gravatarURL, URI
 
   property :confirmed, Boolean, :default => false
 
@@ -23,6 +25,12 @@ class User
   has n, :sites, :through => Resource
   has n, :conversations, :through => :participants
   has n, :participants
+
+  before :save, :gravatar
+
+  def gravatar
+    self.gravatarURL = gravatar_url(self, :size => 200, :default => 'mm')
+  end
 
   def authenticate(attempted_password)
     if self.password == attempted_password

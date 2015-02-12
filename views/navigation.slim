@@ -15,10 +15,10 @@ nav#main-navigation
             a.button.highlight href="/auth/logout" Log Out
           li.main-navigation-list-item.profile
             a href="/users/#{env['warden'].user.id}"
-              - if env['warden'].user.avatar != 'avatar.png'
+              - if env['warden'].user.avatar != nil
                 img.user-small-avatar src= '/images/#{env['warden'].user.id}/#{env['warden'].user.avatar}'
               - else
-                img.user-small-avatar src= "/images/avatar.png"
+                img.user-small-avatar src= "#{env['warden'].user.gravatarURL}"
             a.button href="/users/#{env['warden'].user.id}" Mein Profil
           li.main-navigation-list-item.friendship
             #friendships-to-accept
@@ -52,10 +52,10 @@ nav#main-navigation
       - if env['warden'].authenticated?
         #mobile-profile-link
           a href="/users/#{env['warden'].user.id}"
-            - if env['warden'].user.avatar != 'avatar.png'
+            - if env['warden'].user.avatar != nil
               img src= '/images/#{env['warden'].user.id}/#{env['warden'].user.avatar}'
             - else
-                img src= "/images/avatar.png"
+                img src= "#{env['warden'].user.gravatarURL}"
         #mobile-friendships-to-accept
           a href="/users/#{env['warden'].user.id}/friendship"
             i.fa.fa-user
@@ -74,10 +74,10 @@ nav#main-navigation
           - if env['warden'].authenticated?
             li.mobile-navigation-list-item.profile
               a href="/users/#{env['warden'].user.id}"
-                - if env['warden'].user.avatar != 'avatar.png'
+                - if env['warden'].user.avatar != nil
                   img.user-small-avatar src= '/images/#{env['warden'].user.id}/#{env['warden'].user.avatar}'
                 - else
-                  img.user-small-avatar src= "/images/avatar.png"
+                  img.user-small-avatar src= "#{env['warden'].user.gravatarURL}"
               a.button href="/users/#{env['warden'].user.id}" Mein Profil
             li.mobile-navigation-list-item.friendship
               a.button.icon href="/users/#{env['warden'].user.id}/friendship"

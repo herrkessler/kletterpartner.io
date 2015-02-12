@@ -1,4 +1,4 @@
-- if @user.avatar != 'avatar.png'
+- if @user.avatar != nil
   img.avatar src="/images/#{@user.id}/#{@user.avatar}"
 - else
   img.avatar src="/images/avatar.png"

@@ -1,13 +1,13 @@
 li.card.user class='user_#{user.id}'
 
-  - if user.avatar != 'avatar.png' 
+  - if user.avatar != nil
     .card-avatar style=("background:url(/images/#{user.id}/#{user.avatar}) center center no-repeat; background-size:cover;")
       - if user.is_friends_with?(@sessionUser) 
         .card-online-indicator class=(user.status)
       a href="/users/#{user.id}"
 
   - else
-    .card-avatar style=("background:url(/images/avatar.png) center center no-repeat; background-size:cover;")
+    .card-avatar style=("background:url(#{user.gravatarURL}) center center no-repeat; background-size:cover;")
       - if user.is_friends_with?(@sessionUser) 
         .card-online-indicator class=(user.status)
       a href="/users/#{user.id}"

@@ -29,10 +29,10 @@
           span Freundschaft beenden
   hr
   .user-avatar
-    - if @user.avatar != 'avatar.png'
+    - if @user.avatar != nil
       img src='/images/#{@user.id}/#{@user.avatar}'
     - else
-      img src='/images/avatar.png'
+      img src="#{env['warden'].user.gravatarURL}"
   .user-info
     p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
     ul.user-info-facts

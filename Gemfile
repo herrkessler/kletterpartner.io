@@ -4,9 +4,8 @@ source "https://rubygems.org"
 gem "sinatra", '>= 1.4.5'
 gem "sinatra-websocket"
 gem "data_mapper"
-# gem 'sqlite3', '~> 1.3.10'
 gem 'dm-postgres-adapter'
-# gem 'dm-sqlite-adapter'
+gem 'dm-postgres-types'
 gem 'dm-validations'
 gem "dm-noisy-failures"
 gem "dm-serializer"
@@ -19,6 +18,7 @@ gem 'redis', '~> 3.2.0'
 gem 'pusher', '~> 0.14.4'
 gem 'sinatra-reloader', '~> 1.0'
 gem 'pg'
+gem 'gravatarify', '~> 3.1.1'
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'slim', '~> 3.0.1'
