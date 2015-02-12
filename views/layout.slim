@@ -7,7 +7,7 @@ html
     title kletterpartner.io
     == css :application, :media => 'screen'
     == js :application
-  body class=('index' if request.path == '/') class=(env['warden'].authenticated?  ? 'logged-in' : 'logged-out')
+  body data-id=(env['warden'].authenticated?  ? env['warden'].user.id : '') class=('index' if request.path == '/') class=(env['warden'].authenticated?  ? 'logged-in' : 'logged-out')
 
     #flash-message
       .container

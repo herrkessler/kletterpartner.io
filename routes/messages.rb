@@ -39,6 +39,7 @@ class KletterPartner < Sinatra::Base
     channel = "conversation_#{@conversation.id}"
 
     Pusher[channel].trigger('new_message', :message => params['message'], :sender => sessionUser.id, :timestamp => Time.now.strftime("%H:%M:%S"), :conversation => @conversation.id)
+    Pusher['realtime'].trigger('new_message', :sender => sessionUser.id)
 
     halt 200
   end

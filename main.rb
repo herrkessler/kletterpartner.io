@@ -74,12 +74,13 @@ class KletterPartner < Sinatra::Base
     js :application, [
       '/js/lib/jquery-2.1.3.js',
       '/js/vendor/idle-timer.js',
+      '/js/vendor/pusher.min.js',
       '/js/specific/menu.js',
       '/js/specific/idle.js',
-      '/js/vendor/pusher.min.js',
       '/js/specific/status.js',
       '/js/specific/slider.js',
-      '/js/specific/new_message.js'
+      '/js/specific/message.js',
+      '/js/specific/realtime.js'
     ]
 
     js :map, [
