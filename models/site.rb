@@ -9,9 +9,23 @@ class Site
   property :street, String, :lazy => [ :show ]
   property :zip, String, :lazy => [ :show ]
   property :town, String, :lazy => [ :show ]
+  property :location, PgHStore, :default => {lat: "", lng: ""}
 
-  property :lat, String
-  property :lng, String
+  property :url, String
+
+  property :size, String
+  property :max_height, String
+  property :climb, Boolean
+  property :boulder, Boolean
+
+  property :rating, Decimal
+  property :rating_users, PgArray
+
+  property :gallery, PgArray, :default => ["site.png"]
+  property :opening_hours, PgHStore
+  property :price, Json
+
+  property :dav, Boolean
 
   property :created_at, DateTime, :lazy => [ :show ]
   property :update_at, DateTime, :lazy => [ :show ]
@@ -21,7 +35,6 @@ class Site
   before :save do
     full_address = self.street, self.zip, self.town
     data = Geokit::Geocoders::GoogleGeocoder.geocode full_address.to_s
-    self.lat = data.lat
-    self.lng = data.lng
+    self.attributes = {:location => {lat: data.lat, lng: data.lng}}
   end
 end

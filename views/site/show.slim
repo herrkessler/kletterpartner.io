@@ -18,22 +18,75 @@
             i.fa.fa-arrow-circle-o-left
           .site-gallery-nav.right
             i.fa.fa-arrow-circle-o-right
-        img#site-hero-image src="/images/wuwaende.jpg"
+        img#site-hero-image src="/images/#{@site.gallery.first}"
       ul.site-gallery-list
-        li.site-gallery-list-item.selected data-id="1"
-          img src="/images/wuwaende.jpg"
-        li.site-gallery-list-item  data-id="2"
-          img src="/images/wuwaende_1.jpg"
-        li.site-gallery-list-item  data-id="3"
-          img src="/images/wuwaende_2.jpg"
-        li.site-gallery-list-item  data-id="4"
-          img src="/images/wuwaende_3.jpg"
+        - @site.gallery.each_with_index do |image,index|
+          li.site-gallery-list-item data-id=index+1 class=('selected' if index == 0)
+            img src="/images/#{image}"
     #site-info
       h2 = @site.title
+      - if @site.dav?
+        img src="/images/dav.png"
+      p = @site.street
+      p = @site.zip
+      p = @site.town
       br
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      p = @site.description
       br
-      p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      p = @site.url
+
+      dl#site-facts
+        dt 
+          | Rating (
+          = @site.rating_users.length
+          |)
+        dd
+          - @site.rating.to_i.times do ||
+            i.fa.fa-star
+
+        dt Klettern
+        dd 
+          i.fa class=(@site.climb? ? 'fa-check' : 'fa-cross')
+        
+        dt Bouldern
+        dd
+          i.fa class=(@site.boulder? ? 'fa-check' : 'fa-cross')
+        
+        dt Kletterfläche
+        dd
+          = @site.size
+          |qm
+
+        dt Höchste Wand
+        dd 
+          =@site.max_height
+          |m
+
+        dt Latitude
+        dd = @site.location['lat']
+        
+        dt Longitude
+        dd = @site.location['lng']
+        
+        - @site.opening_hours.each do |day|
+          dt = day[0]
+          dd = day[1]
+
+        dt Tageskarte
+        dd DAV Trägerverein
+        dd = @site.price['day'][0]['self']
+        dd DAV Mitglied
+        dd = @site.price['day'][1]['dav']
+        dd Nicht im DAV
+        dd = @site.price['day'][2]['not']
+        dt Zehner Karte
+        dd DAV Trägerverein
+        dd = @site.price['ten'][0]['self']
+        dd DAV Mitglied
+        dd = @site.price['ten'][1]['dav']
+        dd Nicht im DAV
+        dd = @site.price['ten'][2]['not']
+
 
 h2 Wer klettert hier?
 hr

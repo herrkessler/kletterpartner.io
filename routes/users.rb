@@ -46,7 +46,23 @@ class KletterPartner < Sinatra::Base
 
         # Send welcome mail
 
-        Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Willkommen bei kletterpartner.io, your place to find new climbers.'
+        # Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Willkommen bei kletterpartner.io, your place to find new climbers.'
+
+        mandrill = Mandrill::API.new 'szZU6o0dhGUZ-e2dQEqdyg'
+        message = {
+            :subject => 'Howdy, ' + @user.forename,
+            :from_name => "hello@kletterpartner.io",
+            :text => 'Willkommen bei kletterpartner.io, your place to find new climbers.',
+            :to => [
+                {
+                    :email => @user.email,
+                    :name => @user.forename
+                 }
+            ],
+            :html => "<html>Willkommen bei kletterpartner.io, your place to find new climbers.</html>",
+            :from_email => "hello@kletterpartner.io"
+        }
+        sending = mandrill.messages.send message
 
         # Send confirmation Email
 
@@ -262,12 +278,6 @@ class KletterPartner < Sinatra::Base
 
     user = User.get(params[:id])
     confirmation = Confirmation.first(:code => params[:code])
-
-    p confirmation.code
-    p params[:code]
-
-    p confirmation.user_id.to_s
-    p params[:id]
 
     if params[:code] == confirmation.code
 

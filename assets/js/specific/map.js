@@ -32,7 +32,7 @@ $(document).ready(function(){
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [site.lng,site.lat]
+            "coordinates": [site.location.lng,site.location.lat]
           },
           "properties": {
             "title": site.title,
