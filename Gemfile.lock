@@ -182,6 +182,7 @@ PLATFORMS
 DEPENDENCIES
   bourbon
   data_mapper
+  dm-constraints
   dm-is-friendly!
   dm-noisy-failures
   dm-paperclip

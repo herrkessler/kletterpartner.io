@@ -11,7 +11,8 @@ $(document).ready(function(){
       conversationLink = $('.conversations-list-item'),
       answerText = $('#message-answer'),
       answerLink = $('#message-answer-link'),
-      view = window.location.href;
+      view = window.location.href,
+      deleteConvButton = $('#delete-conversation-link');
 
   // Get Messages
   // -------------------------------
@@ -40,6 +41,7 @@ $(document).ready(function(){
   });
 
   conversationLink.on('click', function(){
+    console.log('deleteConvButton');
     var messageId = $(this).data('id');
     $(this).addClass('selected');
     $(this).siblings('.conversations-list-item').removeClass('selected');
@@ -122,6 +124,30 @@ $(document).ready(function(){
     
   });
 
+  // Delete Conversation
+  // -------------------------------
+
+  deleteConvButton.on('click', function(event){
+    event.preventDefault();
+    var selectedConversation = $('#messages').attr('data-id');
+    console.log(selectedConversation);
+
+    // $.ajax({
+    //   url: "/conversation/"+selectedConversation+"/delete/",
+    //   dataType: 'json',
+    //   contentType: 'application/json',
+    //   type: 'GET',
+    //   accepts: "application/json",
+    //   success: function(json) {
+    //     deleteConversation(selectedConversation);
+    //   }, 
+    //   error: function(json) {
+    //     console.log(json);
+    //   }
+    // });
+
+  });
+
   // Functions
   // -------------------------------
 
@@ -140,6 +166,10 @@ $(document).ready(function(){
         scrollMessageBottom();
       });
     });
+  }
+
+  function deleteConversation(id) {
+
   }
 
 });

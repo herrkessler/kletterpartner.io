@@ -5,7 +5,7 @@ class KletterPartner < Sinatra::Base
 
   get '/blog' do
     unless env['warden'].user == nil
-      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     end
     @posts = Post.all(:order => [:created_at.desc])
     slim :"post/index"
@@ -14,7 +14,7 @@ class KletterPartner < Sinatra::Base
   get '/blog/new' do
     if env['warden'].user.admin?
       unless env['warden'].user == nil
-        @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+        @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
       end
       @post = Post.new
       slim :"post/new"
@@ -32,7 +32,7 @@ class KletterPartner < Sinatra::Base
 
   get '/blog/:id' do
     unless env['warden'].user == nil
-      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     end
     @post = Post.get(params[:id])
     slim :"post/show"

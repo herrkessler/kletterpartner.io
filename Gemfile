@@ -9,6 +9,7 @@ gem 'dm-postgres-types'
 gem 'dm-validations'
 gem "dm-noisy-failures"
 gem "dm-serializer"
+gem "dm-constraints"
 gem 'dm-is-friendly', :git => 'https://github.com/herrkessler/dm-is-friendly.git'
 gem 'sinatra-flash', '0.3.0', require: 'sinatra/flash'
 gem 'warden', '1.2.1'

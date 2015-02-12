@@ -12,7 +12,8 @@ $(document).ready(function() {
       conversationLink = $('.conversations-list-item'),
       messagesList = $('.messages-list'),
       message = $('#messages'),
-      messageSpinner = $('#message-spinner');
+      messageSpinner = $('#message-spinner'),
+      deleteConvButton = $('#delete-conversation-link');
 
   // Set all channels
   // -------------------------------
@@ -143,6 +144,29 @@ $(document).ready(function() {
     
   });
 
+  // Delete Conversation
+  // -------------------------------
+
+  deleteConvButton.on('click', function(event){
+    event.preventDefault();
+    var selectedConversation = $('#messages').attr('data-id');
+
+    $.ajax({
+      url: "/conversation/"+selectedConversation+"/delete",
+      dataType: 'json',
+      contentType: 'application/json',
+      type: 'GET',
+      accepts: "application/json",
+      success: function(json) {
+        deleteConversation(selectedConversation);
+      }, 
+      error: function(json) {
+        console.log(json);
+      }
+    });
+
+  });
+
   // Functions
   // -------------------------------
 
@@ -180,6 +204,12 @@ $(document).ready(function() {
       );
   }
 
+  function deleteConversation(id) {
+    $('.conversation_'+id).remove();
+    $('.conversations-list-item').first().addClass('selected');
+    var nextMessage = $('.conversations-list-item').first().attr('data-id');
+    getMessages(userID, nextMessage);
+  }
 
 });
 

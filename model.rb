@@ -1,5 +1,6 @@
 require "bcrypt"
 require "dm-postgres-types"
+require "dm-constraints"
 require "gravatarify"
 
 # -----------------------------------------------------------

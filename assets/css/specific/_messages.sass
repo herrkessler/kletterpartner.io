@@ -122,6 +122,8 @@
     background: lighten($bg-color, 2.5%)
   &:hover
     background: darken($bg-color, 5%)
+    .delete-conversation-link
+      display: block
   &.selected
     background: lighten($bg-color, 10%)
 
@@ -151,7 +153,6 @@
 
 #message-answer
   width: 100%
-  height: 100px
   +media($mobile)
     height: 50px
     &:focus
@@ -246,3 +247,15 @@
     max-width: 100%
     width: 400px
     margin: $default-margin 0
+
+// delete conversation
+// --------------------------------
+
+#delete-conversation-link
+  position: absolute
+  bottom: 0
+  right: 10px
+  color: $dark-red
+  border-color: $dark-red
+
+

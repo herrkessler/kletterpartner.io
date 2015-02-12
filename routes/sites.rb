@@ -6,7 +6,7 @@ class KletterPartner < Sinatra::Base
   get '/sites' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     @sites = Site.all.paginate(:page => params[:page], :per_page => 35)
     slim :"site/index", :layout => :layout_site
   end
@@ -25,7 +25,7 @@ class KletterPartner < Sinatra::Base
     env['warden'].authenticate!
     if env['warden'].user.admin?
       @sessionUser = env['warden'].user
-      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
       @site = Site.new
       slim :"site/new"
     else
@@ -54,7 +54,7 @@ class KletterPartner < Sinatra::Base
   get '/sites/:id' do
     env['warden'].authenticate!
     @sessionUser = env['warden'].user
-    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     @site = Site.get(params[:id])
     if @site != nil
       slim :"site/show"

@@ -68,7 +68,7 @@ class KletterPartner < Sinatra::Base
       # Email Stats
       # -----------------------------------------------------------
 
-      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
 
       # Render View
       # -----------------------------------------------------------

@@ -8,7 +8,7 @@ class KletterPartner < Sinatra::Base
     @sessionUser = env['warden'].user
     @user = User.get(params[:id])
     @my_conversations = @user.conversations.sort! {  |a, b|  a.update_at <=> b.update_at }.reverse
-    @email_stats = @my_conversations.messages.map(&:status)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     @newest_conversation = @my_conversations.first
     slim :"message/index"
   end
@@ -82,6 +82,19 @@ class KletterPartner < Sinatra::Base
     messages = conversation.messages
     messages.all.update(:status => :read)
     halt 200
+  end
+
+  get '/conversation/:id/delete', :provides => :json do
+    conversation = Conversation.get(params[:id])
+
+    ConversationParticipant.all(:conversation_id => conversation.id).destroy
+    ConversationMessage.all(:conversation_id => conversation.id).destroy
+    Participant.all(:conversation_id => conversation.id).destroy
+    Message.all(:conversation_id => conversation.id).destroy
+
+    conversation.destroy!
+
+    halt 200, conversation.id.to_json
   end
 
 end

@@ -6,7 +6,7 @@ class Conversation
   property :created_at, DateTime, :lazy => [ :show ]
   property :update_at, DateTime, :lazy => [ :show ]
 
-  has n, :messages, :through => Resource
-  has n, :participants, :through => Resource
-  has n, :users, :through => :participants
+  has n, :messages, :through => Resource, :constraint => :skip
+  has n, :participants, :through => Resource, :constraint => :skip
+  has n, :users, :through => :participants, :constraint => :skip
 end

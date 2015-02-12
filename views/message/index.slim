@@ -1,6 +1,6 @@
 - @my_conversations.each do |conversation|  
   - conversation.participants.each do |participant|
-    - if participant.user.avatar != 'avatar.png' 
+    - if participant.user.avatar != nil
       css:
         .user_#{participant.user.id} {
           background: url(/images/#{participant.user.id}/#{participant.user.avatar}) center center no-repeat;
@@ -9,7 +9,7 @@
     - else
       css:
         .user_#{participant.user.id} {
-          background: url(/images/avatar.png) center center no-repeat;
+          background: url(#{participant.user.gravatarURL}) center center no-repeat;
           background-size: cover;
         }
   
@@ -50,6 +50,7 @@ hr
     form#message-answer action="" method="post" 
       textarea.new_message name="message" rows="5"
       input.button.icon#message-answer-link type="submit" 
+    a.button#delete-conversation-link href="#" Delete this Conversation
 
 #overlay
   #overlay-inner

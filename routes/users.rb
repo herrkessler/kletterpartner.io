@@ -6,7 +6,7 @@ class KletterPartner < Sinatra::Base
   get '/users' do
     env['warden'].authenticate!
     if env['warden'].user.admin?
-      @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+      @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
       @sessionUser = env['warden'].user
       @users = User.all(:order => [:username.asc]).paginate(:page => params[:page], :per_page => 100)
       slim :"user/index"
@@ -46,8 +46,6 @@ class KletterPartner < Sinatra::Base
 
         # Send welcome mail
 
-        # Pony.mail :to => @user.email, :from => 'hello@kletterpartner.io', :subject => 'Howdy, ' + @user.forename, :body => 'Willkommen bei kletterpartner.io, your place to find new climbers.'
-
         mandrill = Mandrill::API.new 'szZU6o0dhGUZ-e2dQEqdyg'
         message = {
             :subject => 'Howdy, ' + @user.forename,
@@ -59,17 +57,10 @@ class KletterPartner < Sinatra::Base
                     :name => @user.forename
                  }
             ],
-            :html => "<html>Willkommen bei kletterpartner.io, your place to find new climbers.</html>",
+            :html =>'<html><b>Willkommen bei kletterpartner.io, your place to find new climbers.</b><br /><p>Hallo '+@user.forename+',</p><p>bitte bestaetige Deine Email Adresse ueber diesen Link:<p><a href="http://localhost:9292/users/'+@user.id.to_s+'/confirm/'+@confirmation.code.to_s+'">http://kletterpartner.io/users/'+@user.id.to_s+'/confirm/'+@confirmation.code.to_s+'</a></html>',
             :from_email => "hello@kletterpartner.io"
         }
         sending = mandrill.messages.send message
-
-        # Send confirmation Email
-
-        Pony.mail :to => @user.email,
-                  :from => 'confirmation@kletterpartner.io',
-                  :subject => 'kletterpartner.io - email confirmation',
-                  :html_body => erb(:email_confirmation, layout: false)
 
         # Send first chat message from Admin
 
@@ -120,7 +111,7 @@ class KletterPartner < Sinatra::Base
     @user_sites = @user.sites.sort_by {|site| site.title}
     @friends = Friendship.all
     @messages = Message.all
-    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
 
     # # Find User with most friendships
 
@@ -172,7 +163,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/edit' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
-    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     slim :"user/edit"
   end
 
@@ -246,7 +237,7 @@ class KletterPartner < Sinatra::Base
   get '/users/:id/friendship' do
     env['warden'].authenticate!
     @user = User.get(params[:id])
-    @email_stats ||= env['warden'].user.conversations.messages.map(&:status) || halt(404)
+    @email_stats ||=env['warden'].user.conversations.messages.reject { |h| [env['warden'].user.id].include? h['sender'] }.map(&:status) || halt(404)
     slim :"user/friendship"
   end
 
