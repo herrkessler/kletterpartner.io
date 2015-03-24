@@ -17,6 +17,7 @@ require 'dm-serializer'
 require 'redis'
 require 'pusher'
 require 'mandrill'
+require 'thin'
 
 class KletterPartner < Sinatra::Base
 
@@ -57,6 +58,11 @@ class KletterPartner < Sinatra::Base
     Pusher.secret = 'fc3a6fdc7481e45eeeec'
   end
 
+  # -----------------------------------------------------------
+  # Faye Websocket
+  # -----------------------------------------------------------
+
+  Faye::WebSocket.load_adapter('thin')
 
   # -----------------------------------------------------------
   # Assets
@@ -80,6 +86,7 @@ class KletterPartner < Sinatra::Base
       '/js/specific/status.js',
       '/js/specific/slider.js',
       '/js/specific/message.js',
+      '/js/specific/socket.js',
       '/js/specific/realtime.js'
     ]
 

@@ -20,6 +20,8 @@ gem 'pusher', '~> 0.14.4'
 gem 'sinatra-reloader', '~> 1.0'
 gem 'pg'
 gem 'gravatarify', '~> 3.1.1'
+gem 'faye-websocket', require: 'faye/websocket'
+gem 'thin'
 
 gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'slim', '~> 3.0.1'
@@ -29,7 +31,7 @@ gem 'neat'
 
 gem 'mandrill-api', '~> 1.0.53'
 gem 'pony'
-gem "dm-paperclip"
+gem 'dm-paperclip'
 
 gem 'will_paginate', '~> 3.0.6'
 
